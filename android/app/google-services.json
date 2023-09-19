@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "818222575960",
+    "project_id": "photic-3b3a4",
+    "storage_bucket": "photic-3b3a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818222575960:android:a8f6408586db74e2d5752d",
+        "android_client_info": {
+          "package_name": "com.mycompany.aitest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818222575960-soavfrli5k6v4969mcgalb0rm6ckphgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALSJlgcdOXQoF71t0X84DeGn_0TuVbrSc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818222575960-soavfrli5k6v4969mcgalb0rm6ckphgg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "818222575960-uts929jokb0n9t99fn05or2j5vldjbi8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.aitest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
