@@ -519,7 +519,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(() {}));
+                                    ).then((value) => safeSetState(() {}));
                                   } else {
                                     context.goNamed('Subscribtion');
                                   }
