@@ -7,12 +7,14 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/custom_code/actions/index.dart' as actions;
+import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/permissions_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:signature/signature.dart';
 
 class PainterModel extends FlutterFlowModel {
   ///  Local state fields for this page.
@@ -24,12 +26,15 @@ class PainterModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for Signature widget.
-  SignatureController? signatureController;
+  // State field(s) for Slider widget.
+  double? sliderValue;
   // State field(s) for TextField widget.
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  String uploadedSignatureUrl = '';
+  // Stores action output result for [Custom Action - getMyCustomWidgeCurrentValue] action in Button widget.
+  String? getWidget;
+  // Stores action output result for [Custom Action - savePaintImage] action in Button widget.
+  String? uploaded;
   // Stores action output result for [Backend Call - API (applyMask)] action in Button widget.
   ApiCallResponse? apiResult74h;
   bool isDataUploading1 = false;
@@ -48,7 +53,6 @@ class PainterModel extends FlutterFlowModel {
 
   void dispose() {
     unfocusNode.dispose();
-    signatureController?.dispose();
     textController?.dispose();
   }
 

@@ -50,6 +50,8 @@ class _PackPageWidgetState extends State<PackPageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
@@ -200,43 +202,11 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                               size: 30.0,
                             ),
                             onPressed: () async {
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('Downloads'),
-                                    content: Text('Terst'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
                               _model.successImage = await actions.downloadImage(
                                 widget.pack?.generatedImages?.first,
-                                isiOS,
                                 isAndroid,
-                                true,
-                              );
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('Downloads'),
-                                    content: Text(_model.successImage!),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
+                                isiOS,
+                                isWeb,
                               );
                               if (widget.pack!.generatedImages.length > 1) {
                                 while (_model.loopCounter! <
@@ -244,8 +214,8 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                                   await actions.downloadImage(
                                     widget.pack?.generatedImages?[
                                         _model.loopCounter! - 1],
-                                    isiOS,
                                     isAndroid,
+                                    isiOS,
                                     isWeb,
                                   );
                                   setState(() {
@@ -256,8 +226,8 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                               } else {
                                 _model.success = await actions.downloadImage(
                                   widget.pack?.generatedImages?.first,
-                                  isiOS,
                                   isAndroid,
+                                  isiOS,
                                   isWeb,
                                 );
                                 await showDialog(
@@ -285,66 +255,73 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                               setState(() {});
                             },
                           ),
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30.0,
-                            borderWidth: 1.0,
-                            buttonSize: 60.0,
-                            icon: Icon(
-                              Icons.plus_one,
-                              color: FlutterFlowTheme.of(context).accent2,
-                              size: 30.0,
-                            ),
-                            onPressed: () async {
-                              _model.faceSwap =
-                                  await DebGroup.faceSwapCall.call(
-                                firstImage: widget.pack?.firstImage,
-                                secondImage: widget.pack?.refImage,
-                              );
-                              if ((_model.faceSwap?.succeeded ?? true)) {
-                                context.goNamed(
-                                  'generate_holder',
-                                  queryParameters: {
-                                    'id': serializeParam(
-                                      DebGroup.faceSwapCall
-                                          .id(
-                                            (_model.faceSwap?.jsonBody ?? ''),
-                                          )
-                                          .toString(),
-                                      ParamType.String,
-                                    ),
-                                    'packRef': serializeParam(
-                                      widget.pack?.reference,
-                                      ParamType.DocumentReference,
-                                    ),
-                                  }.withoutNulls,
+                          if (responsiveVisibility(
+                            context: context,
+                            phone: false,
+                            tablet: false,
+                            tabletLandscape: false,
+                            desktop: false,
+                          ))
+                            FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 30.0,
+                              borderWidth: 1.0,
+                              buttonSize: 60.0,
+                              icon: Icon(
+                                Icons.plus_one,
+                                color: FlutterFlowTheme.of(context).accent2,
+                                size: 30.0,
+                              ),
+                              onPressed: () async {
+                                _model.faceSwap =
+                                    await DebGroup.faceSwapCall.call(
+                                  firstImage: widget.pack?.firstImage,
+                                  secondImage: widget.pack?.refImage,
                                 );
-                              } else {
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text(
-                                          (_model.faceSwap?.statusCode ?? 200)
-                                              .toString()),
-                                      content: Text(
-                                          (_model.faceSwap?.jsonBody ?? '')
-                                              .toString()),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
+                                if ((_model.faceSwap?.succeeded ?? true)) {
+                                  context.goNamed(
+                                    'generate_holder',
+                                    queryParameters: {
+                                      'id': serializeParam(
+                                        DebGroup.faceSwapCall
+                                            .id(
+                                              (_model.faceSwap?.jsonBody ?? ''),
+                                            )
+                                            .toString(),
+                                        ParamType.String,
+                                      ),
+                                      'packRef': serializeParam(
+                                        widget.pack?.reference,
+                                        ParamType.DocumentReference,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text(
+                                            (_model.faceSwap?.statusCode ?? 200)
+                                                .toString()),
+                                        content: Text(
+                                            (_model.faceSwap?.jsonBody ?? '')
+                                                .toString()),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
 
-                              setState(() {});
-                            },
-                          ),
+                                setState(() {});
+                              },
+                            ),
                         ],
                       ),
                     ),

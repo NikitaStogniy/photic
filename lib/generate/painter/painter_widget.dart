@@ -7,12 +7,14 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/custom_code/actions/index.dart' as actions;
+import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/permissions_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:signature/signature.dart';
 import 'painter_model.dart';
 export 'painter_model.dart';
 
@@ -46,6 +48,8 @@ class _PainterWidgetState extends State<PainterWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
@@ -101,20 +105,17 @@ class _PainterWidgetState extends State<PainterWidget> {
                                   sigmaX: 4.0,
                                   sigmaY: 4.0,
                                 ),
-                                child: Align(
-                                  alignment: AlignmentDirectional(0.00, 0.00),
-                                  child: ClipRect(
-                                    child: Signature(
-                                      controller: _model.signatureController ??=
-                                          SignatureController(
-                                        penStrokeWidth: 20.0,
-                                        penColor: Colors.white,
-                                        exportBackgroundColor: Colors.black,
-                                      ),
-                                      backgroundColor: Colors.transparent,
-                                      width: 400.0,
-                                      height: 400.0,
+                                child: Container(
+                                  width: 400.0,
+                                  height: 400.0,
+                                  child: custom_widgets.Painter(
+                                    width: 400.0,
+                                    height: 400.0,
+                                    strokeWidth: valueOrDefault<double>(
+                                      _model.sliderValue,
+                                      5.0,
                                     ),
+                                    imgMask: FFAppState().maskImg,
                                   ),
                                 ),
                               ),
@@ -126,6 +127,18 @@ class _PainterWidgetState extends State<PainterWidget> {
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
+                        Slider(
+                          activeColor: FlutterFlowTheme.of(context).lineColor,
+                          inactiveColor: FlutterFlowTheme.of(context).accent2,
+                          min: 1.0,
+                          max: 15.0,
+                          value: _model.sliderValue ??= 5.0,
+                          onChanged: (newValue) {
+                            newValue =
+                                double.parse(newValue.toStringAsFixed(2));
+                            setState(() => _model.sliderValue = newValue);
+                          },
+                        ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 0.0),
@@ -200,45 +213,33 @@ class _PainterWidgetState extends State<PainterWidget> {
                               final firestoreBatch =
                                   FirebaseFirestore.instance.batch();
                               try {
-                                final signatureImage = await _model
-                                    .signatureController!
-                                    .toPngBytes(height: 400, width: 400);
-                                if (signatureImage == null) {
-                                  showUploadMessage(
-                                    context,
-                                    'Signature is empty.',
-                                  );
-                                  return;
-                                }
-                                showUploadMessage(
+                                _model.getWidget =
+                                    await actions.getMyCustomWidgeCurrentValue(
                                   context,
-                                  'Uploading signature...',
-                                  showLoading: true,
                                 );
-                                final downloadUrl = (await uploadData(
-                                    getSignatureStoragePath(), signatureImage));
-
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                                if (downloadUrl != null) {
-                                  setState(() => _model.uploadedSignatureUrl =
-                                      downloadUrl);
-                                  showUploadMessage(
-                                    context,
-                                    'Success!',
-                                  );
-                                } else {
-                                  showUploadMessage(
-                                    context,
-                                    'Failed to upload signature.',
-                                  );
-                                  return;
-                                }
-
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Err'),
+                                      content: Text(_model.getWidget!),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                _model.uploaded = await actions.savePaintImage(
+                                  context,
+                                );
                                 _model.apiResult74h =
                                     await DebGroup.applyMaskCall.call(
                                   imageUrl: _model.image,
-                                  maskImageUrl: _model.uploadedSignatureUrl,
+                                  maskImageUrl: _model.uploaded,
                                 );
                                 if ((_model.apiResult74h?.succeeded ?? true)) {
                                   firestoreBatch
@@ -285,7 +286,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                                       AiImageRecord.collection.doc(),
                                       createAiImageRecordData(
                                         creator: currentUserReference,
-                                        firstImage: _model.uploadedSignatureUrl,
+                                        firstImage: _model.image,
                                       ));
                                 }
                               } finally {
@@ -343,6 +344,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              await requestPermission(cameraPermission);
                               final selectedMedia = await selectMedia(
                                 maxWidth: 600.00,
                                 maxHeight: 600.00,
@@ -429,6 +431,8 @@ class _PainterWidgetState extends State<PainterWidget> {
                                   16.0, 0.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  await requestPermission(
+                                      photoLibraryPermission);
                                   final selectedMedia = await selectMedia(
                                     maxWidth: 400.00,
                                     maxHeight: 400.00,

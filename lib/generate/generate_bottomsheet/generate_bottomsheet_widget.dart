@@ -42,6 +42,8 @@ class _GenerateBottomsheetWidgetState extends State<GenerateBottomsheetWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.stretch,
