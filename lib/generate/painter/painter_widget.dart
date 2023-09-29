@@ -219,24 +219,6 @@ class _PainterWidgetState extends State<PainterWidget> {
                                   context,
                                   uint8list!,
                                 );
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Err'),
-                                      content: Text(_model.getWidget!),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                                print('[eeee] ${_model.image}');
-                                print('[eeee] ${_model.getWidget}');
                                 _model.apiResult74h =
                                     await DebGroup.applyMaskCall.call(
                                   imageUrl: _model.image,
