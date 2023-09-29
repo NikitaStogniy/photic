@@ -15,25 +15,32 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:image/image.dart' as imglib;
 import '../widgets/painter.dart';
+import 'package:http/http.dart' as http;
 
 Future<String> savePaintImage(
   BuildContext context,
 ) async {
-  // Get the base64 image data from MyPainterShareState
-  final base64Image = MyPainterShareState().textFieldValue;
+  http.Response response = await http.get(
+    Uri.parse(
+        'https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/0x0.jpg'),
+  );
+  final jpg = response.bodyBytes;
 
-  // Decode the base64 image
-  final bytes = base64.decode(base64Image);
+  // // Get the base64 image data from MyPainterShareState
+  // final base64Image = MyPainterShareState().textFieldValue;
 
-  // Convert the image to jpg format
-  final image = imglib.decodeImage(bytes)!;
-  final jpg = imglib.encodeJpg(image);
+  // // Decode the base64 image
+  // final bytes = base64.decode(base64Image);
+
+  // // Convert the image to jpg format
+  // final image = imglib.decodeImage(bytes)!;
+  // final jpg = imglib.encodeJpg(image);
 
   // Upload the image to Firebase Storage
   final storage = FirebaseStorage.instance;
   final ref = storage
       .ref()
-      .child('paintings/${DateTime.now().millisecondsSinceEpoch}.jpg');
+      .child('paintings/eeee2${DateTime.now().millisecondsSinceEpoch}.jpg');
   final uploadTask = ref.putData(jpg);
 
   // Wait for the upload to complete

@@ -1,3 +1,8 @@
+import 'dart:typed_data';
+
+import 'package:flutter/rendering.dart';
+import 'package:photic/custom_code/widgets/edit_painter/view/drawing_widget.dart';
+
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
@@ -6,7 +11,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import 'dart:ui';
+import 'dart:ui' as ui;
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
@@ -17,6 +22,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'painter_model.dart';
 export 'painter_model.dart';
+
+double stroke = 10;
 
 class PainterWidget extends StatefulWidget {
   const PainterWidget({Key? key}) : super(key: key);
@@ -101,22 +108,14 @@ class _PainterWidgetState extends State<PainterWidget> {
                             alignment: AlignmentDirectional(0.00, 0.00),
                             child: ClipRect(
                               child: ImageFiltered(
-                                imageFilter: ImageFilter.blur(
+                                imageFilter: ui.ImageFilter.blur(
                                   sigmaX: 4.0,
                                   sigmaY: 4.0,
                                 ),
                                 child: Container(
                                   width: 400.0,
                                   height: 400.0,
-                                  child: custom_widgets.Painter(
-                                    width: 400.0,
-                                    height: 400.0,
-                                    strokeWidth: valueOrDefault<double>(
-                                      _model.sliderValue,
-                                      5.0,
-                                    ),
-                                    imgMask: FFAppState().maskImg,
-                                  ),
+                                  child: DrawingWidget(),
                                 ),
                               ),
                             ),
@@ -134,6 +133,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                           max: 15.0,
                           value: _model.sliderValue ??= 5.0,
                           onChanged: (newValue) {
+                            stroke = newValue;
                             newValue =
                                 double.parse(newValue.toStringAsFixed(2));
                             setState(() => _model.sliderValue = newValue);
@@ -213,9 +213,11 @@ class _PainterWidgetState extends State<PainterWidget> {
                               final firestoreBatch =
                                   FirebaseFirestore.instance.batch();
                               try {
+                                final uint8list = await getBytes();
                                 _model.getWidget =
                                     await actions.getMyCustomWidgeCurrentValue(
                                   context,
+                                  uint8list!,
                                 );
                                 await showDialog(
                                   context: context,
@@ -233,9 +235,9 @@ class _PainterWidgetState extends State<PainterWidget> {
                                     );
                                   },
                                 );
-                                _model.uploaded = await actions.savePaintImage(
-                                  context,
-                                );
+                                // _model.uploaded = await actions.savePaintImage(
+                                //   context,
+                                // );
                                 _model.apiResult74h =
                                     await DebGroup.applyMaskCall.call(
                                   imageUrl: _model.image,
@@ -535,5 +537,14 @@ class _PainterWidgetState extends State<PainterWidget> {
         ),
       ),
     );
+  }
+
+  Future<Uint8List?> getBytes() async {
+    RenderRepaintBoundary boundary =
+        canvasKey!.currentContext?.findRenderObject() as RenderRepaintBoundary;
+    ui.Image image = await boundary.toImage();
+    ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    Uint8List? pngBytes = byteData?.buffer.asUint8List();
+    return pngBytes;
   }
 }

@@ -17,7 +17,7 @@ import 'package:flutter/rendering.dart';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:convert';
-import 'dart:js' as js;
+// import 'dart:js' as js;
 
 class MyPainterShareState {
   String _textFieldValue = '';
