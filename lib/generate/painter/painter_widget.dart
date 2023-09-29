@@ -223,6 +223,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                                     await DebGroup.applyMaskCall.call(
                                   imageUrl: _model.image,
                                   maskImageUrl: _model.getWidget,
+                                  prompt: _model.textController.text,
                                 );
                                 if ((_model.apiResult74h?.succeeded ?? true)) {
                                   firestoreBatch
