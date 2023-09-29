@@ -100,7 +100,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                                 _model.image!,
                                 width: 400.0,
                                 height: 400.0,
-                                fit: BoxFit.fill,
+                                fit: BoxFit.fitWidth,
                               ),
                             ),
                           ),
@@ -235,6 +235,8 @@ class _PainterWidgetState extends State<PainterWidget> {
                                     );
                                   },
                                 );
+                                print('[eeee] ${_model.image}');
+                                print('[eeee] ${_model.getWidget}');
                                 _model.apiResult74h =
                                     await DebGroup.applyMaskCall.call(
                                   imageUrl: _model.image,

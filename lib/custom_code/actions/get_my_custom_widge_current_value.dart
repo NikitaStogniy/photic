@@ -1,4 +1,6 @@
 // Automatic FlutterFlow imports
+import 'package:photic/backend/firebase_storage/storage.dart';
+
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -20,7 +22,7 @@ Future<String> getMyCustomWidgeCurrentValue(
     BuildContext context, Uint8List uint8list) async {
   imglib.Image image = imglib.decodeImage(uint8list)!;
 
-  imglib.Image thumbnail = imglib.copyResize(image, height: 400);
+  imglib.Image thumbnail = imglib.copyResize(image, height: imgSize!);
 
   if (thumbnail.numChannels == 4) {
     var imageDst = imglib.Image(
