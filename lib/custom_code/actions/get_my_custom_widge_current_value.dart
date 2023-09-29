@@ -16,30 +16,34 @@ import 'package:image/image.dart' as imglib;
 import '../widgets/painter.dart';
 import 'package:http/http.dart' as http;
 
-Future<String> getMyCustomWidgeCurrentValue(BuildContext context, Uint8List uint8list) async {
-  // http.Response response = await http.get(
-  //   Uri.parse(
-  //       'https://imageio.forbes.com/specials-images/imageserve/5d35eacaf1176b0008974b54/0x0.jpg'),
-  // );
-  // final jpg = response.bodyBytes;
+Future<String> getMyCustomWidgeCurrentValue(
+    BuildContext context, Uint8List uint8list) async {
+  imglib.Image image = imglib.decodeImage(uint8list)!;
 
-  final jpg = uint8list;
+  imglib.Image thumbnail = imglib.copyResize(image, height: 400);
 
-  // // Get the base64 image data from MyPainterShareState
-  // final base64Image = MyPainterShareState().textFieldValue;
+  if (thumbnail.numChannels == 4) {
+    var imageDst = imglib.Image(
+      width: thumbnail.width,
+      height: thumbnail.height,
+    ) // default format is uint8 and numChannels is 3 (no alpha)
+      ..clear(
+        imglib.ColorRgb8(0, 0, 0),
+      ); // clear the image with the color white.
 
-  // // Decode the base64 image
-  // final bytes = base64.decode(base64Image);
+    thumbnail = imglib.compositeImage(
+      imageDst,
+      thumbnail,
+    ); // alpha composite the image onto the white background
+  }
 
-  // // Convert the image to jpg format
-  // final image = imglib.decodeImage(bytes)!;
-  // final jpg = imglib.encodeJpg(image);
+  final jpg = imglib.encodeJpg(thumbnail);
 
   // Upload the image to Firebase Storage
   final storage = FirebaseStorage.instance;
   final ref = storage
       .ref()
-      .child('paintings/eeee1${DateTime.now().millisecondsSinceEpoch}.jpg');
+      .child('paintings/${DateTime.now().millisecondsSinceEpoch}.jpg');
   final uploadTask = ref.putData(jpg);
 
   // Wait for the upload to complete
