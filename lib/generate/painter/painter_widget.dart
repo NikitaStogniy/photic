@@ -372,7 +372,7 @@ class _PainterWidgetState extends State<PainterWidget> {
 
                                   downloadUrls = (await Future.wait(
                                     selectedMedia.map(
-                                      (m) async => await uploadData(
+                                      (m) async => await uploadCroppedImage(
                                           m.storagePath, m.bytes),
                                     ),
                                   ))
@@ -466,7 +466,7 @@ class _PainterWidgetState extends State<PainterWidget> {
 
                                       downloadUrls = (await Future.wait(
                                         selectedMedia.map(
-                                          (m) async => await uploadData(
+                                          (m) async => await uploadCroppedImage(
                                               m.storagePath, m.bytes),
                                         ),
                                       ))

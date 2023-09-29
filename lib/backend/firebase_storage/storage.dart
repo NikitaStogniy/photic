@@ -10,7 +10,16 @@ int? origImageHeight;
 int? origImageWidth;
 int? imgSize;
 
+
 Future<String?> uploadData(String path, Uint8List data) async {
+  final storageRef = FirebaseStorage.instance.ref().child(path);
+  final metadata = SettableMetadata(contentType: mime(path));
+  final result = await storageRef.putData(data, metadata);
+  return result.state == TaskState.success ? result.ref.getDownloadURL() : null;
+}
+
+
+Future<String?> uploadCroppedImage(String path, Uint8List data) async {
   final storageRef = FirebaseStorage.instance.ref().child(path);
   final metadata = SettableMetadata(contentType: mime(path));
 
