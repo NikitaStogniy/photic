@@ -100,7 +100,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                                 _model.image!,
                                 width: 400.0,
                                 height: 400.0,
-                                fit: BoxFit.fitHeight,
+                                fit: BoxFit.fill,
                               ),
                             ),
                           ),
@@ -109,8 +109,8 @@ class _PainterWidgetState extends State<PainterWidget> {
                             child: ClipRect(
                               child: ImageFiltered(
                                 imageFilter: ui.ImageFilter.blur(
-                                  sigmaX: 4.0,
-                                  sigmaY: 4.0,
+                                  sigmaX: 2.0,
+                                  sigmaY: 2.0,
                                 ),
                                 child: Container(
                                   width: 400.0,
