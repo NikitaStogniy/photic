@@ -235,13 +235,10 @@ class _PainterWidgetState extends State<PainterWidget> {
                                     );
                                   },
                                 );
-                                // _model.uploaded = await actions.savePaintImage(
-                                //   context,
-                                // );
                                 _model.apiResult74h =
                                     await DebGroup.applyMaskCall.call(
                                   imageUrl: _model.image,
-                                  maskImageUrl: _model.uploaded,
+                                  maskImageUrl: _model.getWidget,
                                 );
                                 if ((_model.apiResult74h?.succeeded ?? true)) {
                                   firestoreBatch
