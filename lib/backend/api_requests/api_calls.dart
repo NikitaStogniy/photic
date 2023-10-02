@@ -30,7 +30,7 @@ class StableDiffusionCall {
   }) {
     final ffApiRequestBody = '''
 {
-  "data": {
+  "--data": {
     "query": "${query}"
   }
 }''';
