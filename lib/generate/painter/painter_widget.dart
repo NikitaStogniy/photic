@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/rendering.dart';
 import 'package:photic/custom_code/actions/get_my_custom_widge_current_value.dart';
+import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/widgets/canvas_side_bar.dart';
 import 'package:photic/custom_code/widgets/edit_painter/view/drawing_widget.dart';
 import 'package:photic/generate/painter/source_image.dart';
 
@@ -52,6 +53,9 @@ class _PainterWidgetState extends State<PainterWidget> {
     imageRenderWidth = null;
     imageOrigHeight = null;
     imageOrigWidth = null;
+    currentSketchGlobal = null;
+    allSketchesGlobal = null;
+    strokeSizeGlobal = null;
     _model = createModel(context, () => PainterModel());
 
     _model.textController ??= TextEditingController();
@@ -174,19 +178,53 @@ class _PainterWidgetState extends State<PainterWidget> {
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Slider(
-                          activeColor: FlutterFlowTheme.of(context).lineColor,
-                          inactiveColor: FlutterFlowTheme.of(context).accent2,
-                          min: 1.0,
-                          max: 15.0,
-                          value: _model.sliderValue ??= 5.0,
-                          onChanged: (newValue) {
-                            stroke = newValue;
-                            newValue =
-                                double.parse(newValue.toStringAsFixed(2));
-                            setState(() => _model.sliderValue = newValue);
-                          },
-                        ),
+                        // Slider(
+                        //   activeColor: FlutterFlowTheme.of(context).lineColor,
+                        //   inactiveColor: FlutterFlowTheme.of(context).accent2,
+                        //   min: 1.0,
+                        //   max: 15.0,
+                        //   value: _model.sliderValue ??= 5.0,
+                        //   onChanged: (newValue) {
+                        //     ;
+                        //     stroke = newValue;
+                        //     newValue =
+                        //         double.parse(newValue.toStringAsFixed(2));
+                        //     setState(() => _model.sliderValue = newValue);
+                        //   },
+                        // ),
+                        if (allSketchesGlobal != null &&
+                            currentSketchGlobal != null &&
+                            strokeSizeGlobal != null)
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 16.0, 16.0, 0.0),
+                            child: Container(
+                              color: Colors.black,
+                              child: GestureDetector(
+                                onTap: () => {setState(() {})},
+                                child: Column(
+                                  children: [
+                                    CanvasSideBar(
+                                      currentSketch: currentSketchGlobal!,
+                                      allSketches: allSketchesGlobal!,
+                                      strokeSize: strokeSizeGlobal!,
+                                    ),
+                                    Slider(
+                                      activeColor: Colors.white,
+                                      inactiveColor: Colors.white30,
+                                      value: strokeSizeGlobal!.value,
+                                      min: 0,
+                                      max: 50,
+                                      onChanged: (val) {
+                                        strokeSizeGlobal!.value = val;
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 0.0),

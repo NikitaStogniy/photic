@@ -9,6 +9,10 @@ import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/mode
 import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/models/sketch.dart';
 
 GlobalKey? canvasKey;
+ValueNotifier<Sketch?>? currentSketchGlobal;
+ValueNotifier<List<Sketch>>? allSketchesGlobal;
+ValueNotifier<double>? strokeSizeGlobal;
+
 
 class DrawingWidget extends HookWidget {
   const DrawingWidget({required this.height, required this.width, Key? key})
@@ -28,11 +32,16 @@ class DrawingWidget extends HookWidget {
     final polygonSides = useState<int>(3);
     final backgroundImage = useState<ui.Image?>(null);
 
+
     final canvasGlobalKey = GlobalKey();
     canvasKey = canvasGlobalKey;
 
     ValueNotifier<Sketch?> currentSketch = useState(null);
     ValueNotifier<List<Sketch>> allSketches = useState([]);
+
+    currentSketchGlobal = currentSketch;
+    allSketchesGlobal = allSketches;
+    strokeSizeGlobal = strokeSize;
 
     final animationController = useAnimationController(
       duration: const Duration(milliseconds: 150),
@@ -65,4 +74,6 @@ class DrawingWidget extends HookWidget {
     Uint8List? pngBytes = byteData?.buffer.asUint8List();
     return pngBytes;
   }
+
+
 }

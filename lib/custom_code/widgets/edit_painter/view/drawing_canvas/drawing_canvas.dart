@@ -5,6 +5,7 @@ import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/models/drawing_mode.dart';
 import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/models/sketch.dart';
+import 'package:photic/custom_code/widgets/edit_painter/view/drawing_widget.dart';
 import 'package:photic/generate/painter/painter_widget.dart';
 
 class DrawingCanvas extends HookWidget {
@@ -69,7 +70,7 @@ class DrawingCanvas extends HookWidget {
         size: drawingMode.value == DrawingMode.eraser
             ? eraserSize.value
             // : strokeSize.value,
-            : stroke,
+            : strokeSizeGlobal?.value ?? 10,
         color: drawingMode.value == DrawingMode.eraser
             ? Colors.transparent
             : selectedColor.value,
@@ -94,8 +95,9 @@ class DrawingCanvas extends HookWidget {
     currentSketch.value = Sketch.fromDrawingMode(
       Sketch(
         points: points,
-        size:
-            drawingMode.value == DrawingMode.eraser ? eraserSize.value : stroke,
+        size: drawingMode.value == DrawingMode.eraser
+            ? eraserSize.value
+            : strokeSizeGlobal?.value ?? 10,
         color: drawingMode.value == DrawingMode.eraser
             ? Colors.transparent
             : selectedColor.value,
