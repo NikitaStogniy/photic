@@ -55,3 +55,44 @@ Future<String> getMyCustomWidgeCurrentValue(
   final downloadUrl = await snapshot.ref.getDownloadURL();
   return downloadUrl.toString();
 }
+
+Future<String> uploadResizedMask(
+    Uint8List uint8list, int newHeight, int newWidth) async {
+  imglib.Image image = imglib.decodeImage(uint8list)!;
+
+  imglib.Image thumbnail =
+      imglib.copyResize(image, height: newHeight, width: newWidth);
+
+  if (thumbnail.numChannels == 4) {
+    var imageDst = imglib.Image(
+      width: thumbnail.width,
+      height: thumbnail.height,
+    ) // default format is uint8 and numChannels is 3 (no alpha)
+      ..clear(
+        imglib.ColorRgb8(0, 0, 0),
+      ); // clear the image with the color white.
+
+    print('[eeee] new mask ${thumbnail.height} ${thumbnail.width}');
+
+    thumbnail = imglib.compositeImage(
+      imageDst,
+      thumbnail,
+    ); // alpha composite the image onto the white background
+  }
+
+  final jpg = imglib.encodeJpg(thumbnail);
+
+  // Upload the image to Firebase Storage
+  final storage = FirebaseStorage.instance;
+  final ref = storage
+      .ref()
+      .child('paintings/${DateTime.now().millisecondsSinceEpoch}.jpg');
+  final uploadTask = ref.putData(jpg);
+
+  // Wait for the upload to complete
+  final snapshot = await uploadTask.whenComplete(() {});
+
+  // Return the uploaded image path
+  final downloadUrl = await snapshot.ref.getDownloadURL();
+  return downloadUrl.toString();
+}

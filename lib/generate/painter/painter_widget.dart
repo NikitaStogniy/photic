@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/rendering.dart';
+import 'package:photic/custom_code/actions/get_my_custom_widge_current_value.dart';
 import 'package:photic/custom_code/widgets/edit_painter/view/drawing_widget.dart';
+import 'package:photic/generate/painter/source_image.dart';
 
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
@@ -24,6 +27,10 @@ import 'painter_model.dart';
 export 'painter_model.dart';
 
 double stroke = 10;
+double? imageRenderHeight;
+double? imageRenderWidth;
+int? imageOrigHeight;
+int? imageOrigWidth;
 
 class PainterWidget extends StatefulWidget {
   const PainterWidget({Key? key}) : super(key: key);
@@ -36,10 +43,15 @@ class _PainterWidgetState extends State<PainterWidget> {
   late PainterModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  Image? image;
 
   @override
   void initState() {
     super.initState();
+    imageRenderHeight = null;
+    imageRenderWidth = null;
+    imageOrigHeight = null;
+    imageOrigWidth = null;
     _model = createModel(context, () => PainterModel());
 
     _model.textController ??= TextEditingController();
@@ -89,39 +101,75 @@ class _PainterWidgetState extends State<PainterWidget> {
                   children: [
                     Align(
                       alignment: AlignmentDirectional(0.00, 0.00),
-                      child: Stack(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.network(
-                                _model.image!,
-                                width: 400.0,
-                                height: 400.0,
-                                fit: BoxFit.fitWidth,
+                      child: Builder(builder: (context) {
+                        if (image == null && _model.image != null) {
+                          print('image is null');
+                          image = Image.network(_model.image!);
+                          Completer<ui.Image> completer =
+                              new Completer<ui.Image>();
+                          image!.image
+                              .resolve(new ImageConfiguration())
+                              .addListener(
+                                  ImageStreamListener((ImageInfo info, bool _) {
+                            completer.complete(info.image);
+                            print(
+                                '[eeee] orig image height ${info.image.height}');
+                            print(
+                                '[eeee] orig image width ${info.image.width}');
+                            imageOrigHeight = info.image.height;
+                            imageOrigWidth = info.image.width;
+                          }));
+                        }
+                        return Stack(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(0.00, 0.00),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: WidgetSizeOffsetWrapper(
+                                  onSizeChange: (Size size) {
+                                    print(
+                                        '[eeee] render size: width ${size.width}, height ${size.height}');
+                                    imageRenderHeight = size.height;
+                                    imageRenderWidth = size.width;
+                                    setState(() {});
+                                  },
+                                  child: image != null
+                                      ? Image(
+                                          image: image!.image,
+                                          fit: BoxFit.scaleDown,
+                                        )
+                                      : Container(),
+                                ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
-                            child: ClipRect(
-                              child: ImageFiltered(
-                                imageFilter: ui.ImageFilter.blur(
-                                  sigmaX: 2.0,
-                                  sigmaY: 2.0,
-                                ),
-                                child: Container(
-                                  width: 400.0,
-                                  height: 400.0,
-                                  child: DrawingWidget(),
+                            Align(
+                              alignment: AlignmentDirectional(0.00, 0.00),
+                              child: ClipRect(
+                                child: ImageFiltered(
+                                  imageFilter: ui.ImageFilter.blur(
+                                    sigmaX: 2.0,
+                                    sigmaY: 2.0,
+                                  ),
+                                  child: image != null &&
+                                          imageRenderHeight != null &&
+                                          imageRenderWidth != null
+                                      ? SizedBox(
+                                          height: imageRenderHeight,
+                                          width: imageRenderWidth,
+                                          child: DrawingWidget(
+                                            height: imageRenderHeight!,
+                                            width: imageRenderWidth!,
+                                          ),
+                                        )
+                                      : Container(),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        );
+                      }),
                     ),
                     Column(
                       mainAxisSize: MainAxisSize.max,
@@ -214,10 +262,10 @@ class _PainterWidgetState extends State<PainterWidget> {
                                   FirebaseFirestore.instance.batch();
                               try {
                                 final uint8list = await getBytes();
-                                _model.getWidget =
-                                    await actions.getMyCustomWidgeCurrentValue(
-                                  context,
+                                _model.getWidget = await uploadResizedMask(
                                   uint8list!,
+                                  imageOrigHeight!,
+                                  imageOrigWidth!,
                                 );
                                 _model.apiResult74h =
                                     await DebGroup.applyMaskCall.call(
@@ -322,104 +370,15 @@ class _PainterWidgetState extends State<PainterWidget> {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              await requestPermission(cameraPermission);
-                              final selectedMedia = await selectMedia(
-                                maxWidth: 600.00,
-                                maxHeight: 600.00,
-                                imageQuality: 90,
-                                multiImage: false,
-                              );
-                              if (selectedMedia != null &&
-                                  selectedMedia.every((m) => validateFileFormat(
-                                      m.storagePath, context))) {
-                                setState(() => _model.isDataUploading1 = true);
-                                var selectedUploadedFiles = <FFUploadedFile>[];
-
-                                var downloadUrls = <String>[];
-                                try {
-                                  selectedUploadedFiles = selectedMedia
-                                      .map((m) => FFUploadedFile(
-                                            name: m.storagePath.split('/').last,
-                                            bytes: m.bytes,
-                                            height: m.dimensions?.height,
-                                            width: m.dimensions?.width,
-                                            blurHash: m.blurHash,
-                                          ))
-                                      .toList();
-
-                                  downloadUrls = (await Future.wait(
-                                    selectedMedia.map(
-                                      (m) async => await uploadCroppedImage(
-                                          m.storagePath, m.bytes),
-                                    ),
-                                  ))
-                                      .where((u) => u != null)
-                                      .map((u) => u!)
-                                      .toList();
-                                } finally {
-                                  _model.isDataUploading1 = false;
-                                }
-                                if (selectedUploadedFiles.length ==
-                                        selectedMedia.length &&
-                                    downloadUrls.length ==
-                                        selectedMedia.length) {
-                                  setState(() {
-                                    _model.uploadedLocalFile1 =
-                                        selectedUploadedFiles.first;
-                                    _model.uploadedFileUrl1 =
-                                        downloadUrls.first;
-                                  });
-                                } else {
-                                  setState(() {});
-                                  return;
-                                }
-                              }
-
-                              setState(() {
-                                _model.image = _model.uploadedFileUrl1;
-                                _model.step = _model.step! + 1;
-                              });
-                            },
-                            child: Container(
-                              width: 48.0,
-                              height: 48.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                borderRadius: BorderRadius.circular(12.0),
-                                border: Border.all(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  width: 1.0,
-                                ),
-                              ),
-                              child: Align(
-                                alignment: AlignmentDirectional(0.00, 0.00),
-                                child: SvgPicture.asset(
-                                  'assets/images/images.svg',
-                                  width: 24.0,
-                                  height: 24.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
                           Expanded(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 0.0, 0.0, 0.0),
+                                  0.0, 0.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
                                   await requestPermission(
                                       photoLibraryPermission);
                                   final selectedMedia = await selectMedia(
-                                    maxWidth: 400.00,
-                                    maxHeight: 400.00,
                                     imageQuality: 100,
                                     mediaSource: MediaSource.photoGallery,
                                     multiImage: false,
@@ -449,7 +408,7 @@ class _PainterWidgetState extends State<PainterWidget> {
 
                                       downloadUrls = (await Future.wait(
                                         selectedMedia.map(
-                                          (m) async => await uploadCroppedImage(
+                                          (m) async => await uploadData(
                                               m.storagePath, m.bytes),
                                         ),
                                       ))

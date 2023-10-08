@@ -56,6 +56,13 @@ class DrawingCanvas extends HookWidget {
     // print('stroke $stroke');
     final box = context.findRenderObject() as RenderBox;
     final offset = box.globalToLocal(details.position);
+    if (offset.dx > width ||
+        offset.dy > height ||
+        offset.dx < 0 ||
+        offset.dy < 0) {
+      return;
+    }
+
     currentSketch.value = Sketch.fromDrawingMode(
       Sketch(
         points: [offset],
@@ -76,7 +83,10 @@ class DrawingCanvas extends HookWidget {
   void onPointerMove(PointerMoveEvent details, BuildContext context) {
     final box = context.findRenderObject() as RenderBox;
     final offset = box.globalToLocal(details.position);
-    if (offset.dx > 400 || offset.dy > 600 || offset.dx < 0 || offset.dy < 0) {
+    if (offset.dx > width ||
+        offset.dy > height ||
+        offset.dx < 0 ||
+        offset.dy < 0) {
       return;
     }
     final points = List<Offset>.from(currentSketch.value?.points ?? [])

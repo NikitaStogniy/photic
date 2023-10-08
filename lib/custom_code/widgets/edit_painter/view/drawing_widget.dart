@@ -11,10 +11,15 @@ import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/mode
 GlobalKey? canvasKey;
 
 class DrawingWidget extends HookWidget {
-  const DrawingWidget({Key? key}) : super(key: key);
+  const DrawingWidget({required this.height, required this.width, Key? key})
+      : super(key: key);
+
+  final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
+    print('[eeee] drawing height $height width $width');
     final selectedColor = useState(Colors.white);
     final strokeSize = useState<double>(10);
     final eraserSize = useState<double>(30);
@@ -34,11 +39,9 @@ class DrawingWidget extends HookWidget {
       initialValue: 1,
     );
     return Container(
-      height: 400,
-      width: 400,
       child: DrawingCanvas(
-        width: 400,
-        height: 400,
+        height: height,
+        width: width,
         drawingMode: drawingMode,
         selectedColor: selectedColor,
         strokeSize: strokeSize,
