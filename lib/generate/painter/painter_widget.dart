@@ -51,7 +51,9 @@ class _PainterWidgetState extends State<PainterWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.black,
@@ -59,11 +61,9 @@ class _PainterWidgetState extends State<PainterWidget> {
           backgroundColor: Colors.black,
           automaticallyImplyLeading: true,
           title: Text(
-            FFLocalizations.of(context).getText(
-              'qiox6dmz' /* Inpaint */,
-            ),
+            'Inpaint',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Open Sans',
+                  fontFamily: 'Inter',
                   color: Colors.white,
                   fontSize: 22.0,
                 ),
@@ -147,27 +147,25 @@ class _PainterWidgetState extends State<PainterWidget> {
                             autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
-                              labelText: FFLocalizations.of(context).getText(
-                                'pa5olk83' /* Describe your idea... */,
-                              ),
+                              labelText: 'Describe your idea...',
                               labelStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Open Sans',
+                                    fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                        .primaryText,
                                   ),
                               hintStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Open Sans',
+                                    fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
@@ -197,9 +195,9 @@ class _PainterWidgetState extends State<PainterWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Open Sans',
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                  fontFamily: 'Inter',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                 ),
                             validator: _model.textControllerValidator
                                 .asValidator(context),
@@ -248,11 +246,16 @@ class _PainterWidgetState extends State<PainterWidget> {
                                       creator: currentUserReference,
                                       firstImage: _model.image,
                                     ),
-                                    'generatedImages': [
-                                      DebGroup.applyMaskCall.image(
-                                        (_model.apiResult74h?.jsonBody ?? ''),
-                                      )
-                                    ],
+                                    ...mapToFirestore(
+                                      {
+                                        'generatedImages': [
+                                          DebGroup.applyMaskCall.image(
+                                            (_model.apiResult74h?.jsonBody ??
+                                                ''),
+                                          )
+                                        ],
+                                      },
+                                    ),
                                   });
 
                                   context.goNamed('HomePage');
@@ -295,9 +298,7 @@ class _PainterWidgetState extends State<PainterWidget> {
 
                               setState(() {});
                             },
-                            text: FFLocalizations.of(context).getText(
-                              '9azkh0ap' /* Edit */,
-                            ),
+                            text: 'Edit',
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
@@ -305,17 +306,18 @@ class _PainterWidgetState extends State<PainterWidget> {
                                   24.0, 0.0, 24.0, 0.0),
                               iconPadding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: Colors.black,
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
-                                    fontFamily: 'Open Sans',
-                                    color: Colors.white,
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                   ),
                               elevation: 3.0,
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
+                                color: FlutterFlowTheme.of(context).primaryText,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
@@ -346,9 +348,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                             onTap: () async {
                               await requestPermission(cameraPermission);
                               final selectedMedia = await selectMedia(
-                                maxWidth: 600.00,
-                                maxHeight: 600.00,
-                                imageQuality: 90,
+                                imageQuality: 100,
                                 multiImage: false,
                               );
                               if (selectedMedia != null &&
@@ -406,11 +406,12 @@ class _PainterWidgetState extends State<PainterWidget> {
                               width: 48.0,
                               height: 48.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
                                 borderRadius: BorderRadius.circular(12.0),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                   width: 1.0,
                                 ),
                               ),
@@ -434,8 +435,6 @@ class _PainterWidgetState extends State<PainterWidget> {
                                   await requestPermission(
                                       photoLibraryPermission);
                                   final selectedMedia = await selectMedia(
-                                    maxWidth: 400.00,
-                                    maxHeight: 400.00,
                                     imageQuality: 100,
                                     mediaSource: MediaSource.photoGallery,
                                     multiImage: false,
@@ -496,9 +495,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                                     _model.image = _model.uploadedFileUrl2;
                                   });
                                 },
-                                text: FFLocalizations.of(context).getText(
-                                  'qreav30u' /* Загрузить */,
-                                ),
+                                text: 'Upload',
                                 options: FFButtonOptions(
                                   width: 130.0,
                                   height: 48.0,
@@ -506,18 +503,19 @@ class _PainterWidgetState extends State<PainterWidget> {
                                       0.0, 0.0, 0.0, 0.0),
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: Colors.black,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Open Sans',
+                                        fontFamily: 'Inter',
                                         color: FlutterFlowTheme.of(context)
-                                            .accent3,
+                                            .primaryText,
                                       ),
                                   elevation: 0.0,
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                        .primaryText,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),

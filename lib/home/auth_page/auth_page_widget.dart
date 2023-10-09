@@ -36,7 +36,6 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
     _model.emailTextController ??= TextEditingController();
     _model.passwordTextController ??= TextEditingController();
     _model.confirmPasswordTextController ??= TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -51,10 +50,12 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.black,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Align(
@@ -75,19 +76,17 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                       child: Text(
-                        FFLocalizations.of(context).getText(
-                          'epeju9qp' /* Регистрация */,
-                        ),
+                        'Sign up',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Open Sans',
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
+                              fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context).primaryText,
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                             ),
                       ),
                     ),
+                    Spacer(),
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -99,15 +98,13 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                             autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
-                              hintText: FFLocalizations.of(context).getText(
-                                'eritvh83' /* Email */,
-                              ),
+                              hintText: 'Email',
                               hintStyle: FlutterFlowTheme.of(context)
                                   .bodySmall
                                   .override(
-                                    fontFamily: 'Open Sans',
+                                    fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                        .primaryText,
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -141,9 +138,9 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Open Sans',
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                  fontFamily: 'Inter',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                 ),
                             keyboardType: TextInputType.emailAddress,
                             validator: _model.emailTextControllerValidator
@@ -158,15 +155,13 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                             autofocus: true,
                             obscureText: !_model.passwordVisibility1,
                             decoration: InputDecoration(
-                              hintText: FFLocalizations.of(context).getText(
-                                'lp5wyzqf' /* Пароль */,
-                              ),
+                              hintText: 'Password',
                               hintStyle: FlutterFlowTheme.of(context)
                                   .bodySmall
                                   .override(
-                                    fontFamily: 'Open Sans',
+                                    fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                        .primaryText,
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -214,9 +209,9 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Open Sans',
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                  fontFamily: 'Inter',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                 ),
                             validator: _model.passwordTextControllerValidator
                                 .asValidator(context),
@@ -230,15 +225,13 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                             autofocus: true,
                             obscureText: !_model.passwordVisibility2,
                             decoration: InputDecoration(
-                              hintText: FFLocalizations.of(context).getText(
-                                'jvud3hhp' /* Подтвердить пароль */,
-                              ),
+                              hintText: 'Confirm password',
                               hintStyle: FlutterFlowTheme.of(context)
                                   .bodySmall
                                   .override(
-                                    fontFamily: 'Open Sans',
+                                    fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                        .primaryText,
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -286,9 +279,9 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Open Sans',
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                  fontFamily: 'Inter',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                 ),
                             validator: _model
                                 .confirmPasswordTextControllerValidator
@@ -335,9 +328,7 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                                 },
                               );
                             },
-                            text: FFLocalizations.of(context).getText(
-                              'wh6sqeaj' /* Регистрация */,
-                            ),
+                            text: 'Sign up',
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 48.0,
@@ -349,12 +340,12 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
-                                    fontFamily: 'Open Sans',
+                                    fontFamily: 'Inter',
                                     color: Colors.white,
                                   ),
                               elevation: 0.0,
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).accent3,
+                                color: FlutterFlowTheme.of(context).primaryText,
                                 width: 0.0,
                               ),
                               borderRadius: BorderRadius.circular(12.0),
@@ -363,6 +354,7 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                         ),
                       ],
                     ),
+                    Spacer(),
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -370,13 +362,11 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 20.0),
                           child: Text(
-                            FFLocalizations.of(context).getText(
-                              '7077b2sp' /* Войти через Google */,
-                            ),
+                            'Sign in via Google',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Open Sans',
+                                  fontFamily: 'Inter',
                                   color: Color(0xFF8C8C8C),
                                 ),
                           ),
@@ -402,11 +392,13 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                               width: MediaQuery.sizeOf(context).width * 0.9,
                               height: 51.0,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
                                 borderRadius: BorderRadius.circular(12.0),
                                 border: Border.all(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  width: 0.0,
                                 ),
                               ),
                               child: Row(
@@ -424,15 +416,13 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                                     ),
                                   ),
                                   Text(
-                                    FFLocalizations.of(context).getText(
-                                      'o0sbi066' /* Войти через Google */,
-                                    ),
+                                    'Sign in with Google',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Open Sans',
+                                          fontFamily: 'Inter',
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                              .primaryText,
                                         ),
                                   ),
                                 ],

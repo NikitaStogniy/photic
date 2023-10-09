@@ -1,17 +1,19 @@
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
+import '/components/dialog_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/permissions_util.dart';
+import 'pack_page_widget.dart' show PackPageWidget;
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-class PackPageModel extends FlutterFlowModel {
+class PackPageModel extends FlutterFlowModel<PackPageWidget> {
   ///  Local state fields for this page.
 
   int? loopCounter = 1;
@@ -20,11 +22,7 @@ class PackPageModel extends FlutterFlowModel {
 
   final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - downloadImage] action in IconButton widget.
-  String? successImage;
-  // Stores action output result for [Custom Action - downloadImage] action in IconButton widget.
-  String? success;
-  // Stores action output result for [Backend Call - API (FaceSwap)] action in IconButton widget.
-  ApiCallResponse? faceSwap;
+  String? download;
 
   /// Initialization and disposal methods.
 
