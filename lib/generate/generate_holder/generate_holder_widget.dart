@@ -44,7 +44,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.timerController.onExecute.add(StopWatchExecute.start);
+      _model.timerController.onStartTimer();
       while (_model.loaded == false) {
         _model.statusApi = await DebGroup.statusCheckCall.call(
           id: widget.id,
@@ -71,30 +71,36 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                     ) !=
                     null))) {
           await widget.packRef!.update({
-            'generatedImages': FieldValue.arrayUnion([
-              DebGroup.statusCheckCall
-                              .result(
-                                (_model.statusApi?.jsonBody ?? ''),
-                              )
-                              .toString() !=
-                          null &&
-                      DebGroup.statusCheckCall
-                              .result(
-                                (_model.statusApi?.jsonBody ?? ''),
-                              )
-                              .toString() !=
-                          ''
-                  ? DebGroup.statusCheckCall.result(
-                      (_model.statusApi?.jsonBody ?? ''),
-                    )
-                  : DebGroup.statusCheckCall.textResult(
-                      (_model.statusApi?.jsonBody ?? ''),
-                    )
-            ]),
+            ...mapToFirestore(
+              {
+                'generatedImages': FieldValue.arrayUnion([
+                  DebGroup.statusCheckCall
+                                  .result(
+                                    (_model.statusApi?.jsonBody ?? ''),
+                                  )
+                                  .toString() !=
+                              null &&
+                          DebGroup.statusCheckCall
+                                  .result(
+                                    (_model.statusApi?.jsonBody ?? ''),
+                                  )
+                                  .toString() !=
+                              ''
+                      ? DebGroup.statusCheckCall.result(
+                          (_model.statusApi?.jsonBody ?? ''),
+                        )
+                      : DebGroup.statusCheckCall.textResult(
+                          (_model.statusApi?.jsonBody ?? ''),
+                        )
+                ]),
+              },
+            ),
           });
           setState(() {
             _model.loaded = true;
           });
+
+          context.goNamed('HomePage');
         }
         await Future.delayed(const Duration(milliseconds: 5000));
       }
@@ -115,7 +121,9 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.black,
@@ -140,16 +148,14 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 56.0, 0.0, 0.0),
                           child: Text(
-                            FFLocalizations.of(context).getText(
-                              '95m9xmi4' /* Генерация изображения */,
-                            ),
+                            'Generating an image',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: 'Open Sans',
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                  fontFamily: 'Inter',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                   fontSize: 24.0,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -157,8 +163,8 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                         ),
                         Align(
                           alignment: AlignmentDirectional(0.00, 0.00),
-                          child: Lottie.network(
-                            'https://assets5.lottiefiles.com/private_files/lf30_rn8hog3p.json',
+                          child: Lottie.asset(
+                            'assets/lottie_animations/loader.json',
                             width: 350.0,
                             height: 350.0,
                             fit: BoxFit.contain,
@@ -185,7 +191,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                       minute: false,
                                       milliSecond: false,
                                     ),
-                                    timer: _model.timerController,
+                                    controller: _model.timerController,
                                     updateStateInterval:
                                         Duration(milliseconds: 1000),
                                     onChanged:
@@ -198,22 +204,20 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Open Sans',
+                                          fontFamily: 'Inter',
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                              .primaryText,
                                         ),
                                   ),
                                 ),
                                 Text(
-                                  FFLocalizations.of(context).getText(
-                                    'k5rx738m' /*  секунд осталось */,
-                                  ),
+                                  ' seconds left',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Open Sans',
+                                        fontFamily: 'Inter',
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
+                                            .primaryText,
                                       ),
                                 ),
                               ],
@@ -232,9 +236,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                   onPressed: () {
                                     print('Button pressed ...');
                                   },
-                                  text: FFLocalizations.of(context).getText(
-                                    '8d9spm4k' /* Отправить уведомление */,
-                                  ),
+                                  text: 'Отправить уведомление',
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 44.0,
@@ -247,7 +249,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          fontFamily: 'Open Sans',
+                                          fontFamily: 'Inter',
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
                                         ),
@@ -267,9 +269,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                 onPressed: () async {
                                   context.goNamed('HomePage');
                                 },
-                                text: FFLocalizations.of(context).getText(
-                                  '5uvmqa26' /* Скрыть */,
-                                ),
+                                text: 'Hide',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 44.0,
@@ -277,17 +277,18 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                       0.0, 0.0, 0.0, 0.0),
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Open Sans',
-                                        color: Colors.white,
+                                        fontFamily: 'Inter',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                       ),
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                        .primaryText,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),
@@ -315,9 +316,9 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Open Sans',
+                                        fontFamily: 'Inter',
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
+                                            .primaryText,
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -330,8 +331,8 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                 buttonSize: 60.0,
                                 icon: Icon(
                                   Icons.close,
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
                                   size: 30.0,
                                 ),
                                 onPressed: () async {

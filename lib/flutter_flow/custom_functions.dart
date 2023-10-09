@@ -37,3 +37,7 @@ DateTime? plusMonth(DateTime? input) {
     microsecond,
   );
 }
+
+String? toStr(String? image) {
+  return image.toString();
+}

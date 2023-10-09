@@ -7,12 +7,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/generate/generate_bottomsheet/generate_bottomsheet_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
@@ -75,26 +76,30 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         null))) {
               firestoreBatch
                   .update(_model.pending![_model.pendingIterator!].genRef!, {
-                'generatedImages': FieldValue.arrayUnion([
-                  DebGroup.statusCheckCall
-                                  .result(
-                                    (_model.statusApi?.jsonBody ?? ''),
-                                  )
-                                  .toString() !=
-                              null &&
-                          DebGroup.statusCheckCall
-                                  .result(
-                                    (_model.statusApi?.jsonBody ?? ''),
-                                  )
-                                  .toString() !=
-                              ''
-                      ? DebGroup.statusCheckCall.result(
-                          (_model.statusApi?.jsonBody ?? ''),
-                        )
-                      : DebGroup.statusCheckCall.textResult(
-                          (_model.statusApi?.jsonBody ?? ''),
-                        )
-                ]),
+                ...mapToFirestore(
+                  {
+                    'generatedImages': FieldValue.arrayUnion([
+                      DebGroup.statusCheckCall
+                                      .result(
+                                        (_model.statusApi?.jsonBody ?? ''),
+                                      )
+                                      .toString() !=
+                                  null &&
+                              DebGroup.statusCheckCall
+                                      .result(
+                                        (_model.statusApi?.jsonBody ?? ''),
+                                      )
+                                      .toString() !=
+                                  ''
+                          ? DebGroup.statusCheckCall.result(
+                              (_model.statusApi?.jsonBody ?? ''),
+                            )
+                          : DebGroup.statusCheckCall.textResult(
+                              (_model.statusApi?.jsonBody ?? ''),
+                            )
+                    ]),
+                  },
+                ),
               });
               firestoreBatch
                   .delete(_model.pending![_model.pendingIterator!].reference);
@@ -111,8 +116,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         await firestoreBatch.commit();
       }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -127,7 +130,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.black,
@@ -140,7 +145,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             buttonSize: 60.0,
             icon: Icon(
               Icons.settings,
-              color: FlutterFlowTheme.of(context).secondaryBackground,
+              color: FlutterFlowTheme.of(context).primaryText,
               size: 30.0,
             ),
             onPressed: () async {
@@ -175,8 +180,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     decoration: BoxDecoration(),
                     child: StreamBuilder<List<AiImageRecord>>(
                       stream: queryAiImageRecord(
-                        queryBuilder: (aiImageRecord) => aiImageRecord
-                            .where('creator', isEqualTo: currentUserReference),
+                        queryBuilder: (aiImageRecord) => aiImageRecord.where(
+                          'creator',
+                          isEqualTo: currentUserReference,
+                        ),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -187,7 +194,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               height: 50.0,
                               child: CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
+                                  FlutterFlowTheme.of(context).primaryText,
                                 ),
                               ),
                             ),
@@ -195,6 +202,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         }
                         List<AiImageRecord> listViewAiImageRecordList =
                             snapshot.data!;
+                        if (listViewAiImageRecordList.isEmpty) {
+                          return Center(
+                            child: Image.asset(
+                              'assets/images/empty_main.png',
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                          );
+                        }
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
@@ -213,8 +230,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     maxWidth: 400.0,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context).accent2,
-                                    borderRadius: BorderRadius.circular(12.0),
+                                    borderRadius: BorderRadius.circular(16.0),
                                   ),
                                   child: Container(
                                     width: double.infinity,
@@ -222,148 +238,50 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     child: Stack(
                                       children: [
                                         if (listViewAiImageRecord
-                                                .generatedImages.length >
+                                                .generatedImages.length ==
                                             0)
-                                          Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            elevation: 0.0,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            child: Align(
+                                          Align(
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
+                                            child: Container(
+                                              width: double.infinity,
+                                              height: double.infinity,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(16.0),
+                                              ),
                                               alignment: AlignmentDirectional(
                                                   0.00, 0.00),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  if (listViewAiImageRecord
-                                                          .generatedImages
-                                                          .length >=
-                                                      1)
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.00, 0.00),
-                                                        child: Container(
-                                                          height:
-                                                              double.infinity,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .accent2,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  CachedNetworkImageProvider(
-                                                                listViewAiImageRecord
-                                                                    .generatedImages[0],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  if (listViewAiImageRecord
-                                                          .generatedImages
-                                                          .length >=
-                                                      2)
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.00, 0.00),
-                                                        child: Container(
-                                                          height:
-                                                              double.infinity,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .accent2,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  CachedNetworkImageProvider(
-                                                                listViewAiImageRecord
-                                                                    .generatedImages[1],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  if (listViewAiImageRecord
-                                                          .generatedImages
-                                                          .length >=
-                                                      3)
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.00, 0.00),
-                                                        child: Container(
-                                                          height:
-                                                              double.infinity,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .accent2,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  CachedNetworkImageProvider(
-                                                                listViewAiImageRecord
-                                                                    .generatedImages[2],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  if (listViewAiImageRecord
-                                                          .generatedImages
-                                                          .length >=
-                                                      4)
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.00, 0.00),
-                                                        child: Container(
-                                                          height:
-                                                              double.infinity,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .accent2,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  CachedNetworkImageProvider(
-                                                                listViewAiImageRecord
-                                                                    .generatedImages[3],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                ],
+                                              child: Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.00, 0.00),
+                                                child: Lottie.asset(
+                                                  'assets/lottie_animations/Loader_main_screen.json',
+                                                  width: 200.0,
+                                                  height: 100.0,
+                                                  fit: BoxFit.contain,
+                                                  animate: true,
+                                                ),
                                               ),
+                                            ),
+                                          ),
+                                        if (listViewAiImageRecord
+                                                .generatedImages.length >
+                                            0)
+                                          Container(
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color: Colors.black,
+                                              image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: Image.network(
+                                                  listViewAiImageRecord
+                                                      .generatedImages.first,
+                                                ).image,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
                                             ),
                                           ),
                                         Align(
@@ -375,34 +293,42 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              context.pushNamed(
-                                                'packPage',
-                                                queryParameters: {
-                                                  'pack': serializeParam(
-                                                    listViewAiImageRecord,
-                                                    ParamType.Document,
-                                                  ),
-                                                  'packNum': serializeParam(
-                                                    valueOrDefault<String>(
-                                                      (listViewIndex + 1)
-                                                          .toString(),
-                                                      '1',
+                                              if (listViewAiImageRecord
+                                                      .generatedImages.length ==
+                                                  0) {
+                                                HapticFeedback.lightImpact();
+                                              } else {
+                                                context.pushNamed(
+                                                  'packPage',
+                                                  queryParameters: {
+                                                    'pack': serializeParam(
+                                                      listViewAiImageRecord,
+                                                      ParamType.Document,
                                                     ),
-                                                    ParamType.String,
-                                                  ),
-                                                }.withoutNulls,
-                                                extra: <String, dynamic>{
-                                                  'pack': listViewAiImageRecord,
-                                                  kTransitionInfoKey:
-                                                      TransitionInfo(
-                                                    hasTransition: true,
-                                                    transitionType:
-                                                        PageTransitionType.fade,
-                                                    duration: Duration(
-                                                        milliseconds: 0),
-                                                  ),
-                                                },
-                                              );
+                                                    'packNum': serializeParam(
+                                                      valueOrDefault<String>(
+                                                        (listViewIndex + 1)
+                                                            .toString(),
+                                                        '1',
+                                                      ),
+                                                      ParamType.String,
+                                                    ),
+                                                  }.withoutNulls,
+                                                  extra: <String, dynamic>{
+                                                    'pack':
+                                                        listViewAiImageRecord,
+                                                    kTransitionInfoKey:
+                                                        TransitionInfo(
+                                                      hasTransition: true,
+                                                      transitionType:
+                                                          PageTransitionType
+                                                              .fade,
+                                                      duration: Duration(
+                                                          milliseconds: 0),
+                                                    ),
+                                                  },
+                                                );
+                                              }
                                             },
                                             child: Container(
                                               width: double.infinity,
@@ -422,40 +348,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Генерация #${(listViewAiImageRecord.generatedImages.length + 1).toString()}',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Open Sans',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
-                                                                fontSize: 16.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
+                                                      'Generation #${(listViewIndex + 1).toString()}',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            fontSize: 16.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                     ),
-                                                    if (listViewAiImageRecord
-                                                            .generatedImages
-                                                            .length >
-                                                        1)
-                                                      Text(
-                                                        '${listViewAiImageRecord.generatedImages.length.toString()} Аватара',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Open Sans',
-                                                                  color: Color(
-                                                                      0xFF8C8C8C),
-                                                                ),
-                                                      ),
                                                   ],
                                                 ),
                                               ),
@@ -489,6 +395,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Align(
                             alignment: AlignmentDirectional(0.00, 0.00),
@@ -506,8 +413,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       context: context,
                                       builder: (context) {
                                         return GestureDetector(
-                                          onTap: () => FocusScope.of(context)
-                                              .requestFocus(_model.unfocusNode),
+                                          onTap: () => _model
+                                                  .unfocusNode.canRequestFocus
+                                              ? FocusScope.of(context)
+                                                  .requestFocus(
+                                                      _model.unfocusNode)
+                                              : FocusScope.of(context)
+                                                  .unfocus(),
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
@@ -526,9 +438,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     context.goNamed('Subscribtion');
                                   }
                                 },
-                                text: FFLocalizations.of(context).getText(
-                                  '47rlkssg' /* Сгенерировать */,
-                                ),
+                                text: 'Generate',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 48.0,
@@ -537,18 +447,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                      .primaryBackground,
                                   textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
+                                      .labelLarge
                                       .override(
-                                        fontFamily: 'Open Sans',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        fontFamily: 'Inter',
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                   elevation: 0.0,
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                        .primaryText,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),

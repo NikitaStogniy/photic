@@ -16,5 +16,5 @@ export '/add_style/add_style_widget.dart' show AddStyleWidget;
 export '/home/pack_page/pack_page_widget.dart' show PackPageWidget;
 export '/home/settings_page/settings_page_widget.dart' show SettingsPageWidget;
 export '/home/account_page/account_page_widget.dart' show AccountPageWidget;
-export '/landing/landing_widget.dart' show LandingWidget;
 export '/generate/painter/painter_widget.dart' show PainterWidget;
+export '/splash/splash_widget.dart' show SplashWidget;

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+
 import 'dart:ui';
 
 import 'package:flutter/rendering.dart';
@@ -63,82 +64,26 @@ class MyPainter extends CustomPainter {
 }
 
 class Painter extends StatefulWidget {
-  final double strokeWidth;
-  final double? width;
-  final double? height;
-  String imgMask; // Remove 'final'
-
-  Painter({
-    required this.strokeWidth,
+  const Painter({
+    Key? key,
     this.width,
     this.height,
+    required this.strokeWidth,
     required this.imgMask,
-  });
+  }) : super(key: key);
+
+  final double? width;
+  final double? height;
+  final double strokeWidth;
+  final String imgMask;
 
   @override
   _PainterState createState() => _PainterState();
 }
 
 class _PainterState extends State<Painter> {
-  List<Offset> points = [];
-  GlobalKey _repaintKey = GlobalKey();
-
-  Future<String> _saveCanvasToBase64() async {
-    try {
-      RenderRepaintBoundary boundary = _repaintKey.currentContext!
-          .findRenderObject() as RenderRepaintBoundary;
-
-      // Capture the content of the CustomPaint widget with a pixel ratio of 1.0
-      final imageByteData = await boundary.toImage(pixelRatio: 1.0);
-      final ByteData? byteData = await imageByteData.toByteData(
-        format: ui.ImageByteFormat.png,
-      );
-
-      if (byteData != null) {
-        final Uint8List pngBytes =
-            Uint8List.sublistView(byteData.buffer.asUint8List());
-
-        // Encode the image data as a base64 string
-        final base64Image = base64Encode(pngBytes);
-
-        // Access MyPainterShareState and update textFieldValue
-        MyPainterShareState().textFieldValue = base64Image;
-
-        return base64Image;
-      } else {
-        throw Exception("Failed to convert image to base64");
-      }
-    } catch (e) {
-      // Handle any exceptions that may occur during the conversion
-      print('Error converting image to base64: $e');
-      return 'Error converting image to base64: $e';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onPanUpdate: (details) {
-        setState(() {
-          RenderBox renderBox = context.findRenderObject() as RenderBox;
-          points.add(renderBox.globalToLocal(details.globalPosition));
-        });
-      },
-      onPanEnd: (details) async {
-        points.add(Offset(-1, -1)); // Indicator for the end of a stroke
-        // Save the canvas as a base64 string
-        await _saveCanvasToBase64();
-      },
-      child: RepaintBoundary(
-        key: _repaintKey,
-        child: CustomPaint(
-          size: Size(widget.width ?? double.infinity,
-              widget.height ?? double.infinity),
-          painter: MyPainter(
-              points: points.where((point) => point != Offset(-1, -1)).toList(),
-              strokeWidth: widget.strokeWidth),
-        ),
-      ),
-    );
+    return Container();
   }
 }

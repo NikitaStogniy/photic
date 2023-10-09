@@ -1,6 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -36,8 +35,10 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (currentUserDocument?.plan != null) {
         _model.currentPlan = await queryPlanListRecordOnce(
-          queryBuilder: (planListRecord) => planListRecord.where('Plan.Name',
-              isEqualTo: currentUserDocument?.plan?.name),
+          queryBuilder: (planListRecord) => planListRecord.where(
+            'Plan.Name',
+            isEqualTo: currentUserDocument?.plan?.name,
+          ),
           singleRecord: true,
         ).then((s) => s.firstOrNull);
         setState(() {
@@ -45,8 +46,6 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
         });
       }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -61,7 +60,9 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.black,
@@ -86,37 +87,43 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                         children: [
                           Align(
                             alignment: AlignmentDirectional(0.00, 0.00),
-                            child: Text(
-                              FFLocalizations.of(context).getText(
-                                'cp31lqg3' /* Выберите план */,
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 24.0, 0.0, 0.0),
+                              child: Text(
+                                'Choose a plan',
+                                style: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .headlineMedium
-                                  .override(
-                                    fontFamily: 'Open Sans',
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
                             ),
                           ),
                           Align(
                             alignment: AlignmentDirectional(1.00, 0.00),
-                            child: FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 30.0,
-                              borderWidth: 1.0,
-                              buttonSize: 60.0,
-                              fillColor: Color(0x00E0E0E0),
-                              icon: Icon(
-                                Icons.close,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 30.0,
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 24.0, 16.0, 0.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.safePop();
+                                },
+                                child: Icon(
+                                  Icons.close,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
                               ),
-                              onPressed: () async {
-                                context.safePop();
-                              },
                             ),
                           ),
                         ],
@@ -131,6 +138,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           child: Container(
+                            width: double.infinity,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [Color(0x23F041FF), Color(0x174B39EF)],
@@ -151,31 +159,31 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    FFLocalizations.of(context).getText(
-                                      '6uk0hfc0' /* Откройте все потенциальные воз... */,
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 8.0),
+                                    child: Text(
+                                      'Open all\nthe potential of our\napplications',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 24.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Open Sans',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          fontSize: 24.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
                                   ),
                                   Text(
-                                    FFLocalizations.of(context).getText(
-                                      'xgus7t1y' /* Наслаждайтесь неограниченным к... */,
-                                    ),
+                                    'Enjoy unlimited avatars and pictures without limits',
                                     textAlign: TextAlign.start,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Open Sans',
+                                          fontFamily: 'Inter',
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                              .secondaryText,
                                           fontSize: 12.0,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -200,7 +208,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                 height: 50.0,
                                 child: CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
+                                    FlutterFlowTheme.of(context).primaryText,
                                   ),
                                 ),
                               ),
@@ -239,6 +247,11 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                       width: MediaQuery.sizeOf(context).width *
                                           0.9,
                                       decoration: BoxDecoration(
+                                        color: _model.plan?.reference ==
+                                                listViewPlanListRecord.reference
+                                            ? FlutterFlowTheme.of(context)
+                                                .primaryText
+                                            : Colors.transparent,
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                         border: Border.all(
@@ -277,17 +290,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                         height: 16.0,
                                                         decoration:
                                                             BoxDecoration(
-                                                          color: _model.plan
-                                                                      ?.reference ==
-                                                                  listViewPlanListRecord
-                                                                      .reference
-                                                              ? FlutterFlowTheme
-                                                                      .of(
-                                                                          context)
-                                                                  .primaryText
-                                                              : FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
+                                                          color: Colors.black,
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
@@ -295,7 +298,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                           border: Border.all(
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .primary,
+                                                                .primaryText,
                                                           ),
                                                         ),
                                                         child: Visibility(
@@ -321,21 +324,31 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                     Text(
                                                       listViewPlanListRecord
                                                           .plan.name,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Open Sans',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                                fontSize: 16.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color:
+                                                                valueOrDefault<
+                                                                    Color>(
+                                                              _model.plan?.reference ==
+                                                                      listViewPlanListRecord
+                                                                          .reference
+                                                                  ? FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground
+                                                                  : FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primaryText,
+                                                            ),
+                                                            fontSize: 16.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                     ),
                                                   ],
                                                 ),
@@ -351,70 +364,98 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                       CrossAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      '₽ ${listViewPlanListRecord.plan.price.toString()}',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Open Sans',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
-                                                                fontSize: 16.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
+                                                      '\$ ${listViewPlanListRecord.plan.price.toString()}',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color:
+                                                                valueOrDefault<
+                                                                    Color>(
+                                                              _model.plan?.reference ==
+                                                                      listViewPlanListRecord
+                                                                          .reference
+                                                                  ? FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground
+                                                                  : FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primaryText,
+                                                            ),
+                                                            fontSize: 16.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                     ),
                                                     Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        '81qstviv' /*  / мес */,
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Open Sans',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
-                                                                fontSize: 12.0,
-                                                              ),
+                                                      ' / month',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Inter',
+                                                            color:
+                                                                valueOrDefault<
+                                                                    Color>(
+                                                              _model.plan?.reference ==
+                                                                      listViewPlanListRecord
+                                                                          .reference
+                                                                  ? FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground
+                                                                  : FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primaryText,
+                                                            ),
+                                                            fontSize: 12.0,
+                                                          ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 0.0, 16.0, 16.0),
-                                                child: Text(
-                                                  listViewPlanListRecord
-                                                      .description,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Open Sans',
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .primaryBackground,
-                                                      ),
+                                          if (_model.plan?.reference ==
+                                              listViewPlanListRecord.reference)
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(16.0, 0.0, 16.0,
+                                                          16.0),
+                                                  child: Text(
+                                                    listViewPlanListRecord
+                                                        .plan.description,
+                                                    style:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Inter',
+                                                              color: _model.plan
+                                                                          ?.reference ==
+                                                                      listViewPlanListRecord
+                                                                          .reference
+                                                                  ? FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground
+                                                                  : FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                            ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
+                                              ],
+                                            ),
                                         ],
                                       ),
                                     ),
@@ -435,37 +476,37 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 48.0),
                       child: FFButtonWidget(
-                        onPressed: () async {
-                          await currentUserReference!
-                              .update(createUsersRecordData(
-                            plan: updatePlanStruct(
-                              _model.plan?.plan,
-                              clearUnsetFields: false,
-                            ),
-                          ));
+                        onPressed: !(_model.plan != null)
+                            ? null
+                            : () async {
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  plan: updatePlanStruct(
+                                    _model.plan?.plan,
+                                    clearUnsetFields: false,
+                                  ),
+                                ));
 
-                          await currentUserReference!
-                              .update(createUsersRecordData(
-                            plan: createPlanStruct(
-                              deadline:
-                                  functions.plusMonth(getCurrentTimestamp),
-                              clearUnsetFields: false,
-                            ),
-                          ));
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  plan: createPlanStruct(
+                                    deadline: functions
+                                        .plusMonth(getCurrentTimestamp),
+                                    clearUnsetFields: false,
+                                  ),
+                                ));
 
-                          context.goNamed(
-                            'subscription_done',
-                            extra: <String, dynamic>{
-                              kTransitionInfoKey: TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.fade,
-                              ),
-                            },
-                          );
-                        },
-                        text: FFLocalizations.of(context).getText(
-                          'i485bov3' /* Продолжить */,
-                        ),
+                                context.goNamed(
+                                  'subscription_done',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType: PageTransitionType.fade,
+                                    ),
+                                  },
+                                );
+                              },
+                        text: 'Продолжить',
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 40.0,
@@ -473,10 +514,10 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                               0.0, 0.0, 0.0, 0.0),
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).primary,
+                          color: Color(0x004B39EF),
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Open Sans',
+                                    fontFamily: 'Inter',
                                     color: Colors.white,
                                   ),
                           elevation: 0.0,
@@ -485,6 +526,8 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(12.0),
+                          disabledTextColor:
+                              FlutterFlowTheme.of(context).secondaryText,
                         ),
                       ),
                     ),
