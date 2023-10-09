@@ -31,7 +31,6 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
     _model = createModel(context, () => GenerateImagePageModel());
 
     _model.textController ??= TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -46,10 +45,12 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.black,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Align(
@@ -73,16 +74,16 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                           Align(
                             alignment: AlignmentDirectional(0.00, 0.00),
                             child: Text(
-                              'Шаг ${valueOrDefault<String>(
+                              'Step ${valueOrDefault<String>(
                                 _model.step.toString(),
                                 '1',
-                              )}из 4',
+                              )} of 4',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    fontFamily: 'Open Sans',
+                                    fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                        .primaryText,
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -95,8 +96,7 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                             buttonSize: 60.0,
                             icon: Icon(
                               Icons.arrow_back_rounded,
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
+                              color: FlutterFlowTheme.of(context).primaryText,
                               size: 30.0,
                             ),
                             onPressed: () async {
@@ -124,31 +124,32 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              Text(
-                                FFLocalizations.of(context).getText(
-                                  'v8or36yn' /* Что ожидать? */,
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 8.0),
+                                child: Text(
+                                  'What to expect?',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        fontSize: 24.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                 ),
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Open Sans',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      fontSize: 24.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
                               ),
                               Text(
-                                FFLocalizations.of(context).getText(
-                                  'crj1yc3f' /* Искусственный интеллект может ... */,
-                                ),
+                                'Artificial intelligence can create artifacts, inaccuracies and defects in the final images, unfortunately, this is out of our control. Please accept these risks before proceeding.',
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Open Sans',
-                                      color: Color(0xFF606060),
+                                      fontFamily: 'Inter',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -164,13 +165,11 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
                                       child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          'iwey65dh' /* Хорошие примеры */,
-                                        ),
+                                        'Good Examples',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Open Sans',
+                                              fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
@@ -179,44 +178,51 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                             ),
                                       ),
                                     ),
-                                    GridView(
-                                      padding: EdgeInsets.zero,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 8.0,
-                                        mainAxisSpacing: 8.0,
-                                        childAspectRatio: 1.0,
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 8.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/good_Variant3.png',
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.45,
+                                            height: 175.0,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          Image.asset(
+                                            'assets/images/good_Variant3-1.png',
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.45,
+                                            height: 175.0,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ].divide(SizedBox(width: 8.0)),
                                       ),
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Image.asset(
-                                          'assets/images/good_Variant3.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
-                                          'assets/images/good_Variant3-1.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
                                           'assets/images/good_Variant3-2.png',
-                                          width: 175.0,
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.45,
                                           height: 175.0,
                                           fit: BoxFit.cover,
                                         ),
                                         Image.asset(
                                           'assets/images/good_Variant3-3.png',
-                                          width: 175.0,
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.45,
                                           height: 175.0,
                                           fit: BoxFit.cover,
                                         ),
-                                      ],
+                                      ].divide(SizedBox(width: 8.0)),
                                     ),
                                   ],
                                 ),
@@ -232,59 +238,64 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 16.0),
                                       child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          '5n0e7ucz' /* Примеры с артефактами */,
-                                        ),
+                                        'Examples with artifacts',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Open Sans',
+                                              fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
+                                                      .primaryText,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.bold,
                                             ),
                                       ),
                                     ),
-                                    GridView(
-                                      padding: EdgeInsets.zero,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 8.0,
-                                        mainAxisSpacing: 8.0,
-                                        childAspectRatio: 1.0,
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 8.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/bad_Variant3.png',
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.45,
+                                            height: 175.0,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          Image.asset(
+                                            'assets/images/bad_Variant3-1.png',
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.45,
+                                            height: 175.0,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ].divide(SizedBox(width: 8.0)),
                                       ),
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Image.asset(
-                                          'assets/images/bad_Variant3.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
-                                          'assets/images/bad_Variant3-1.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
                                           'assets/images/bad_Variant3-2.png',
-                                          width: 175.0,
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.45,
                                           height: 175.0,
                                           fit: BoxFit.cover,
                                         ),
                                         Image.asset(
                                           'assets/images/bad_Variant3-3.png',
-                                          width: 175.0,
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.45,
                                           height: 175.0,
                                           fit: BoxFit.cover,
                                         ),
-                                      ],
+                                      ].divide(SizedBox(width: 8.0)),
                                     ),
                                   ],
                                 ),
@@ -330,16 +341,14 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                           ),
                                         ),
                                         Text(
-                                          FFLocalizations.of(context).getText(
-                                            'd7dx3apu' /* Я достиг совершеннолетия */,
-                                          ),
+                                          'I am of legal age (18/21+)',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Open Sans',
+                                                fontFamily: 'Inter',
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
+                                                        .primaryText,
                                                 fontSize: 12.0,
                                                 fontWeight: FontWeight.normal,
                                               ),
@@ -351,16 +360,14 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 40.0, 0.0, 24.0),
+                                    0.0, 24.0, 0.0, 40.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
                                     setState(() {
                                       _model.step = 2;
                                     });
                                   },
-                                  text: FFLocalizations.of(context).getText(
-                                    '99ksnuzx' /* Продолжить */,
-                                  ),
+                                  text: 'Accept',
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 44.0,
@@ -368,12 +375,14 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                         0.0, 0.0, 0.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
-                                    color: Colors.black,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          fontFamily: 'Open Sans',
-                                          color: Colors.white,
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
                                         ),
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.of(context)
@@ -404,14 +413,12 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),
                                   child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'xmrfv29z' /* Запрос */,
-                                    ),
+                                    'Запрос',
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Open Sans',
+                                          fontFamily: 'Inter',
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
                                           fontSize: 24.0,
@@ -427,15 +434,12 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                         controller: _model.textController,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          hintText: FFLocalizations.of(context)
-                                              .getText(
-                                            'srvjhuxf' /* Опишите идею... */,
-                                          ),
+                                          hintText: 'Опишите идею...',
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Open Sans',
+                                                fontFamily: 'Inter',
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
@@ -485,7 +489,7 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Open Sans',
+                                              fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
@@ -510,15 +514,12 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                               CrossAxisAlignment.stretch,
                                           children: [
                                             Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'wqoqg3pe' /* Выберите стиль */,
-                                              ),
+                                              'Выберите стиль',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium
                                                   .override(
-                                                    fontFamily: 'Open Sans',
+                                                    fontFamily: 'Inter',
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -546,55 +547,30 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                                   '6'
                                                 ],
                                                 optionLabels: [
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    '7yps6n70' /* Реалистичный */,
-                                                  ),
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    '68a2v3aa' /* Дикий запад */,
-                                                  ),
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    '1patzi7o' /* Комиксы */,
-                                                  ),
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    '83soxvwp' /* Киберпанк */,
-                                                  ),
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    '1cfvf2yb' /* Аниме */,
-                                                  ),
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    'a9gw5b6v' /* Реалистичный */,
-                                                  ),
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    '8o8xmfjm' /* Рисунок */,
-                                                  )
+                                                  'Реалистичный',
+                                                  'Дикий запад',
+                                                  'Комиксы',
+                                                  'Киберпанк',
+                                                  'Аниме',
+                                                  'Реалистичный',
+                                                  'Рисунок'
                                                 ],
                                                 onChanged: (val) => setState(
                                                     () => _model
                                                         .dropDownValue1 = val),
                                                 width: 180.0,
                                                 height: 50.0,
-                                                textStyle: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Open Sans',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
                                                               .secondaryText,
-                                                    ),
+                                                        ),
                                                 hintText:
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                  '2hue9b30' /* Пожалуйста выберите... */,
-                                                ),
+                                                    'Пожалуйста выберите...',
                                                 fillColor:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
@@ -624,15 +600,12 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                               CrossAxisAlignment.stretch,
                                           children: [
                                             Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'aaz13r79' /* Выбрать цвет */,
-                                              ),
+                                              'Выбрать цвет',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium
                                                   .override(
-                                                    fontFamily: 'Open Sans',
+                                                    fontFamily: 'Inter',
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -650,39 +623,26 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                                     FormFieldController<String>(
                                                         null),
                                                 options: [
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    'mg6r7tz1' /* Красный */,
-                                                  ),
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    'f9roofbb' /* Оранжевый */,
-                                                  ),
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    's97udmut' /* Желтый */,
-                                                  )
+                                                  'Красный',
+                                                  'Оранжевый',
+                                                  'Желтый'
                                                 ],
                                                 onChanged: (val) => setState(
                                                     () => _model
                                                         .dropDownValue2 = val),
                                                 width: 180.0,
                                                 height: 50.0,
-                                                textStyle: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Open Sans',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
                                                               .secondaryText,
-                                                    ),
+                                                        ),
                                                 hintText:
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                  '9mbnaqce' /* Пожалуйста выберите... */,
-                                                ),
+                                                    'Пожалуйста выберите...',
                                                 fillColor:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
@@ -712,15 +672,12 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                               CrossAxisAlignment.stretch,
                                           children: [
                                             Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'kguzflaz' /* Выбор художника */,
-                                              ),
+                                              'Выбор художника',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium
                                                   .override(
-                                                    fontFamily: 'Open Sans',
+                                                    fontFamily: 'Inter',
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -738,39 +695,25 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                                     FormFieldController<String>(
                                                         null),
                                                 options: [
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    'lakrod0s' /* Banksy */,
-                                                  ),
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    'jus688zv' /* Van Gogh */,
-                                                  ),
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    'e9j0c7o3' /* Gustav Klimt */,
-                                                  )
+                                                  'Banksy',
+                                                  'Van Gogh',
+                                                  'Gustav Klimt'
                                                 ],
                                                 onChanged: (val) => setState(
                                                     () => _model
                                                         .dropDownValue3 = val),
                                                 width: 180.0,
                                                 height: 50.0,
-                                                textStyle: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Open Sans',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
                                                               .secondaryText,
-                                                    ),
-                                                hintText:
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                  'uus6s71c' /* Please select... */,
-                                                ),
+                                                        ),
+                                                hintText: 'Please select...',
                                                 fillColor:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
@@ -826,7 +769,7 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                       textStyle: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(
-                                            fontFamily: 'Open Sans',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
                                             fontSize: 12.0,
@@ -900,9 +843,7 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
 
                                         setState(() {});
                                       },
-                                text: FFLocalizations.of(context).getText(
-                                  'ycbwugcw' /* Продолжить */,
-                                ),
+                                text: 'Продолжить',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 44.0,
@@ -914,7 +855,7 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Open Sans',
+                                        fontFamily: 'Inter',
                                         color: Colors.white,
                                       ),
                                   borderSide: BorderSide(

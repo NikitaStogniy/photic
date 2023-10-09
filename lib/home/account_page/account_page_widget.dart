@@ -25,8 +25,6 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AccountPageModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -41,22 +39,22 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          iconTheme: IconThemeData(
-              color: FlutterFlowTheme.of(context).primaryBackground),
+          iconTheme:
+              IconThemeData(color: FlutterFlowTheme.of(context).primaryText),
           automaticallyImplyLeading: true,
           title: Text(
-            FFLocalizations.of(context).getText(
-              'vh54jrih' /* Аккаунт */,
-            ),
+            'Account',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Open Sans',
-                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  fontFamily: 'Inter',
+                  color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: 22.0,
                 ),
           ),
@@ -100,12 +98,12 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                         ),
                         Text(
                           currentUserEmail,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Open Sans',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                  ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'Inter',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                         ),
                       ],
                     ),
@@ -127,11 +125,9 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
                       );
                     },
                     child: Text(
-                      FFLocalizations.of(context).getText(
-                        'cz81kkxh' /* Выйти */,
-                      ),
+                      'Sign out',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Open Sans',
+                            fontFamily: 'Inter',
                             color: Color(0xFFEE3F58),
                             fontSize: 16.0,
                           ),

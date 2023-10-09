@@ -1,8 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/components/popup_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,8 +28,6 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SettingsPageModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -42,7 +42,9 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.black,
@@ -56,7 +58,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
             buttonSize: 60.0,
             icon: Icon(
               Icons.close,
-              color: FlutterFlowTheme.of(context).primaryBackground,
+              color: FlutterFlowTheme.of(context).primaryText,
               size: 30.0,
             ),
             onPressed: () async {
@@ -72,12 +74,10 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
               context.pushNamed('addStyle');
             },
             child: Text(
-              FFLocalizations.of(context).getText(
-                'snlwea90' /* Настройки */,
-              ),
+              'Settings',
               style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    fontFamily: 'Open Sans',
-                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    fontFamily: 'Inter',
+                    color: FlutterFlowTheme.of(context).primaryText,
                     fontSize: 22.0,
                   ),
             ),
@@ -102,11 +102,9 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      FFLocalizations.of(context).getText(
-                        '0hf140sp' /* Аккаунт и подписка */,
-                      ),
+                      'Account and subscription',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Open Sans',
+                            fontFamily: 'Inter',
                             color: Color(0xFF8C8C8C),
                           ),
                     ),
@@ -142,13 +140,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   ),
                                 ),
                                 Text(
-                                  FFLocalizations.of(context).getText(
-                                    'up2m5q91' /* Аккаунт */,
-                                  ),
+                                  'Account',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Open Sans',
+                                        fontFamily: 'Inter',
                                         color: FlutterFlowTheme.of(context)
                                             .accent2,
                                       ),
@@ -195,13 +191,11 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                       ),
                                     ),
                                     Text(
-                                      FFLocalizations.of(context).getText(
-                                        '0uyluxyn' /* План */,
-                                      ),
+                                      'Plan',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Open Sans',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
                                                 .accent2,
                                           ),
@@ -218,7 +212,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Open Sans',
+                                        fontFamily: 'Inter',
                                         color: Color(0xFF542CAD),
                                       ),
                                 ),
@@ -232,11 +226,9 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                       child: Text(
-                        FFLocalizations.of(context).getText(
-                          'ps77c6t2' /* Аккаунт и подписка */,
-                        ),
+                        'Privacy policy',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Open Sans',
+                              fontFamily: 'Inter',
                               color: Color(0xFF8C8C8C),
                             ),
                       ),
@@ -248,35 +240,69 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                         width: 100.0,
                         height: 56.0,
                         decoration: BoxDecoration(),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 24.0, 0.0),
-                                child: SvgPicture.asset(
-                                  'assets/images/Vector-1.svg',
-                                  width: 20.0,
-                                  height: 20.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Text(
-                                FFLocalizations.of(context).getText(
-                                  'xrun0cmm' /* Политика конфиденцальности */,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Open Sans',
-                                      color:
-                                          FlutterFlowTheme.of(context).accent2,
+                        child: Builder(
+                          builder: (context) => Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                await showAlignedDialog(
+                                  context: context,
+                                  isGlobal: true,
+                                  avoidOverflow: false,
+                                  targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  builder: (dialogContext) {
+                                    return Material(
+                                      color: Colors.transparent,
+                                      child: GestureDetector(
+                                        onTap: () => _model
+                                                .unfocusNode.canRequestFocus
+                                            ? FocusScope.of(context)
+                                                .requestFocus(
+                                                    _model.unfocusNode)
+                                            : FocusScope.of(context).unfocus(),
+                                        child: PopupWidget(
+                                          headline: 'Privacy Policy',
+                                          text: 'Privacy',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => setState(() {}));
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 24.0, 0.0),
+                                    child: SvgPicture.asset(
+                                      'assets/images/Vector-1.svg',
+                                      width: 20.0,
+                                      height: 20.0,
+                                      fit: BoxFit.cover,
                                     ),
+                                  ),
+                                  Text(
+                                    'Privacy policy',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .accent2,
+                                        ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
@@ -288,35 +314,69 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                         width: 100.0,
                         height: 56.0,
                         decoration: BoxDecoration(),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 16.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 24.0, 0.0),
-                                child: SvgPicture.asset(
-                                  'assets/images/Vector-1.svg',
-                                  width: 20.0,
-                                  height: 20.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Text(
-                                FFLocalizations.of(context).getText(
-                                  'e32nk8m7' /* Правила использования */,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Open Sans',
-                                      color:
-                                          FlutterFlowTheme.of(context).accent2,
+                        child: Builder(
+                          builder: (context) => Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                await showAlignedDialog(
+                                  context: context,
+                                  isGlobal: true,
+                                  avoidOverflow: false,
+                                  targetAnchor: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  followerAnchor: AlignmentDirectional(0.0, 0.0)
+                                      .resolve(Directionality.of(context)),
+                                  builder: (dialogContext) {
+                                    return Material(
+                                      color: Colors.transparent,
+                                      child: GestureDetector(
+                                        onTap: () => _model
+                                                .unfocusNode.canRequestFocus
+                                            ? FocusScope.of(context)
+                                                .requestFocus(
+                                                    _model.unfocusNode)
+                                            : FocusScope.of(context).unfocus(),
+                                        child: PopupWidget(
+                                          headline: 'Terms of Use',
+                                          text: 'Terms',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => setState(() {}));
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 24.0, 0.0),
+                                    child: SvgPicture.asset(
+                                      'assets/images/Vector-1.svg',
+                                      width: 20.0,
+                                      height: 20.0,
+                                      fit: BoxFit.cover,
                                     ),
+                                  ),
+                                  Text(
+                                    'Terms of Use',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .accent2,
+                                        ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),

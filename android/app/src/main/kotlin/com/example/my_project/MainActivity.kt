@@ -1,4 +1,4 @@
-package com.mycompany.aitest
+package com.photiq.photiq
 
 import io.flutter.embedding.android.FlutterActivity
 

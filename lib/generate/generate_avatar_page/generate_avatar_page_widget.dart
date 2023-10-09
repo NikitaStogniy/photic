@@ -2,13 +2,16 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/components/dialog_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +36,14 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
     super.initState();
     _model = createModel(context, () => GenerateAvatarPageModel());
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (currentUserDocument!.plan.used > 0) {
+        setState(() {
+          _model.step = 2;
+        });
+      }
+    });
   }
 
   @override
@@ -48,10 +58,12 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.black,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Align(
@@ -83,9 +95,9 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Open Sans',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
+                                          .primaryText,
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -98,297 +110,376 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                             buttonSize: 60.0,
                             icon: Icon(
                               Icons.arrow_back_rounded,
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
+                              color: FlutterFlowTheme.of(context).primaryText,
                               size: 30.0,
                             ),
                             onPressed: () async {
-                              context.goNamed(
-                                'HomePage',
-                                extra: <String, dynamic>{
-                                  kTransitionInfoKey: TransitionInfo(
-                                    hasTransition: true,
-                                    transitionType:
-                                        PageTransitionType.rightToLeft,
-                                  ),
-                                },
-                              );
+                              if ((_model.step == 1) ||
+                                  ((_model.step == 2) &&
+                                      (currentUserDocument!.plan.used > 0))) {
+                                context.goNamed(
+                                  'HomePage',
+                                  extra: <String, dynamic>{
+                                    kTransitionInfoKey: TransitionInfo(
+                                      hasTransition: true,
+                                      transitionType:
+                                          PageTransitionType.rightToLeft,
+                                    ),
+                                  },
+                                );
+                              } else {
+                                setState(() {
+                                  _model.step = _model.step + -1;
+                                });
+                              }
                             },
                           ),
                         ],
                       ),
                     ),
                     if (_model.step == 1)
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 64.0, 16.0, 16.0),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Text(
-                                FFLocalizations.of(context).getText(
-                                  'j90bjzyn' /* Что ожидать? */,
+                      Align(
+                        alignment: AlignmentDirectional(0.00, 0.00),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 64.0, 16.0, 16.0),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: Text(
+                                    'What to expect?',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          fontSize: 24.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
                                 ),
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Open Sans',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      fontSize: 24.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                              Text(
-                                FFLocalizations.of(context).getText(
-                                  'nzzosdjh' /* Искусственный интеллект может ... */,
+                                Text(
+                                  'Artificial intelligence can create artifacts, inaccuracies and defects in the final images, unfortunately, this is out of our control. Please accept these risks before proceeding.',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                 ),
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Open Sans',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 24.0, 0.0, 0.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
-                                      child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          'x40hl25c' /* Хорошие примеры */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Open Sans',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ),
-                                    GridView(
-                                      padding: EdgeInsets.zero,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 8.0,
-                                        mainAxisSpacing: 8.0,
-                                        childAspectRatio: 1.0,
-                                      ),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/good_Variant3.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
-                                          'assets/images/good_Variant3-1.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
-                                          'assets/images/good_Variant3-2.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
-                                          'assets/images/good_Variant3-3.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 24.0, 0.0, 64.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
-                                      child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          'a566a8fr' /* Примеры с артифактами */,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Open Sans',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ),
-                                    GridView(
-                                      padding: EdgeInsets.zero,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 8.0,
-                                        mainAxisSpacing: 8.0,
-                                        childAspectRatio: 1.0,
-                                      ),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      children: [
-                                        Image.asset(
-                                          'assets/images/bad_Variant3.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
-                                          'assets/images/bad_Variant3-1.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
-                                          'assets/images/bad_Variant3-2.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Image.asset(
-                                          'assets/images/bad_Variant3-3.png',
-                                          width: 175.0,
-                                          height: 175.0,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 12.0, 0.0, 12.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 0.0, 8.0, 0.0),
-                                          child: Container(
-                                            width: 16.0,
-                                            height: 16.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              borderRadius:
-                                                  BorderRadius.circular(100.0),
-                                              border: Border.all(
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 24.0, 0.0, 0.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 16.0),
+                                        child: Text(
+                                          'Good Examples',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
+                                                        .primaryText,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                                child: Image.asset(
+                                                  'assets/images/good_Variant3.png',
+                                                  height: 175.0,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
-                                            child: Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.00, 0.00),
-                                              child: SvgPicture.asset(
-                                                'assets/images/Checkbox.svg',
-                                                width: 8.0,
-                                                height: 8.0,
+                                            Expanded(
+                                              flex: 1,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                                child: Image.asset(
+                                                  'assets/images/good_Variant3-1.png',
+                                                  height: 175.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                          ].divide(SizedBox(width: 8.0)),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                              child: Image.asset(
+                                                'assets/images/good_Variant3-2.png',
+                                                height: 175.0,
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Text(
-                                          FFLocalizations.of(context).getText(
-                                            'ii0rezwv' /* Я совершеннолетний (18/21+) */,
+                                          Expanded(
+                                            flex: 1,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                              child: Image.asset(
+                                                'assets/images/good_Variant3-3.png',
+                                                height: 175.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
                                           ),
+                                        ].divide(SizedBox(width: 8.0)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 24.0, 0.0, 64.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 16.0),
+                                        child: Text(
+                                          'Examples with artifacts',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily: 'Open Sans',
+                                                fontFamily: 'Inter',
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                fontSize: 12.0,
-                                                fontWeight: FontWeight.normal,
+                                                        .primaryText,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
                                               ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 40.0, 0.0, 24.0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    setState(() {
-                                      _model.step = 2;
-                                    });
-                                  },
-                                  text: FFLocalizations.of(context).getText(
-                                    'o5en4lh8' /* Продолжить */,
-                                  ),
-                                  options: FFButtonOptions(
-                                    width: double.infinity,
-                                    height: 44.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Open Sans',
-                                          color: FlutterFlowTheme.of(context)
-                                              .accent3,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                                child: Image.asset(
+                                                  'assets/images/bad_Variant3.png',
+                                                  height: 175.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                                child: Image.asset(
+                                                  'assets/images/bad_Variant3-1.png',
+                                                  height: 175.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                          ].divide(SizedBox(width: 8.0)),
                                         ),
-                                    borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12.0),
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                              child: Image.asset(
+                                                'assets/images/bad_Variant3-2.png',
+                                                height: 175.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0),
+                                              child: Image.asset(
+                                                'assets/images/bad_Variant3-3.png',
+                                                height: 175.0,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ].divide(SizedBox(width: 8.0)),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ],
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    setState(() {
+                                      _model.isLegalAge = true;
+                                    });
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 12.0, 0.0, 12.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 0.0, 8.0, 0.0),
+                                              child: Container(
+                                                width: 16.0,
+                                                height: 16.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100.0),
+                                                  border: Border.all(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
+                                                ),
+                                                child: Visibility(
+                                                  visible: _model.isLegalAge,
+                                                  child: Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.00, 0.00),
+                                                    child: SvgPicture.asset(
+                                                      'assets/images/Checkbox.svg',
+                                                      width: 8.0,
+                                                      height: 8.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              'I am of legal age (18/21+)',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        fontSize: 12.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 40.0, 0.0, 24.0),
+                                  child: FFButtonWidget(
+                                    onPressed: !_model.isLegalAge
+                                        ? null
+                                        : () async {
+                                            setState(() {
+                                              _model.step = 2;
+                                            });
+                                          },
+                                    text: 'Start',
+                                    options: FFButtonOptions(
+                                      width: double.infinity,
+                                      height: 44.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      disabledTextColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -408,16 +499,14 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),
                                   child: Text(
-                                    FFLocalizations.of(context).getText(
-                                      'ra2saarl' /* Выберите пол */,
-                                    ),
+                                    'Enter your gender',
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          fontFamily: 'Open Sans',
+                                          fontFamily: 'Inter',
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                              .primaryText,
                                           fontSize: 24.0,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -446,7 +535,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                         height: 51.0,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryText,
+                                              .primaryBackground,
                                           borderRadius:
                                               BorderRadius.circular(12.0),
                                           border: Border.all(
@@ -471,18 +560,15 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                               ),
                                             ),
                                             Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'agj09f31' /* Мужчина */,
-                                              ),
+                                              'Man',
                                               style: FlutterFlowTheme.of(
                                                       context)
                                                   .bodyMedium
                                                   .override(
-                                                    fontFamily: 'Open Sans',
+                                                    fontFamily: 'Inter',
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .accent3,
+                                                        .primaryText,
                                                     fontSize: 16.0,
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -512,12 +598,12 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                       height: 51.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                            .primaryBackground,
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                         border: Border.all(
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
+                                              .primaryText,
                                         ),
                                       ),
                                       child: Row(
@@ -537,16 +623,14 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                             ),
                                           ),
                                           Text(
-                                            FFLocalizations.of(context).getText(
-                                              'jmh928i6' /* Женщина */,
-                                            ),
+                                            'Woman',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Open Sans',
+                                                  fontFamily: 'Inter',
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .accent3,
+                                                      .primaryText,
                                                   fontSize: 16.0,
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -579,16 +663,14 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 16.0),
                                     child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        'a8l01j9s' /* Выберите стиль */,
-                                      ),
+                                      'Choose a style',
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Open Sans',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
+                                                .primaryText,
                                             fontSize: 24.0,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -600,8 +682,10 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                 child: StreamBuilder<List<StylesRecord>>(
                                   stream: queryStylesRecord(
                                     queryBuilder: (stylesRecord) =>
-                                        stylesRecord.where('gender',
-                                            isEqualTo: _model.gender),
+                                        stylesRecord.where(
+                                      'gender',
+                                      isEqualTo: _model.gender,
+                                    ),
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -614,7 +698,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                             valueColor:
                                                 AlwaysStoppedAnimation<Color>(
                                               FlutterFlowTheme.of(context)
-                                                  .primary,
+                                                  .primaryText,
                                             ),
                                           ),
                                         ),
@@ -639,49 +723,161 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                         final gridViewStylesRecord =
                                             gridViewStylesRecordList[
                                                 gridViewIndex];
-                                        return InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            setState(() {
-                                              _model.style =
-                                                  gridViewStylesRecord;
-                                              _model.step = 4;
-                                            });
-                                          },
-                                          child: Container(
-                                            width: 100.0,
-                                            height: 100.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .accent1,
-                                              image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: Image.network(
-                                                  gridViewStylesRecord.preview,
-                                                ).image,
+                                        return AuthUserStreamWidget(
+                                          builder: (context) => InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              if (gridViewStylesRecord.isPro &&
+                                                  (currentUserDocument
+                                                          ?.plan?.price ==
+                                                      0.0)) {
+                                                context
+                                                    .pushNamed('Subscribtion');
+                                              } else {
+                                                setState(() {
+                                                  _model.style =
+                                                      gridViewStylesRecord;
+                                                  _model.step = 4;
+                                                });
+                                              }
+                                            },
+                                            child: Container(
+                                              width: 100.0,
+                                              height: 100.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: Image.network(
+                                                    gridViewStylesRecord
+                                                        .preview,
+                                                  ).image,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                                border: Border.all(
+                                                  color: gridViewStylesRecord
+                                                              .isPro &&
+                                                          (currentUserDocument
+                                                                  ?.plan
+                                                                  ?.price ==
+                                                              0.0)
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .lineColor
+                                                      : Color(0x00101213),
+                                                  width: 1.0,
+                                                ),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            child: Align(
                                               alignment: AlignmentDirectional(
-                                                  -0.90, 0.90),
-                                              child: Text(
-                                                gridViewStylesRecord.name,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Open Sans',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .accent3,
+                                                  0.00, 1.00),
+                                              child: Stack(
+                                                children: [
+                                                  Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            -0.80, 1.00),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        if (gridViewStylesRecord
+                                                                .isPro &&
+                                                            (currentUserDocument
+                                                                    ?.plan
+                                                                    ?.price ==
+                                                                0.0))
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.00, 0.80),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          0.0),
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                'assets/images/Group_74.svg',
+                                                                width: 16.0,
+                                                                height: 16.0,
+                                                                fit: BoxFit
+                                                                    .contain,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        if (responsiveVisibility(
+                                                          context: context,
+                                                          phone: false,
+                                                          tablet: false,
+                                                          tabletLandscape:
+                                                              false,
+                                                          desktop: false,
+                                                        ))
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.00, 0.80),
+                                                            child: Text(
+                                                              gridViewStylesRecord
+                                                                  .name,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .accent3,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                      ].divide(
+                                                          SizedBox(width: 8.0)),
                                                     ),
+                                                  ),
+                                                  if (gridViewStylesRecord
+                                                          .isPro &&
+                                                      (currentUserDocument
+                                                              ?.plan?.price ==
+                                                          0.0))
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              1.00, -1.00),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    8.0,
+                                                                    8.0,
+                                                                    8.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          child:
+                                                              SvgPicture.asset(
+                                                            'assets/images/Frame_150.svg',
+                                                            width: 48.0,
+                                                            height: 16.0,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ],
                                               ),
                                             ),
                                           ),
@@ -723,17 +919,15 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 16.0),
                                           child: Text(
-                                            FFLocalizations.of(context).getText(
-                                              'kkdbepdp' /* Загрузите фото */,
-                                            ),
+                                            'Upload a photo',
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
-                                                  fontFamily: 'Open Sans',
+                                                  fontFamily: 'Inter',
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryBackground,
+                                                      .primaryText,
                                                   fontSize: 24.0,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -742,31 +936,27 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                       ],
                                     ),
                                     Text(
-                                      FFLocalizations.of(context).getText(
-                                        'b7pamrxh' /* ✅ Подходящие фото */,
-                                      ),
+                                      '✅ Suitable photos',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Open Sans',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
+                                                .primaryText,
                                           ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 12.0),
                                       child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          'clpdt0se' /* Сделайте селфи или выберите фо... */,
-                                        ),
+                                        'Take a selfie or select a photo from the gallery. The photo should be only close-up of you, only the face and a little of the neck. Without hats and foreign things in the frame.',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Open Sans',
+                                              fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
+                                                      .primaryText,
                                             ),
                                       ),
                                     ),
@@ -779,7 +969,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                           child: Image.asset(
-                                            'assets/images/Rectangle_41.png',
+                                            'assets/images/suitable.png',
                                             width: 100.0,
                                             height: 100.0,
                                             fit: BoxFit.cover,
@@ -789,7 +979,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                           child: Image.asset(
-                                            'assets/images/Rectangle_39.png',
+                                            'assets/images/suitable1.png',
                                             width: 100.0,
                                             height: 100.0,
                                             fit: BoxFit.cover,
@@ -799,7 +989,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                           child: Image.asset(
-                                            'assets/images/Rectangle_40.png',
+                                            'assets/images/suitable2.png',
                                             width: 100.0,
                                             height: 100.0,
                                             fit: BoxFit.cover,
@@ -811,16 +1001,14 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 24.0, 0.0, 0.0),
                                       child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          '1ls0h5du' /* ❌ Неподходящие фото */,
-                                        ),
+                                        '❌  Bad photos',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Open Sans',
+                                              fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
+                                                      .primaryText,
                                             ),
                                       ),
                                     ),
@@ -828,16 +1016,14 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 12.0),
                                       child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          'bjc5rtpk' /* В полный рост, дети, что-то за... */,
-                                        ),
+                                        'In full growth, children, something covers the face, there are other people or animals, nudes.',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Open Sans',
+                                              fontFamily: 'Inter',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
+                                                      .primaryText,
                                             ),
                                       ),
                                     ),
@@ -888,16 +1074,14 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 24.0),
                                     child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        'u3trp0rl' /* Наши серверы будут немедленно ... */,
-                                      ),
+                                      'Our servers will delete photos immediately after Avatars are created.',
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Open Sans',
+                                            fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
+                                                .primaryText,
                                           ),
                                     ),
                                   ),
@@ -977,24 +1161,27 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                             }
                                           }
 
-                                          setState(() {
-                                            _model.step = 5;
-                                            _model.uploaded =
-                                                _model.uploadedFileUrl1;
-                                          });
+                                          if (_model.uploadedFileUrl1 != null &&
+                                              _model.uploadedFileUrl1 != '') {
+                                            setState(() {
+                                              _model.step = 5;
+                                              _model.uploaded =
+                                                  _model.uploadedFileUrl1;
+                                            });
+                                          }
                                         },
                                         child: Container(
                                           width: 48.0,
                                           height: 48.0,
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
-                                                .primaryText,
+                                                .primaryBackground,
                                             borderRadius:
                                                 BorderRadius.circular(12.0),
                                             border: Border.all(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
+                                                      .primaryText,
                                               width: 1.0,
                                             ),
                                           ),
@@ -1093,16 +1280,18 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                 }
                                               }
 
-                                              setState(() {
-                                                _model.step = 5;
-                                                _model.uploaded =
-                                                    _model.uploadedFileUrl2;
-                                              });
+                                              if (_model.uploadedFileUrl2 !=
+                                                      null &&
+                                                  _model.uploadedFileUrl2 !=
+                                                      '') {
+                                                setState(() {
+                                                  _model.step = 5;
+                                                  _model.uploaded =
+                                                      _model.uploadedFileUrl2;
+                                                });
+                                              }
                                             },
-                                            text: FFLocalizations.of(context)
-                                                .getText(
-                                              '4anb70b0' /* Загрузить */,
-                                            ),
+                                            text: 'Загрузить',
                                             options: FFButtonOptions(
                                               width: 130.0,
                                               height: 48.0,
@@ -1112,22 +1301,22 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primary,
+                                                      .primaryBackground,
                                               textStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .titleSmall
                                                       .override(
-                                                        fontFamily: 'Open Sans',
+                                                        fontFamily: 'Inter',
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .accent3,
+                                                                .primaryText,
                                                       ),
                                               elevation: 0.0,
                                               borderSide: BorderSide(
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .primary,
+                                                        .primaryText,
                                                 width: 1.0,
                                               ),
                                               borderRadius:
@@ -1200,153 +1389,168 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     32.0, 0.0, 32.0, 24.0),
                                 child: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'u55fwwgw' /* Убедитесь, что ваше фото соотв... */,
-                                  ),
+                                  'Make sure your photo matches our guidelines so that the result is as expected.',
                                   textAlign: TextAlign.center,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Open Sans',
+                                        fontFamily: 'Inter',
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
+                                            .primaryText,
                                       ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 40.0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    final firestoreBatch =
-                                        FirebaseFirestore.instance.batch();
-                                    try {
-                                      _model.firstAvatart =
-                                          await DebGroup.faceSwapCall.call(
-                                        firstImage: _model.uploaded,
-                                        secondImage: _model.style?.preview,
-                                      );
-                                      if ((_model.firstAvatart?.succeeded ??
-                                          true)) {
-                                        var aiImageRecordReference =
-                                            AiImageRecord.collection.doc();
-                                        firestoreBatch.set(
-                                            aiImageRecordReference,
-                                            createAiImageRecordData(
-                                              creator: currentUserReference,
-                                              refImage: _model.uploadedFileUrl1,
-                                            ));
-                                        _model.generation =
-                                            AiImageRecord.getDocumentFromData(
+                              Builder(
+                                builder: (context) => Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 0.0, 16.0, 40.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      final firestoreBatch =
+                                          FirebaseFirestore.instance.batch();
+                                      try {
+                                        if (currentUserDocument?.plan?.price ==
+                                            0.0) {
+                                          await showAlignedDialog(
+                                            context: context,
+                                            isGlobal: true,
+                                            avoidOverflow: false,
+                                            targetAnchor: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            followerAnchor:
+                                                AlignmentDirectional(0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                            builder: (dialogContext) {
+                                              return Material(
+                                                color: Colors.transparent,
+                                                child: GestureDetector(
+                                                  onTap: () => _model
+                                                          .unfocusNode
+                                                          .canRequestFocus
+                                                      ? FocusScope.of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode)
+                                                      : FocusScope.of(context)
+                                                          .unfocus(),
+                                                  child: DialogWidget(
+                                                    generateFrom:
+                                                        _model.uploaded,
+                                                    generateTo:
+                                                        _model.style?.big,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ).then((value) => setState(() {}));
+                                        } else {
+                                          _model.firstAvatart =
+                                              await DebGroup.faceSwapCall.call(
+                                            firstImage: _model.uploaded,
+                                            secondImage: _model.style?.big,
+                                          );
+                                          if ((_model.firstAvatart?.succeeded ??
+                                              true)) {
+                                            var aiImageRecordReference =
+                                                AiImageRecord.collection.doc();
+                                            firestoreBatch.set(
+                                                aiImageRecordReference,
                                                 createAiImageRecordData(
                                                   creator: currentUserReference,
-                                                  refImage:
-                                                      _model.uploadedFileUrl1,
+                                                  refImage: _model.uploaded,
+                                                ));
+                                            _model.generation = AiImageRecord
+                                                .getDocumentFromData(
+                                                    createAiImageRecordData(
+                                                      creator:
+                                                          currentUserReference,
+                                                      refImage: _model.uploaded,
+                                                    ),
+                                                    aiImageRecordReference);
+
+                                            firestoreBatch.update(
+                                                currentUserReference!,
+                                                createUsersRecordData(
+                                                  plan: createPlanStruct(
+                                                    fieldValues: {
+                                                      'Used':
+                                                          FieldValue.increment(
+                                                              -(1)),
+                                                    },
+                                                    clearUnsetFields: false,
+                                                  ),
+                                                ));
+
+                                            firestoreBatch.set(
+                                                PendingRecord.createDoc(
+                                                    currentUserReference!),
+                                                createPendingRecordData(
+                                                  id: DebGroup.faceSwapCall
+                                                      .id(
+                                                        (_model.firstAvatart
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      )
+                                                      .toString(),
+                                                  genRef: _model
+                                                      .generation?.reference,
+                                                ));
+
+                                            context.goNamed(
+                                              'generate_holder',
+                                              queryParameters: {
+                                                'id': serializeParam(
+                                                  DebGroup.faceSwapCall
+                                                      .id(
+                                                        (_model.firstAvatart
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      )
+                                                      .toString(),
+                                                  ParamType.String,
                                                 ),
-                                                aiImageRecordReference);
-
-                                        firestoreBatch.update(
-                                            currentUserReference!,
-                                            createUsersRecordData(
-                                              plan: createPlanStruct(
-                                                fieldValues: {
-                                                  'Used': FieldValue.increment(
-                                                      -(1)),
-                                                },
-                                                clearUnsetFields: false,
-                                              ),
-                                            ));
-
-                                        firestoreBatch.set(
-                                            PendingRecord.createDoc(
-                                                currentUserReference!),
-                                            createPendingRecordData(
-                                              id: DebGroup.faceSwapCall
-                                                  .id(
-                                                    (_model.firstAvatart
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                  )
-                                                  .toString(),
-                                              genRef:
+                                                'packRef': serializeParam(
                                                   _model.generation?.reference,
-                                            ));
-
-                                        context.goNamed(
-                                          'generate_holder',
-                                          queryParameters: {
-                                            'id': serializeParam(
-                                              DebGroup.faceSwapCall
-                                                  .id(
-                                                    (_model.firstAvatart
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                  )
-                                                  .toString(),
-                                              ParamType.String,
-                                            ),
-                                            'packRef': serializeParam(
-                                              _model.generation?.reference,
-                                              ParamType.DocumentReference,
-                                            ),
-                                          }.withoutNulls,
-                                        );
-                                      } else {
-                                        await showDialog(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: Text((_model.firstAvatart
-                                                          ?.statusCode ??
-                                                      200)
-                                                  .toString()),
-                                              content: Text((_model.firstAvatart
-                                                          ?.jsonBody ??
-                                                      '')
-                                                  .toString()),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('Ok'),
+                                                  ParamType.DocumentReference,
                                                 ),
-                                              ],
+                                              }.withoutNulls,
                                             );
-                                          },
-                                        );
+                                          }
+                                        }
+                                      } finally {
+                                        await firestoreBatch.commit();
                                       }
-                                    } finally {
-                                      await firestoreBatch.commit();
-                                    }
 
-                                    setState(() {});
-                                  },
-                                  text: FFLocalizations.of(context).getText(
-                                    'v4sio1zs' /* Сгенерировать Аватар */,
-                                  ),
-                                  options: FFButtonOptions(
-                                    width: double.infinity,
-                                    height: 48.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Open Sans',
-                                          color: FlutterFlowTheme.of(context)
-                                              .accent3,
-                                        ),
-                                    elevation: 0.0,
-                                    borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      width: 1.0,
+                                      setState(() {});
+                                    },
+                                    text: 'Generate avatar',
+                                    options: FFButtonOptions(
+                                      width: double.infinity,
+                                      height: 48.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                          ),
+                                      elevation: 0.0,
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.0),
                                     ),
-                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
                                 ),
                               ),

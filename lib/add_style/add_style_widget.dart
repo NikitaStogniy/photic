@@ -32,7 +32,6 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
     _model = createModel(context, () => AddStyleModel());
 
     _model.textController ??= TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -47,7 +46,9 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryText,
@@ -55,11 +56,9 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: true,
           title: Text(
-            FFLocalizations.of(context).getText(
-              'lttwe1db' /* Добавить стиль */,
-            ),
+            'Добавить стиль',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Open Sans',
+                  fontFamily: 'Inter',
                   color: Colors.white,
                   fontSize: 22.0,
                 ),
@@ -80,11 +79,9 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
                   autofocus: true,
                   obscureText: false,
                   decoration: InputDecoration(
-                    hintText: FFLocalizations.of(context).getText(
-                      'b7md7w5u' /* Имя */,
-                    ),
+                    hintText: 'Имя',
                     hintStyle: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Open Sans',
+                          fontFamily: 'Inter',
                           color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
                     enabledBorder: OutlineInputBorder(
@@ -126,22 +123,13 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
                 child: FlutterFlowDropDown<String>(
                   controller: _model.dropDownValueController ??=
                       FormFieldController<String>(null),
-                  options: [
-                    FFLocalizations.of(context).getText(
-                      'dwsivql1' /* Мужчина */,
-                    ),
-                    FFLocalizations.of(context).getText(
-                      '3idmd5fn' /* Женщина */,
-                    )
-                  ],
+                  options: ['Man', 'Woman'],
                   onChanged: (val) =>
                       setState(() => _model.dropDownValue = val),
                   width: double.infinity,
                   height: 50.0,
                   textStyle: FlutterFlowTheme.of(context).bodyMedium,
-                  hintText: FFLocalizations.of(context).getText(
-                    '4sew2es5' /* Пожалуйста, выберите... */,
-                  ),
+                  hintText: 'Пожалуйста, выберите...',
                   fillColor: FlutterFlowTheme.of(context).secondaryBackground,
                   elevation: 2.0,
                   borderColor: Colors.transparent,
@@ -154,7 +142,7 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 24.0),
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     final selectedMedia =
@@ -165,7 +153,7 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
                     if (selectedMedia != null &&
                         selectedMedia.every((m) =>
                             validateFileFormat(m.storagePath, context))) {
-                      setState(() => _model.isDataUploading = true);
+                      setState(() => _model.isDataUploading1 = true);
                       var selectedUploadedFiles = <FFUploadedFile>[];
 
                       var downloadUrls = <String>[];
@@ -190,15 +178,15 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
                             .map((u) => u!)
                             .toList();
                       } finally {
-                        _model.isDataUploading = false;
+                        _model.isDataUploading1 = false;
                       }
                       if (selectedUploadedFiles.length ==
                               selectedMedia.length &&
                           downloadUrls.length == selectedMedia.length) {
                         setState(() {
-                          _model.uploadedLocalFile =
+                          _model.uploadedLocalFile1 =
                               selectedUploadedFiles.first;
-                          _model.uploadedFileUrl = downloadUrls.first;
+                          _model.uploadedFileUrl1 = downloadUrls.first;
                         });
                       } else {
                         setState(() {});
@@ -206,18 +194,126 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
                       }
                     }
                   },
-                  text: FFLocalizations.of(context).getText(
-                    'yd798w51' /* Загрузить пример */,
-                  ),
+                  text: 'Загрузить пример',
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 48.0,
                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     iconPadding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Inter',
+                          color: Colors.white,
+                        ),
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).lineColor,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 24.0),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    final selectedMedia =
+                        await selectMediaWithSourceBottomSheet(
+                      context: context,
+                      allowPhoto: true,
+                    );
+                    if (selectedMedia != null &&
+                        selectedMedia.every((m) =>
+                            validateFileFormat(m.storagePath, context))) {
+                      setState(() => _model.isDataUploading2 = true);
+                      var selectedUploadedFiles = <FFUploadedFile>[];
+
+                      var downloadUrls = <String>[];
+                      try {
+                        selectedUploadedFiles = selectedMedia
+                            .map((m) => FFUploadedFile(
+                                  name: m.storagePath.split('/').last,
+                                  bytes: m.bytes,
+                                  height: m.dimensions?.height,
+                                  width: m.dimensions?.width,
+                                  blurHash: m.blurHash,
+                                ))
+                            .toList();
+
+                        downloadUrls = (await Future.wait(
+                          selectedMedia.map(
+                            (m) async =>
+                                await uploadData(m.storagePath, m.bytes),
+                          ),
+                        ))
+                            .where((u) => u != null)
+                            .map((u) => u!)
+                            .toList();
+                      } finally {
+                        _model.isDataUploading2 = false;
+                      }
+                      if (selectedUploadedFiles.length ==
+                              selectedMedia.length &&
+                          downloadUrls.length == selectedMedia.length) {
+                        setState(() {
+                          _model.uploadedLocalFile2 =
+                              selectedUploadedFiles.first;
+                          _model.uploadedFileUrl2 = downloadUrls.first;
+                        });
+                      } else {
+                        setState(() {});
+                        return;
+                      }
+                    }
+                  },
+                  text: 'Загрузить большую',
+                  options: FFButtonOptions(
+                    width: double.infinity,
+                    height: 48.0,
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Inter',
+                          color: Colors.white,
+                        ),
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).lineColor,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 16.0, 0.0),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    await StylesRecord.collection
+                        .doc()
+                        .set(createStylesRecordData(
+                          name: _model.textController.text,
+                          prompt: _model.textController.text,
+                          preview: _model.uploadedFileUrl1,
+                          gender: _model.dropDownValue,
+                          big: _model.uploadedFileUrl2,
+                        ));
+                    setState(() {
+                      _model.textController?.clear();
+                    });
+                  },
+                  text: 'Сохранить',
+                  options: FFButtonOptions(
+                    width: double.infinity,
+                    height: 40.0,
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Open Sans',
+                          fontFamily: 'Inter',
                           color: Colors.white,
                         ),
                     borderSide: BorderSide(
@@ -226,41 +322,6 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
                     ),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                ),
-              ),
-              FFButtonWidget(
-                onPressed: () async {
-                  await StylesRecord.collection
-                      .doc()
-                      .set(createStylesRecordData(
-                        name: _model.textController.text,
-                        prompt: _model.textController.text,
-                        preview: _model.uploadedFileUrl,
-                        gender: _model.dropDownValue,
-                      ));
-                  setState(() {
-                    _model.textController?.clear();
-                  });
-                },
-                text: FFLocalizations.of(context).getText(
-                  '3dxlewo4' /* Сохранить */,
-                ),
-                options: FFButtonOptions(
-                  width: 130.0,
-                  height: 40.0,
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Open Sans',
-                        color: Colors.white,
-                      ),
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
             ],

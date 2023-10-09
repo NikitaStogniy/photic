@@ -41,12 +41,18 @@ class StylesRecord extends FirestoreRecord {
   String get big => _big ?? '';
   bool hasBig() => _big != null;
 
+  // "isPro" field.
+  bool? _isPro;
+  bool get isPro => _isPro ?? false;
+  bool hasIsPro() => _isPro != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _prompt = snapshotData['prompt'] as String?;
     _preview = snapshotData['preview'] as String?;
     _gender = snapshotData['gender'] as String?;
     _big = snapshotData['big'] as String?;
+    _isPro = snapshotData['isPro'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -88,6 +94,7 @@ Map<String, dynamic> createStylesRecordData({
   String? preview,
   String? gender,
   String? big,
+  bool? isPro,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -96,6 +103,7 @@ Map<String, dynamic> createStylesRecordData({
       'preview': preview,
       'gender': gender,
       'big': big,
+      'isPro': isPro,
     }.withoutNulls,
   );
 
@@ -111,12 +119,13 @@ class StylesRecordDocumentEquality implements Equality<StylesRecord> {
         e1?.prompt == e2?.prompt &&
         e1?.preview == e2?.preview &&
         e1?.gender == e2?.gender &&
-        e1?.big == e2?.big;
+        e1?.big == e2?.big &&
+        e1?.isPro == e2?.isPro;
   }
 
   @override
   int hash(StylesRecord? e) => const ListEquality()
-      .hash([e?.name, e?.prompt, e?.preview, e?.gender, e?.big]);
+      .hash([e?.name, e?.prompt, e?.preview, e?.gender, e?.big, e?.isPro]);
 
   @override
   bool isValidKey(Object? o) => o is StylesRecord;

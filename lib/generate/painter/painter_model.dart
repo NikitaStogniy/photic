@@ -10,13 +10,14 @@ import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
+import 'painter_widget.dart' show PainterWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class PainterModel extends FlutterFlowModel {
+class PainterModel extends FlutterFlowModel<PainterWidget> {
   ///  Local state fields for this page.
 
   int? step = 0;
