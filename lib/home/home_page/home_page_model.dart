@@ -32,6 +32,15 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   int? pendingIterator = 0;
 
+  List<DocumentReference> toDelete = [];
+  void addToToDelete(DocumentReference item) => toDelete.add(item);
+  void removeFromToDelete(DocumentReference item) => toDelete.remove(item);
+  void removeAtIndexFromToDelete(int index) => toDelete.removeAt(index);
+  void insertAtIndexInToDelete(int index, DocumentReference item) =>
+      toDelete.insert(index, item);
+  void updateToDeleteAtIndex(int index, Function(DocumentReference) updateFn) =>
+      toDelete[index] = updateFn(toDelete[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

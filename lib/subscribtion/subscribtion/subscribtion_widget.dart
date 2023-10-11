@@ -46,6 +46,8 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
         });
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -506,7 +508,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                   },
                                 );
                               },
-                        text: 'Продолжить',
+                        text: 'Next',
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 40.0,

@@ -25,6 +25,8 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SubscriptionDoneModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

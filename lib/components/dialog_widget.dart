@@ -42,6 +42,8 @@ class _DialogWidgetState extends State<DialogWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DialogModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -194,7 +196,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                         ),
                         AuthUserStreamWidget(
                           builder: (context) => Text(
-                            '${currentUserDocument?.plan?.used?.toString()}/${currentUserDocument?.plan?.limit?.toString()} generation left',
+                            '${(currentUserDocument!.plan.limit - currentUserDocument!.plan.used).toString()}/${currentUserDocument?.plan?.limit?.toString()} generation left',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -274,7 +276,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                                       createUsersRecordData(
                                         plan: createPlanStruct(
                                           fieldValues: {
-                                            'Used': FieldValue.increment(-(1)),
+                                            'Used': FieldValue.increment(1),
                                           },
                                           clearUnsetFields: false,
                                         ),
