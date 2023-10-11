@@ -125,12 +125,12 @@ class _PainterWidgetState extends State<PainterWidget> {
                           }));
                         }
                         return Stack(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          // alignment: AlignmentDirectional(0.0, 0.0),
                           children: [
-                            Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
+                            ConstrainedBox(
+                              constraints: BoxConstraints(maxHeight: 450),
+                              child: Align(
+                                alignment: Alignment.topCenter,
                                 child: WidgetSizeOffsetWrapper(
                                   onSizeChange: (Size size) {
                                     print(
@@ -143,13 +143,13 @@ class _PainterWidgetState extends State<PainterWidget> {
                                       ? Image(
                                           image: image!.image,
                                           fit: BoxFit.scaleDown,
+                                          // height: 400,
                                         )
                                       : Container(),
                                 ),
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: ClipRect(
                                 child: ImageFiltered(
                                   imageFilter: ui.ImageFilter.blur(
@@ -175,224 +175,215 @@ class _PainterWidgetState extends State<PainterWidget> {
                         );
                       }),
                     ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        // Slider(
-                        //   activeColor: FlutterFlowTheme.of(context).lineColor,
-                        //   inactiveColor: FlutterFlowTheme.of(context).accent2,
-                        //   min: 1.0,
-                        //   max: 15.0,
-                        //   value: _model.sliderValue ??= 5.0,
-                        //   onChanged: (newValue) {
-                        //     ;
-                        //     stroke = newValue;
-                        //     newValue =
-                        //         double.parse(newValue.toStringAsFixed(2));
-                        //     setState(() => _model.sliderValue = newValue);
-                        //   },
-                        // ),
-                        if (allSketchesGlobal != null &&
-                            currentSketchGlobal != null &&
-                            strokeSizeGlobal != null)
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height - 450 - 80,
+                      child: ListView(
+                        children: [
+                          if (allSketchesGlobal != null &&
+                              currentSketchGlobal != null &&
+                              strokeSizeGlobal != null)
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 16.0, 16.0, 0.0),
+                              child: Container(
+                                color: Colors.black,
+                                child: GestureDetector(
+                                  onTap: () => {setState(() {})},
+                                  child: Row(
+                                    children: [
+                                      CanvasSideBar(
+                                        currentSketch: currentSketchGlobal!,
+                                        allSketches: allSketchesGlobal!,
+                                        strokeSize: strokeSizeGlobal!,
+                                      ),
+                                      Expanded(
+                                        child: Slider(
+                                          activeColor: Colors.white,
+                                          inactiveColor: Colors.white30,
+                                          value: strokeSizeGlobal!.value,
+                                          min: 0,
+                                          max: 50,
+                                          onChanged: (val) {
+                                            strokeSizeGlobal!.value = val;
+                                            setState(() {});
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 16.0, 16.0, 0.0),
-                            child: Container(
-                              color: Colors.black,
-                              child: GestureDetector(
-                                onTap: () => {setState(() {})},
-                                child: Column(
-                                  children: [
-                                    CanvasSideBar(
-                                      currentSketch: currentSketchGlobal!,
-                                      allSketches: allSketchesGlobal!,
-                                      strokeSize: strokeSizeGlobal!,
+                            child: TextFormField(
+                              controller: _model.textController,
+                              autofocus: true,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: FFLocalizations.of(context).getText(
+                                  'pa5olk83' /* Describe your idea... */,
+                                ),
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Open Sans',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
                                     ),
-                                    Slider(
-                                      activeColor: Colors.white,
-                                      inactiveColor: Colors.white30,
-                                      value: strokeSizeGlobal!.value,
-                                      min: 0,
-                                      max: 50,
-                                      onChanged: (val) {
-                                        strokeSizeGlobal!.value = val;
-                                        setState(() {});
-                                      },
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .override(
+                                      fontFamily: 'Open Sans',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
                                     ),
-                                  ],
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
                                 ),
                               ),
-                            ),
-                          ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 16.0, 16.0, 0.0),
-                          child: TextFormField(
-                            controller: _model.textController,
-                            autofocus: true,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              labelText: FFLocalizations.of(context).getText(
-                                'pa5olk83' /* Describe your idea... */,
-                              ),
-                              labelStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
                                   .override(
                                     fontFamily: 'Open Sans',
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,
                                   ),
-                              hintStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Open Sans',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                  ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).error,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
+                              validator: _model.textControllerValidator
+                                  .asValidator(context),
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Open Sans',
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                ),
-                            validator: _model.textControllerValidator
-                                .asValidator(context),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 16.0, 16.0, 0.0),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              final firestoreBatch =
-                                  FirebaseFirestore.instance.batch();
-                              try {
-                                final uint8list = await getBytes();
-                                _model.getWidget = await uploadResizedMask(
-                                  uint8list!,
-                                  imageOrigHeight!,
-                                  imageOrigWidth!,
-                                );
-                                _model.apiResult74h =
-                                    await DebGroup.applyMaskCall.call(
-                                  imageUrl: _model.image,
-                                  maskImageUrl: _model.getWidget,
-                                  prompt: _model.textController.text,
-                                );
-                                if ((_model.apiResult74h?.succeeded ?? true)) {
-                                  firestoreBatch
-                                      .set(AiImageRecord.collection.doc(), {
-                                    ...createAiImageRecordData(
-                                      creator: currentUserReference,
-                                      firstImage: _model.image,
-                                    ),
-                                    'generatedImages': [
-                                      DebGroup.applyMaskCall.image(
-                                        (_model.apiResult74h?.jsonBody ?? ''),
-                                      )
-                                    ],
-                                  });
-
-                                  context.goNamed('HomePage');
-
-                                  setState(() {
-                                    _model.step = 0;
-                                    _model.image = 'false';
-                                  });
-                                } else {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('Err'),
-                                        content: Text(
-                                            (_model.apiResult74h?.jsonBody ??
-                                                    '')
-                                                .toString()),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 16.0, 16.0, 0.0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                final firestoreBatch =
+                                    FirebaseFirestore.instance.batch();
+                                try {
+                                  final uint8list = await getBytes();
+                                  _model.getWidget = await uploadResizedMask(
+                                    uint8list!,
+                                    imageOrigHeight!,
+                                    imageOrigWidth!,
                                   );
-
-                                  firestoreBatch.set(
-                                      AiImageRecord.collection.doc(),
-                                      createAiImageRecordData(
+                                  _model.apiResult74h =
+                                      await DebGroup.applyMaskCall.call(
+                                    imageUrl: _model.image,
+                                    maskImageUrl: _model.getWidget,
+                                    prompt: _model.textController.text,
+                                  );
+                                  if ((_model.apiResult74h?.succeeded ??
+                                      true)) {
+                                    firestoreBatch
+                                        .set(AiImageRecord.collection.doc(), {
+                                      ...createAiImageRecordData(
                                         creator: currentUserReference,
                                         firstImage: _model.image,
-                                      ));
-                                }
-                              } finally {
-                                await firestoreBatch.commit();
-                              }
+                                      ),
+                                      'generatedImages': [
+                                        DebGroup.applyMaskCall.image(
+                                          (_model.apiResult74h?.jsonBody ?? ''),
+                                        )
+                                      ],
+                                    });
 
-                              setState(() {});
-                            },
-                            text: FFLocalizations.of(context).getText(
-                              '9azkh0ap' /* Edit */,
-                            ),
-                            options: FFButtonOptions(
-                              width: double.infinity,
-                              height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 0.0),
-                              color: Colors.black,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .titleSmall
-                                  .override(
-                                    fontFamily: 'Open Sans',
-                                    color: Colors.white,
-                                  ),
-                              elevation: 3.0,
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                width: 1.0,
+                                    context.goNamed('HomePage');
+
+                                    setState(() {
+                                      _model.step = 0;
+                                      _model.image = 'false';
+                                    });
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: Text('Err'),
+                                          content: Text(
+                                              (_model.apiResult74h?.jsonBody ??
+                                                      '')
+                                                  .toString()),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+
+                                    firestoreBatch.set(
+                                        AiImageRecord.collection.doc(),
+                                        createAiImageRecordData(
+                                          creator: currentUserReference,
+                                          firstImage: _model.image,
+                                        ));
+                                  }
+                                } finally {
+                                  await firestoreBatch.commit();
+                                }
+
+                                setState(() {});
+                              },
+                              text: FFLocalizations.of(context).getText(
+                                '9azkh0ap' /* Edit */,
                               ),
-                              borderRadius: BorderRadius.circular(8.0),
+                              options: FFButtonOptions(
+                                width: double.infinity,
+                                height: 40.0,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 0.0, 24.0, 0.0),
+                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 0.0),
+                                color: Colors.black,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .override(
+                                      fontFamily: 'Open Sans',
+                                      color: Colors.white,
+                                    ),
+                                elevation: 3.0,
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

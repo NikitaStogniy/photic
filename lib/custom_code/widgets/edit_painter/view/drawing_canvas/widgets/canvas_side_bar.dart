@@ -53,27 +53,28 @@ class CanvasSideBar extends HookWidget {
     ));
     final scrollController = useScrollController();
     return FFButtonWidget(
+      icon: Icon(Icons.settings_backup_restore_rounded),
       onPressed: allSketches.value.isNotEmpty
           ? () => undoRedoStack.value.undo()
           : null,
       options: FFButtonOptions(
-        width: 130.0,
+        width: 48.0,
         height: 48.0,
         padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
         iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
         color: Colors.black,
-        textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-              fontFamily: 'Open Sans',
-              color: FlutterFlowTheme.of(context).accent3,
-            ),
-        elevation: 0.0,
-        borderSide: BorderSide(
-          color: FlutterFlowTheme.of(context).primaryBackground,
-          width: 1.0,
-        ),
-        borderRadius: BorderRadius.circular(8.0),
+        // textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+        //       fontFamily: 'Open Sans',
+        //       color: FlutterFlowTheme.of(context).accent3,
+        //     ),
+        // elevation: 0.0,
+        // borderSide: BorderSide(
+        //   color: FlutterFlowTheme.of(context).primaryBackground,
+        //   width: 1.0,
+        // ),
+        // borderRadius: BorderRadius.circular(8.0),
       ),
-      text: 'Undo',
+      text: '',
     );
   }
 
