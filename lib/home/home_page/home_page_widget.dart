@@ -219,10 +219,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             child: Stack(
               children: [
                 StreamBuilder<List<AiImageRecord>>(
-                  stream: queryAiImageRecord(
-                    queryBuilder: (aiImageRecord) => aiImageRecord.where(
-                      'creator',
-                      isEqualTo: currentUserReference,
+                  stream: FFAppState().mainPage(
+                    requestFn: () => queryAiImageRecord(
+                      queryBuilder: (aiImageRecord) => aiImageRecord.where(
+                        'creator',
+                        isEqualTo: currentUserReference,
+                      ),
                     ),
                   ),
                   builder: (context, snapshot) {
@@ -253,7 +255,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       );
                     }
                     return ListView.separated(
-                      padding: EdgeInsets.zero,
+                      padding: EdgeInsets.fromLTRB(
+                        0,
+                        0,
+                        0,
+                        150.0,
+                      ),
                       scrollDirection: Axis.vertical,
                       itemCount: listViewAiImageRecordList.length,
                       separatorBuilder: (_, __) => SizedBox(height: 8.0),

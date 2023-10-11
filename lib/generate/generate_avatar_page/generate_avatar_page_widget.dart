@@ -688,11 +688,14 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                               ),
                               Expanded(
                                 child: StreamBuilder<List<StylesRecord>>(
-                                  stream: queryStylesRecord(
-                                    queryBuilder: (stylesRecord) =>
-                                        stylesRecord.where(
-                                      'gender',
-                                      isEqualTo: _model.gender,
+                                  stream: FFAppState().styles(
+                                    uniqueQueryKey: _model.gender,
+                                    requestFn: () => queryStylesRecord(
+                                      queryBuilder: (stylesRecord) =>
+                                          stylesRecord.where(
+                                        'gender',
+                                        isEqualTo: _model.gender,
+                                      ),
                                     ),
                                   ),
                                   builder: (context, snapshot) {

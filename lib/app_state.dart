@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'flutter_flow/request_manager.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import 'backend/api_requests/api_manager.dart';
@@ -60,6 +61,36 @@ class FFAppState extends ChangeNotifier {
     _PrivacyPolicy = _value;
     prefs.setString('ff_PrivacyPolicy', _value);
   }
+
+  final _mainPageManager = StreamRequestManager<List<AiImageRecord>>();
+  Stream<List<AiImageRecord>> mainPage({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<List<AiImageRecord>> Function() requestFn,
+  }) =>
+      _mainPageManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearMainPageCache() => _mainPageManager.clear();
+  void clearMainPageCacheKey(String? uniqueKey) =>
+      _mainPageManager.clearRequest(uniqueKey);
+
+  final _stylesManager = StreamRequestManager<List<StylesRecord>>();
+  Stream<List<StylesRecord>> styles({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Stream<List<StylesRecord>> Function() requestFn,
+  }) =>
+      _stylesManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearStylesCache() => _stylesManager.clear();
+  void clearStylesCacheKey(String? uniqueKey) =>
+      _stylesManager.clearRequest(uniqueKey);
 }
 
 LatLng? _latLngFromString(String? val) {
