@@ -32,6 +32,7 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
     _model = createModel(context, () => AddStyleModel());
 
     _model.textController ??= TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

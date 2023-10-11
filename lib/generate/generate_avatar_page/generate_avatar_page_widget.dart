@@ -44,6 +44,8 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
         });
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -366,9 +368,15 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    setState(() {
-                                      _model.isLegalAge = true;
-                                    });
+                                    if (_model.isLegalAge) {
+                                      setState(() {
+                                        _model.isLegalAge = false;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        _model.isLegalAge = true;
+                                      });
+                                    }
                                   },
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -680,11 +688,14 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                               ),
                               Expanded(
                                 child: StreamBuilder<List<StylesRecord>>(
-                                  stream: queryStylesRecord(
-                                    queryBuilder: (stylesRecord) =>
-                                        stylesRecord.where(
-                                      'gender',
-                                      isEqualTo: _model.gender,
+                                  stream: FFAppState().styles(
+                                    uniqueQueryKey: _model.gender,
+                                    requestFn: () => queryStylesRecord(
+                                      queryBuilder: (stylesRecord) =>
+                                          stylesRecord.where(
+                                        'gender',
+                                        isEqualTo: _model.gender,
+                                      ),
                                     ),
                                   ),
                                   builder: (context, snapshot) {
@@ -1291,7 +1302,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                 });
                                               }
                                             },
-                                            text: 'Загрузить',
+                                            text: 'Upload',
                                             options: FFButtonOptions(
                                               width: 130.0,
                                               height: 48.0,
@@ -1477,7 +1488,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                     fieldValues: {
                                                       'Used':
                                                           FieldValue.increment(
-                                                              -(1)),
+                                                              1),
                                                     },
                                                     clearUnsetFields: false,
                                                   ),

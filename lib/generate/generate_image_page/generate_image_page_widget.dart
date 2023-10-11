@@ -31,6 +31,7 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
     _model = createModel(context, () => GenerateImagePageModel());
 
     _model.textController ??= TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

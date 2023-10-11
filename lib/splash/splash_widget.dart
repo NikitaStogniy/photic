@@ -32,6 +32,8 @@ class _SplashWidgetState extends State<SplashWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setDarkModeSetting(context, ThemeMode.dark);
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -117,168 +119,217 @@ class _SplashWidgetState extends State<SplashWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),
                                   child: Row(
-                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 4.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            setState(() {
-                                              _model.isCheck = true;
-                                            });
-                                          },
-                                          child: Container(
-                                            width: 16.0,
-                                            height: 16.0,
-                                            decoration: BoxDecoration(
-                                              color:
+                                      Expanded(
+                                        child: Wrap(
+                                          spacing: 4.0,
+                                          runSpacing: 4.0,
+                                          alignment: WrapAlignment.start,
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.start,
+                                          direction: Axis.horizontal,
+                                          runAlignment: WrapAlignment.start,
+                                          verticalDirection:
+                                              VerticalDirection.down,
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 4.0, 0.0),
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  if (_model.isCheck) {
+                                                    setState(() {
+                                                      _model.isCheck = false;
+                                                    });
+                                                  } else {
+                                                    setState(() {
+                                                      _model.isCheck = true;
+                                                    });
+                                                  }
+                                                },
+                                                child: Container(
+                                                  width: 16.0,
+                                                  height: 16.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryBackground,
+                                                    shape: BoxShape.circle,
+                                                    border: Border.all(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                    ),
+                                                  ),
+                                                  child: Visibility(
+                                                    visible: _model.isCheck,
+                                                    child: Container(
+                                                      width: 100.0,
+                                                      height: 100.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              'I Agree with',
+                                              style:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryBackground,
-                                              shape: BoxShape.circle,
-                                              border: Border.all(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
+                                                      .bodyMedium,
                                             ),
-                                            child: Visibility(
-                                              visible: _model.isCheck,
-                                              child: Container(
-                                                width: 100.0,
-                                                height: 100.0,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
+                                            Builder(
+                                              builder: (context) => InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  await showAlignedDialog(
+                                                    context: context,
+                                                    isGlobal: true,
+                                                    avoidOverflow: false,
+                                                    targetAnchor:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    followerAnchor:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    builder: (dialogContext) {
+                                                      return Material(
+                                                        color:
+                                                            Colors.transparent,
+                                                        child: GestureDetector(
+                                                          onTap: () => _model
+                                                                  .unfocusNode
+                                                                  .canRequestFocus
+                                                              ? FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      _model
+                                                                          .unfocusNode)
+                                                              : FocusScope.of(
+                                                                      context)
+                                                                  .unfocus(),
+                                                          child: PopupWidget(
+                                                            headline:
+                                                                'TERMS OF USE',
+                                                            text: 'Terms',
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ).then((value) =>
+                                                      setState(() {}));
+                                                },
+                                                child: Text(
+                                                  'Terms of Use',
+                                                  style: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryText,
-                                                  shape: BoxShape.circle,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                      ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'I Agree with',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                      ),
-                                      Builder(
-                                        builder: (context) => InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await showAlignedDialog(
-                                              context: context,
-                                              isGlobal: true,
-                                              avoidOverflow: false,
-                                              targetAnchor:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              followerAnchor:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              builder: (dialogContext) {
-                                                return Material(
-                                                  color: Colors.transparent,
-                                                  child: GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
-                                                    child: PopupWidget(
-                                                      headline: 'TERMS OF USE',
-                                                      text: 'Terms',
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => setState(() {}));
-                                          },
-                                          child: Text(
-                                            'Terms of Use',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  decoration:
-                                                      TextDecoration.underline,
+                                            Text(
+                                              'and',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium,
+                                            ),
+                                            Builder(
+                                              builder: (context) => InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  await showAlignedDialog(
+                                                    context: context,
+                                                    isGlobal: true,
+                                                    avoidOverflow: false,
+                                                    targetAnchor:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    followerAnchor:
+                                                        AlignmentDirectional(
+                                                                0.0, 0.0)
+                                                            .resolve(
+                                                                Directionality.of(
+                                                                    context)),
+                                                    builder: (dialogContext) {
+                                                      return Material(
+                                                        color:
+                                                            Colors.transparent,
+                                                        child: GestureDetector(
+                                                          onTap: () => _model
+                                                                  .unfocusNode
+                                                                  .canRequestFocus
+                                                              ? FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      _model
+                                                                          .unfocusNode)
+                                                              : FocusScope.of(
+                                                                      context)
+                                                                  .unfocus(),
+                                                          child: PopupWidget(
+                                                            headline:
+                                                                'PRIVACY POLICY',
+                                                            text: 'Privacy',
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  ).then((value) =>
+                                                      setState(() {}));
+                                                },
+                                                child: Text(
+                                                  'Privacy policy',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                      ),
                                                 ),
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'and',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
-                                      ),
-                                      Builder(
-                                        builder: (context) => InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await showAlignedDialog(
-                                              context: context,
-                                              isGlobal: true,
-                                              avoidOverflow: false,
-                                              targetAnchor:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              followerAnchor:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              builder: (dialogContext) {
-                                                return Material(
-                                                  color: Colors.transparent,
-                                                  child: GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
-                                                    child: PopupWidget(
-                                                      headline:
-                                                          'PRIVACY POLICY',
-                                                      text: 'Privacy',
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            ).then((value) => setState(() {}));
-                                          },
-                                          child: Text(
-                                            'Privacy policy',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                          ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ].divide(SizedBox(width: 4.0)),
