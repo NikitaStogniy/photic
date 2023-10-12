@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/models/drawing_mode.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_canvas/models/drawing_mode.dart';
 
 class Sketch {
   final List<Offset> points;

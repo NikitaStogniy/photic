@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/rendering.dart';
-import 'package:photic/custom_code/actions/get_my_custom_widge_current_value.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/widgets/canvas_side_bar.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_widget.dart';
-import 'package:photic/generate/painter/source_image.dart';
+import 'package:photiq/custom_code/actions/get_my_custom_widge_current_value.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_canvas/widgets/canvas_side_bar.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_widget.dart';
+import 'package:photiq/generate/painter/source_image.dart';
 
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
@@ -16,13 +16,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui' as ui;
-import '/custom_code/actions/index.dart' as actions;
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'painter_model.dart';
 export 'painter_model.dart';
@@ -222,9 +217,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                               autofocus: true,
                               obscureText: false,
                               decoration: InputDecoration(
-                                labelText: FFLocalizations.of(context).getText(
-                                  'pa5olk83' /* Describe your idea... */,
-                                ),
+                                labelText: 'Describe your idea',
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
@@ -358,9 +351,7 @@ class _PainterWidgetState extends State<PainterWidget> {
 
                                 setState(() {});
                               },
-                              text: FFLocalizations.of(context).getText(
-                                '9azkh0ap' /* Edit */,
-                              ),
+                              text: 'Edit',
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 40.0,

@@ -4,15 +4,14 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/drawing_canvas.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/models/drawing_mode.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/models/sketch.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_canvas/drawing_canvas.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_canvas/models/drawing_mode.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_canvas/models/sketch.dart';
 
 GlobalKey? canvasKey;
 ValueNotifier<Sketch?>? currentSketchGlobal;
 ValueNotifier<List<Sketch>>? allSketchesGlobal;
 ValueNotifier<double>? strokeSizeGlobal;
-
 
 class DrawingWidget extends HookWidget {
   const DrawingWidget({required this.height, required this.width, Key? key})
@@ -31,7 +30,6 @@ class DrawingWidget extends HookWidget {
     final filled = useState<bool>(false);
     final polygonSides = useState<int>(3);
     final backgroundImage = useState<ui.Image?>(null);
-
 
     final canvasGlobalKey = GlobalKey();
     canvasKey = canvasGlobalKey;
@@ -74,6 +72,4 @@ class DrawingWidget extends HookWidget {
     Uint8List? pngBytes = byteData?.buffer.asUint8List();
     return pngBytes;
   }
-
-
 }

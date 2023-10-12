@@ -1,5 +1,5 @@
 // Automatic FlutterFlow imports
-import 'package:photic/backend/firebase_storage/storage.dart';
+import 'package:photiq/backend/firebase_storage/storage.dart';
 
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';

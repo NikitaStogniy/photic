@@ -3,10 +3,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/models/drawing_mode.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/models/sketch.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_widget.dart';
-import 'package:photic/generate/painter/painter_widget.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_canvas/models/drawing_mode.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_canvas/models/sketch.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_widget.dart';
+import 'package:photiq/generate/painter/painter_widget.dart';
 
 class DrawingCanvas extends HookWidget {
   final double height;

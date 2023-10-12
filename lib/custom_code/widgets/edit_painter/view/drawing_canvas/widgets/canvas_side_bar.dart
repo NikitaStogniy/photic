@@ -11,12 +11,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/models/drawing_mode.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/models/sketch.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_canvas/widgets/color_palette.dart';
-import 'package:photic/custom_code/widgets/edit_painter/view/drawing_widget.dart';
-import 'package:photic/flutter_flow/flutter_flow_theme.dart';
-import 'package:photic/flutter_flow/flutter_flow_widgets.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_canvas/models/drawing_mode.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_canvas/models/sketch.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_canvas/widgets/color_palette.dart';
+import 'package:photiq/custom_code/widgets/edit_painter/view/drawing_widget.dart';
+import 'package:photiq/flutter_flow/flutter_flow_theme.dart';
+import 'package:photiq/flutter_flow/flutter_flow_widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CanvasSideBar extends HookWidget {
