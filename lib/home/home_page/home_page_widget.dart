@@ -7,12 +7,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/generate/generate_bottomsheet/generate_bottomsheet_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
@@ -75,26 +76,30 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         null))) {
               firestoreBatch
                   .update(_model.pending![_model.pendingIterator!].genRef!, {
-                'generatedImages': FieldValue.arrayUnion([
-                  DebGroup.statusCheckCall
-                                  .result(
-                                    (_model.statusApi?.jsonBody ?? ''),
-                                  )
-                                  .toString() !=
-                              null &&
-                          DebGroup.statusCheckCall
-                                  .result(
-                                    (_model.statusApi?.jsonBody ?? ''),
-                                  )
-                                  .toString() !=
-                              ''
-                      ? DebGroup.statusCheckCall.result(
-                          (_model.statusApi?.jsonBody ?? ''),
-                        )
-                      : DebGroup.statusCheckCall.textResult(
-                          (_model.statusApi?.jsonBody ?? ''),
-                        )
-                ]),
+                ...mapToFirestore(
+                  {
+                    'generatedImages': FieldValue.arrayUnion([
+                      DebGroup.statusCheckCall
+                                      .result(
+                                        (_model.statusApi?.jsonBody ?? ''),
+                                      )
+                                      .toString() !=
+                                  null &&
+                              DebGroup.statusCheckCall
+                                      .result(
+                                        (_model.statusApi?.jsonBody ?? ''),
+                                      )
+                                      .toString() !=
+                                  ''
+                          ? DebGroup.statusCheckCall.result(
+                              (_model.statusApi?.jsonBody ?? ''),
+                            )
+                          : DebGroup.statusCheckCall.textResult(
+                              (_model.statusApi?.jsonBody ?? ''),
+                            )
+                    ]),
+                  },
+                ),
               });
               firestoreBatch
                   .delete(_model.pending![_model.pendingIterator!].reference);
@@ -127,36 +132,83 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
           automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: Icon(
-              Icons.settings,
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              context.pushNamed(
-                'settingsPage',
-                extra: <String, dynamic>{
-                  kTransitionInfoKey: TransitionInfo(
-                    hasTransition: true,
-                    transitionType: PageTransitionType.fade,
-                    duration: Duration(milliseconds: 0),
+          leading: Stack(
+            children: [
+              if (_model.toDelete.length == 0)
+                FlutterFlowIconButton(
+                  borderRadius: 30.0,
+                  borderWidth: 1.0,
+                  buttonSize: 60.0,
+                  icon: Icon(
+                    Icons.settings,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    size: 30.0,
                   ),
-                },
-              );
-            },
+                  onPressed: () async {
+                    context.pushNamed(
+                      'settingsPage',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.fade,
+                          duration: Duration(milliseconds: 0),
+                        ),
+                      },
+                    );
+                  },
+                ),
+              if (_model.toDelete.length > 0)
+                FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30.0,
+                  borderWidth: 1.0,
+                  buttonSize: 60.0,
+                  icon: Icon(
+                    Icons.chevron_left,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    size: 30.0,
+                  ),
+                  onPressed: () async {
+                    setState(() {
+                      _model.toDelete = [];
+                    });
+                  },
+                ),
+            ],
           ),
-          actions: [],
+          actions: [
+            Visibility(
+              visible: _model.toDelete.length > 0,
+              child: FlutterFlowIconButton(
+                borderRadius: 100.0,
+                borderWidth: 0.0,
+                buttonSize: 60.0,
+                icon: Icon(
+                  Icons.delete,
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  size: 24.0,
+                ),
+                onPressed: () async {
+                  while (_model.toDelete.length > 0) {
+                    await _model.toDelete.last.delete();
+                    setState(() {
+                      _model.removeAtIndexFromToDelete(
+                          _model.toDelete.length - 1);
+                    });
+                  }
+                },
+              ),
+            ),
+          ],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -166,313 +218,361 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             decoration: BoxDecoration(),
             child: Stack(
               children: [
-                Align(
-                  alignment: AlignmentDirectional(0.00, 0.00),
-                  child: Container(
-                    constraints: BoxConstraints(
-                      maxWidth: 1200.0,
-                    ),
-                    decoration: BoxDecoration(),
-                    child: StreamBuilder<List<AiImageRecord>>(
-                      stream: queryAiImageRecord(
-                        queryBuilder: (aiImageRecord) => aiImageRecord
-                            .where('creator', isEqualTo: currentUserReference),
+                StreamBuilder<List<AiImageRecord>>(
+                  stream: FFAppState().mainPage(
+                    requestFn: () => queryAiImageRecord(
+                      queryBuilder: (aiImageRecord) => aiImageRecord.where(
+                        'creator',
+                        isEqualTo: currentUserReference,
                       ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
-                              ),
+                    ),
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50.0,
+                          height: 50.0,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primaryText,
                             ),
-                          );
-                        }
-                        List<AiImageRecord> listViewAiImageRecordList =
-                            snapshot.data!;
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.vertical,
-                          itemCount: listViewAiImageRecordList.length,
-                          itemBuilder: (context, listViewIndex) {
-                            final listViewAiImageRecord =
-                                listViewAiImageRecordList[listViewIndex];
-                            return Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 0.0, 16.0, 8.0),
-                                child: Container(
-                                  height: 160.0,
-                                  constraints: BoxConstraints(
-                                    maxWidth: 400.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context).accent2,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    child: Stack(
-                                      children: [
-                                        if (listViewAiImageRecord
-                                                .generatedImages.length >
-                                            0)
-                                          Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            elevation: 0.0,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            child: Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.00, 0.00),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  if (listViewAiImageRecord
-                                                          .generatedImages
-                                                          .length >=
-                                                      1)
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.00, 0.00),
-                                                        child: Container(
-                                                          height:
-                                                              double.infinity,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .accent2,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  CachedNetworkImageProvider(
-                                                                listViewAiImageRecord
-                                                                    .generatedImages[0],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  if (listViewAiImageRecord
-                                                          .generatedImages
-                                                          .length >=
-                                                      2)
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.00, 0.00),
-                                                        child: Container(
-                                                          height:
-                                                              double.infinity,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .accent2,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  CachedNetworkImageProvider(
-                                                                listViewAiImageRecord
-                                                                    .generatedImages[1],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  if (listViewAiImageRecord
-                                                          .generatedImages
-                                                          .length >=
-                                                      3)
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.00, 0.00),
-                                                        child: Container(
-                                                          height:
-                                                              double.infinity,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .accent2,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  CachedNetworkImageProvider(
-                                                                listViewAiImageRecord
-                                                                    .generatedImages[2],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  if (listViewAiImageRecord
-                                                          .generatedImages
-                                                          .length >=
-                                                      4)
-                                                    Expanded(
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.00, 0.00),
-                                                        child: Container(
-                                                          height:
-                                                              double.infinity,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .accent2,
-                                                            image:
-                                                                DecorationImage(
-                                                              fit: BoxFit.cover,
-                                                              image:
-                                                                  CachedNetworkImageProvider(
-                                                                listViewAiImageRecord
-                                                                    .generatedImages[3],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                ],
-                                              ),
-                                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    List<AiImageRecord> listViewAiImageRecordList =
+                        snapshot.data!;
+                    if (listViewAiImageRecordList.isEmpty) {
+                      return Center(
+                        child: Image.asset(
+                          'assets/images/empty_main.png',
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      );
+                    }
+                    return ListView.separated(
+                      padding: EdgeInsets.fromLTRB(
+                        0,
+                        0,
+                        0,
+                        150.0,
+                      ),
+                      scrollDirection: Axis.vertical,
+                      itemCount: listViewAiImageRecordList.length,
+                      separatorBuilder: (_, __) => SizedBox(height: 8.0),
+                      itemBuilder: (context, listViewIndex) {
+                        final listViewAiImageRecord =
+                            listViewAiImageRecordList[listViewIndex];
+                        return Align(
+                          alignment: AlignmentDirectional(0.00, 0.00),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 8.0),
+                            child: Container(
+                              height: 160.0,
+                              constraints: BoxConstraints(
+                                maxWidth: 400.0,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: Stack(
+                                  children: [
+                                    if (listViewAiImageRecord
+                                            .generatedImages.length ==
+                                        0)
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(0.00, 0.00),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(16.0),
                                           ),
-                                        Align(
                                           alignment:
                                               AlignmentDirectional(0.00, 0.00),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                'packPage',
-                                                queryParameters: {
-                                                  'pack': serializeParam(
-                                                    listViewAiImageRecord,
-                                                    ParamType.Document,
-                                                  ),
-                                                  'packNum': serializeParam(
-                                                    valueOrDefault<String>(
-                                                      (listViewIndex + 1)
-                                                          .toString(),
-                                                      '1',
-                                                    ),
-                                                    ParamType.String,
-                                                  ),
-                                                }.withoutNulls,
-                                                extra: <String, dynamic>{
-                                                  'pack': listViewAiImageRecord,
-                                                  kTransitionInfoKey:
-                                                      TransitionInfo(
-                                                    hasTransition: true,
-                                                    transitionType:
-                                                        PageTransitionType.fade,
-                                                    duration: Duration(
-                                                        milliseconds: 0),
-                                                  ),
-                                                },
-                                              );
-                                            },
-                                            child: Container(
-                                              width: double.infinity,
-                                              height: double.infinity,
-                                              decoration: BoxDecoration(
-                                                color: Color(0x1A101213),
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              child: Align(
-                                                alignment: AlignmentDirectional(
-                                                    -0.90, 0.70),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      'Генерация #${(listViewAiImageRecord.generatedImages.length + 1).toString()}',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Open Sans',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBackground,
-                                                                fontSize: 16.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
-                                                    ),
-                                                    if (listViewAiImageRecord
-                                                            .generatedImages
-                                                            .length >
-                                                        1)
-                                                      Text(
-                                                        '${listViewAiImageRecord.generatedImages.length.toString()} Аватара',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Open Sans',
-                                                                  color: Color(
-                                                                      0xFF8C8C8C),
-                                                                ),
-                                                      ),
-                                                  ],
-                                                ),
-                                              ),
+                                          child: Align(
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
+                                            child: Lottie.asset(
+                                              'assets/lottie_animations/Loader_main_screen.json',
+                                              width: 200.0,
+                                              height: 100.0,
+                                              fit: BoxFit.contain,
+                                              animate: true,
                                             ),
                                           ),
                                         ),
-                                      ],
+                                      ),
+                                    if (listViewAiImageRecord
+                                            .generatedImages.length >
+                                        0)
+                                      Container(
+                                        width: double.infinity,
+                                        height: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: Image.network(
+                                              listViewAiImageRecord
+                                                  .generatedImages.first,
+                                            ).image,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                      ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.00, 0.00),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          if (listViewAiImageRecord
+                                                  .generatedImages.length ==
+                                              0) {
+                                            HapticFeedback.lightImpact();
+                                          } else {
+                                            context.pushNamed(
+                                              'packPage',
+                                              queryParameters: {
+                                                'pack': serializeParam(
+                                                  listViewAiImageRecord,
+                                                  ParamType.Document,
+                                                ),
+                                                'packNum': serializeParam(
+                                                  valueOrDefault<String>(
+                                                    (listViewIndex + 1)
+                                                        .toString(),
+                                                    '1',
+                                                  ),
+                                                  ParamType.String,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'pack': listViewAiImageRecord,
+                                                kTransitionInfoKey:
+                                                    TransitionInfo(
+                                                  hasTransition: true,
+                                                  transitionType:
+                                                      PageTransitionType.fade,
+                                                  duration:
+                                                      Duration(milliseconds: 0),
+                                                ),
+                                              },
+                                            );
+                                          }
+                                        },
+                                        onLongPress: () async {
+                                          setState(() {
+                                            _model.addToToDelete(
+                                                listViewAiImageRecord
+                                                    .reference);
+                                          });
+                                        },
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: Color(0x1A101213),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          child: Align(
+                                            alignment: AlignmentDirectional(
+                                                -0.90, 0.70),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Generation #${(listViewIndex + 1).toString()}',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    if (_model.toDelete.length > 0)
+                                      Builder(
+                                        builder: (context) {
+                                          if (_model.toDelete.contains(
+                                              listViewAiImageRecord
+                                                  .reference)) {
+                                            return Visibility(
+                                              visible:
+                                                  _model.toDelete.length > 0,
+                                              child: Align(
+                                                alignment: AlignmentDirectional(
+                                                    -0.90, -0.90),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    if (_model.toDelete.contains(
+                                                        listViewAiImageRecord
+                                                            .reference)) {
+                                                      setState(() {
+                                                        _model.removeFromToDelete(
+                                                            listViewAiImageRecord
+                                                                .reference);
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        _model.addToToDelete(
+                                                            listViewAiImageRecord
+                                                                .reference);
+                                                      });
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: 24.0,
+                                                    height: 24.0,
+                                                    decoration: BoxDecoration(
+                                                      color: _model.toDelete
+                                                              .contains(
+                                                                  listViewAiImageRecord
+                                                                      .reference)
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryBackground
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryBackground,
+                                                      shape: BoxShape.circle,
+                                                      border: Border.all(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                      ),
+                                                    ),
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.00, 0.00),
+                                                      child: Container(
+                                                        width: 18.0,
+                                                        height: 18.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          } else {
+                                            return Visibility(
+                                              visible:
+                                                  _model.toDelete.length > 0,
+                                              child: Align(
+                                                alignment: AlignmentDirectional(
+                                                    -0.90, -0.90),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    if (_model.toDelete.contains(
+                                                        listViewAiImageRecord
+                                                            .reference)) {
+                                                      setState(() {
+                                                        _model.removeFromToDelete(
+                                                            listViewAiImageRecord
+                                                                .reference);
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        _model.addToToDelete(
+                                                            listViewAiImageRecord
+                                                                .reference);
+                                                      });
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: 24.0,
+                                                    height: 24.0,
+                                                    decoration: BoxDecoration(
+                                                      color: _model.toDelete
+                                                              .contains(
+                                                                  listViewAiImageRecord
+                                                                      .reference)
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryBackground,
+                                                      shape: BoxShape.circle,
+                                                      border: Border.all(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                  ],
                                 ),
                               ),
-                            );
-                          },
+                            ),
+                          ),
                         );
                       },
-                    ),
-                  ),
+                    );
+                  },
                 ),
                 Align(
                   alignment: AlignmentDirectional(0.00, 1.00),
@@ -489,6 +589,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Align(
                             alignment: AlignmentDirectional(0.00, 0.00),
@@ -506,8 +607,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       context: context,
                                       builder: (context) {
                                         return GestureDetector(
-                                          onTap: () => FocusScope.of(context)
-                                              .requestFocus(_model.unfocusNode),
+                                          onTap: () => _model
+                                                  .unfocusNode.canRequestFocus
+                                              ? FocusScope.of(context)
+                                                  .requestFocus(
+                                                      _model.unfocusNode)
+                                              : FocusScope.of(context)
+                                                  .unfocus(),
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
@@ -526,9 +632,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     context.goNamed('Subscribtion');
                                   }
                                 },
-                                text: FFLocalizations.of(context).getText(
-                                  '47rlkssg' /* Сгенерировать */,
-                                ),
+                                text: 'Generate',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 48.0,
@@ -537,18 +641,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                      .primaryBackground,
                                   textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
+                                      .labelLarge
                                       .override(
-                                        fontFamily: 'Open Sans',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        fontFamily: 'Inter',
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                   elevation: 0.0,
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                        .primaryText,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),

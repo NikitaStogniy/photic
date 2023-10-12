@@ -1,4 +1,4 @@
-# photic
+# photiq
 
 A new Flutter project.
 

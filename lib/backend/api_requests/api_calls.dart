@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import '../../flutter_flow/flutter_flow_util.dart';
-
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -39,7 +38,8 @@ class StableDiffusionCall {
       apiUrl: '${DebGroup.baseUrl}/flow/sd/execute',
       callType: ApiCallType.POST,
       headers: {
-        ...DebGroup.headers,
+        'Authorization':
+            'Basic OGIxMWM3ZmEtZmVlMy00YWUwLWEwMmYtZjBlNTY2MjA0MGY4OlFSZ0VWd3RCb2hIQm5JdnoyQzRZQnpoY3FhUEpMSg==',
       },
       params: {},
       body: ffApiRequestBody,
@@ -72,7 +72,8 @@ class MidjourneyCall {
       apiUrl: '${DebGroup.baseUrl}/flow/mj/execute',
       callType: ApiCallType.POST,
       headers: {
-        ...DebGroup.headers,
+        'Authorization':
+            'Basic OGIxMWM3ZmEtZmVlMy00YWUwLWEwMmYtZjBlNTY2MjA0MGY4OlFSZ0VWd3RCb2hIQm5JdnoyQzRZQnpoY3FhUEpMSg==',
       },
       params: {},
       body: ffApiRequestBody,
@@ -105,7 +106,8 @@ class FaceSwapCall {
       apiUrl: '${DebGroup.baseUrl}/flow/swap/execute',
       callType: ApiCallType.POST,
       headers: {
-        ...DebGroup.headers,
+        'Authorization':
+            'Basic OGIxMWM3ZmEtZmVlMy00YWUwLWEwMmYtZjBlNTY2MjA0MGY4OlFSZ0VWd3RCb2hIQm5JdnoyQzRZQnpoY3FhUEpMSg==',
       },
       params: {},
       body: ffApiRequestBody,
@@ -132,7 +134,8 @@ class StatusCheckCall {
       apiUrl: '${DebGroup.baseUrl}/task/${id}',
       callType: ApiCallType.GET,
       headers: {
-        ...DebGroup.headers,
+        'Authorization':
+            'Basic OGIxMWM3ZmEtZmVlMy00YWUwLWEwMmYtZjBlNTY2MjA0MGY4OlFSZ0VWd3RCb2hIQm5JdnoyQzRZQnpoY3FhUEpMSg==',
       },
       params: {},
       returnBody: true,
@@ -181,7 +184,8 @@ class ApplyMaskCall {
       apiUrl: '${DebGroup.baseUrl}/flow/photiq/execute',
       callType: ApiCallType.POST,
       headers: {
-        ...DebGroup.headers,
+        'Authorization':
+            'Basic OGIxMWM3ZmEtZmVlMy00YWUwLWEwMmYtZjBlNTY2MjA0MGY4OlFSZ0VWd3RCb2hIQm5JdnoyQzRZQnpoY3FhUEpMSg==',
       },
       params: {},
       body: ffApiRequestBody,

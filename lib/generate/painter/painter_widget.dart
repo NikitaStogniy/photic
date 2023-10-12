@@ -74,7 +74,9 @@ class _PainterWidgetState extends State<PainterWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.black,
@@ -82,11 +84,9 @@ class _PainterWidgetState extends State<PainterWidget> {
           backgroundColor: Colors.black,
           automaticallyImplyLeading: true,
           title: Text(
-            FFLocalizations.of(context).getText(
-              'qiox6dmz' /* Inpaint */,
-            ),
+            'Inpaint',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Open Sans',
+                  fontFamily: 'Inter',
                   color: Colors.white,
                   fontSize: 22.0,
                 ),
@@ -239,12 +239,15 @@ class _PainterWidgetState extends State<PainterWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
                                     ),
+
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
+
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,
                                     width: 1.0,
                                   ),
+
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
@@ -468,9 +471,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                                     _model.image = _model.uploadedFileUrl2;
                                   });
                                 },
-                                text: FFLocalizations.of(context).getText(
-                                  'qreav30u' /* Загрузить */,
-                                ),
+                                text: 'Upload',
                                 options: FFButtonOptions(
                                   width: 130.0,
                                   height: 48.0,
@@ -478,18 +479,19 @@ class _PainterWidgetState extends State<PainterWidget> {
                                       0.0, 0.0, 0.0, 0.0),
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  color: Colors.black,
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        fontFamily: 'Open Sans',
+                                        fontFamily: 'Inter',
                                         color: FlutterFlowTheme.of(context)
-                                            .accent3,
+                                            .primaryText,
                                       ),
                                   elevation: 0.0,
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                        .primaryText,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(8.0),

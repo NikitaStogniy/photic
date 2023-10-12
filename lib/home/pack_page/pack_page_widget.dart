@@ -1,14 +1,15 @@
-import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
+import '/components/dialog_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/permissions_util.dart';
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'pack_page_model.dart';
 export 'pack_page_model.dart';
@@ -53,7 +54,9 @@ class _PackPageWidgetState extends State<PackPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.black,
@@ -66,7 +69,7 @@ class _PackPageWidgetState extends State<PackPageWidget> {
             buttonSize: 60.0,
             icon: Icon(
               Icons.close,
-              color: FlutterFlowTheme.of(context).primaryBackground,
+              color: FlutterFlowTheme.of(context).primaryText,
               size: 30.0,
             ),
             onPressed: () async {
@@ -74,14 +77,64 @@ class _PackPageWidgetState extends State<PackPageWidget> {
             },
           ),
           title: Text(
-            'Генерация #${widget.packNum}',
+            'Generation #${widget.packNum}',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Open Sans',
-                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  fontFamily: 'Inter',
+                  color: FlutterFlowTheme.of(context).primaryText,
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: [
+            Align(
+              alignment: AlignmentDirectional(0.00, 0.00),
+              child: Builder(
+                builder: (context) => Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      await showAlignedDialog(
+                        context: context,
+                        isGlobal: true,
+                        avoidOverflow: false,
+                        targetAnchor: AlignmentDirectional(0.0, 0.0)
+                            .resolve(Directionality.of(context)),
+                        followerAnchor: AlignmentDirectional(0.0, 0.0)
+                            .resolve(Directionality.of(context)),
+                        builder: (dialogContext) {
+                          return Material(
+                            color: Colors.transparent,
+                            child: GestureDetector(
+                              onTap: () => _model.unfocusNode.canRequestFocus
+                                  ? FocusScope.of(context)
+                                      .requestFocus(_model.unfocusNode)
+                                  : FocusScope.of(context).unfocus(),
+                              child: Container(
+                                width: double.infinity,
+                                child: DialogWidget(
+                                  deleteImage: widget.pack?.reference,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ).then((value) => setState(() {}));
+
+                      context.safePop();
+                    },
+                    child: FaIcon(
+                      FontAwesomeIcons.trash,
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      size: 24.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
           centerTitle: true,
           elevation: 0.0,
         ),
@@ -99,72 +152,19 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Expanded(
+                      Align(
+                        alignment: AlignmentDirectional(0.00, 0.00),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              8.0, 32.0, 8.0, 0.0),
-                          child: Builder(
-                            builder: (context) {
-                              final imgs =
-                                  widget.pack?.generatedImages?.toList() ?? [];
-                              return GridView.builder(
-                                padding: EdgeInsets.zero,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 8.0,
-                                  mainAxisSpacing: 8.0,
-                                  childAspectRatio: 1.0,
-                                ),
-                                scrollDirection: Axis.vertical,
-                                itemCount: imgs.length,
-                                itemBuilder: (context, imgsIndex) {
-                                  final imgsItem = imgs[imgsIndex];
-                                  return Align(
-                                    alignment: AlignmentDirectional(0.00, 0.00),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        await Navigator.push(
-                                          context,
-                                          PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: FlutterFlowExpandedImageView(
-                                              image: Image.network(
-                                                imgsItem,
-                                                fit: BoxFit.contain,
-                                              ),
-                                              allowRotation: false,
-                                              tag: imgsItem,
-                                              useHeroAnimation: true,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: imgsItem,
-                                        transitionOnUserGestures: true,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                          child: Image.network(
-                                            imgsItem,
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                5.0,
-                                            height: 300.0,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
+                              16.0, 32.0, 16.0, 0.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.0),
+                            child: Image.network(
+                              widget.pack!.generatedImages.first,
+                              width: double.infinity,
+                              height: 340.0,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
@@ -172,161 +172,158 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                   ),
                 ),
               ),
-              Align(
-                alignment: AlignmentDirectional(0.00, 0.80),
-                child: Material(
-                  color: Colors.transparent,
-                  elevation: 10.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100.0),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryText,
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 8.0, 4.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30.0,
-                            borderWidth: 1.0,
-                            buttonSize: 60.0,
-                            icon: Icon(
-                              Icons.file_download,
-                              color: FlutterFlowTheme.of(context).accent2,
-                              size: 30.0,
+              Stack(
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(0.00, 0.70),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(0.00, 0.80),
+                          child: Material(
+                            color: Colors.transparent,
+                            elevation: 10.0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
-                            onPressed: () async {
-                              _model.successImage = await actions.downloadImage(
-                                widget.pack?.generatedImages?.first,
-                                isAndroid,
-                                isiOS,
-                                isWeb,
-                              );
-                              if (widget.pack!.generatedImages.length > 1) {
-                                while (_model.loopCounter! <
-                                    widget.pack!.generatedImages.length) {
-                                  await actions.downloadImage(
-                                    widget.pack?.generatedImages?[
-                                        _model.loopCounter! - 1],
-                                    isAndroid,
-                                    isiOS,
-                                    isWeb,
-                                  );
-                                  setState(() {
-                                    _model.loopCounter =
-                                        _model.loopCounter! + 1;
-                                  });
-                                }
-                              } else {
-                                _model.success = await actions.downloadImage(
-                                  widget.pack?.generatedImages?.first,
-                                  isAndroid,
-                                  isiOS,
-                                  isWeb,
-                                );
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Downloads'),
-                                      content: Text(_model.success!),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-
-                              setState(() {
-                                _model.loopCounter = 1;
-                              });
-
-                              setState(() {});
-                            },
-                          ),
-                          if (responsiveVisibility(
-                            context: context,
-                            phone: false,
-                            tablet: false,
-                            tabletLandscape: false,
-                            desktop: false,
-                          ))
-                            FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 30.0,
-                              borderWidth: 1.0,
-                              buttonSize: 60.0,
-                              icon: Icon(
-                                Icons.plus_one,
-                                color: FlutterFlowTheme.of(context).accent2,
-                                size: 30.0,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                border: Border.all(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
                               ),
-                              onPressed: () async {
-                                _model.faceSwap =
-                                    await DebGroup.faceSwapCall.call(
-                                  firstImage: widget.pack?.firstImage,
-                                  secondImage: widget.pack?.refImage,
-                                );
-                                if ((_model.faceSwap?.succeeded ?? true)) {
-                                  context.goNamed(
-                                    'generate_holder',
-                                    queryParameters: {
-                                      'id': serializeParam(
-                                        DebGroup.faceSwapCall
-                                            .id(
-                                              (_model.faceSwap?.jsonBody ?? ''),
-                                            )
-                                            .toString(),
-                                        ParamType.String,
-                                      ),
-                                      'packRef': serializeParam(
-                                        widget.pack?.reference,
-                                        ParamType.DocumentReference,
-                                      ),
-                                    }.withoutNulls,
-                                  );
-                                } else {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text(
-                                            (_model.faceSwap?.statusCode ?? 200)
-                                                .toString()),
-                                        content: Text(
-                                            (_model.faceSwap?.jsonBody ?? '')
-                                                .toString()),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 4.0, 8.0, 4.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Builder(
+                                      builder: (context) =>
+                                          FlutterFlowIconButton(
+                                        borderColor: Colors.transparent,
+                                        borderRadius: 30.0,
+                                        borderWidth: 1.0,
+                                        buttonSize: 60.0,
+                                        icon: Icon(
+                                          Icons.file_download,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 30.0,
+                                        ),
+                                        onPressed: () async {
+                                          await requestPermission(
+                                              photoLibraryPermission);
+                                          _model.download =
+                                              await actions.downloadImage(
+                                            valueOrDefault<String>(
+                                              widget
+                                                  .pack?.generatedImages?.first,
+                                              '123',
+                                            ),
+                                          );
+                                          if (_model.download == 'Success') {
+                                            await showAlignedDialog(
+                                              context: context,
+                                              isGlobal: true,
+                                              avoidOverflow: false,
+                                              targetAnchor:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              followerAnchor:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              builder: (dialogContext) {
+                                                return Material(
+                                                  color: Colors.transparent,
+                                                  child: GestureDetector(
+                                                    onTap: () => _model
+                                                            .unfocusNode
+                                                            .canRequestFocus
+                                                        ? FocusScope.of(context)
+                                                            .requestFocus(_model
+                                                                .unfocusNode)
+                                                        : FocusScope.of(context)
+                                                            .unfocus(),
+                                                    child: DialogWidget(
+                                                      success: true,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ).then((value) => setState(() {}));
+                                          } else {
+                                            await showAlignedDialog(
+                                              context: context,
+                                              isGlobal: true,
+                                              avoidOverflow: false,
+                                              targetAnchor:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              followerAnchor:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              builder: (dialogContext) {
+                                                return Material(
+                                                  color: Colors.transparent,
+                                                  child: GestureDetector(
+                                                    onTap: () => _model
+                                                            .unfocusNode
+                                                            .canRequestFocus
+                                                        ? FocusScope.of(context)
+                                                            .requestFocus(_model
+                                                                .unfocusNode)
+                                                        : FocusScope.of(context)
+                                                            .unfocus(),
+                                                    child: DialogWidget(
+                                                      success: false,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ).then((value) => setState(() {}));
+                                          }
 
-                                setState(() {});
-                              },
+                                          setState(() {});
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                        ],
-                      ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 8.0, 0.0, 0.0),
+                          child: Text(
+                            'Save',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                ],
               ),
             ],
           ),

@@ -9,51 +9,36 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:flutter/services.dart';
-import 'package:image_downloader/image_downloader.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
-Future<String> downloadImage(
-  String? imageURL,
-  bool? platformIsAndroid,
-  bool? platformIsiOS,
-  bool? platformIsWeb,
-) async {
-  if (imageURL == null || imageURL.isEmpty) {
-    return "File doesn't exist";
-  }
-
+Future<String?> downloadImage(String imageUrl) async {
   try {
-    if (platformIsAndroid == true || platformIsiOS == true) {
-      // Code for Android and iOS
-      var imageId = await ImageDownloader.downloadImage(imageURL);
-      if (imageId == null) {
-        return "File doesn't exist";
-      }
-      // Below is a method of obtaining saved image information.
-      var fileName = await ImageDownloader.findName(imageId);
-      var path = await ImageDownloader.findPath(imageId);
-      var size = await ImageDownloader.findByteSize(imageId);
-      var mimeType = await ImageDownloader.findMimeType(imageId);
-      // Return a success message once the download finishes.
-      // You can use this as an action output variable to show a snackbar.
-      return "Download Successful";
-    } else if (platformIsWeb == true) {
-      // Code for the web platform
-      // Handle web-specific image downloading logic here
-      // You might use different packages or methods for web image downloads
-      // Return a success message or handle errors accordingly
-      return "Download Successful (Web)";
+    // Fetch the image from the URL
+    final response = await http.get(Uri.parse(imageUrl));
+
+    if (response.statusCode == 200) {
+      // Get the temporary directory on the device
+      final tempDir = await getTemporaryDirectory();
+
+      // Generate a unique file name for the image
+      final fileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+      // Create a file and write the image data to it
+      final File file = File('${tempDir.path}/$fileName.jpg');
+      await file.writeAsBytes(response.bodyBytes);
+
+      // Save the image to the device's gallery
+      await GallerySaver.saveImage(file.path);
+      return 'Image saved to gallery';
     } else {
-      // Handle other platforms if needed
-      return "Platform not supported";
+      // Handle the case when the image cannot be downloaded
+      return 'Failed to download image. Status code: ${response.statusCode}';
     }
-  } on PlatformException catch (error) {
-    // Handle specific platform-related exceptions
-    print("Error: $error");
-    return "Download Failed: $error";
   } catch (error) {
-    // Handle other exceptions
-    print("Error: $error");
-    return "Download Failed: $error";
+    // Handle exceptions
+    return 'Error saving image to gallery: $error';
   }
 }

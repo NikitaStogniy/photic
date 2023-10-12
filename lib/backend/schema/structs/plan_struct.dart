@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -14,12 +15,14 @@ class PlanStruct extends FFFirebaseStruct {
     int? used,
     DateTime? deadline,
     double? price,
+    String? description,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _name = name,
         _limit = limit,
         _used = used,
         _deadline = deadline,
         _price = price,
+        _description = description,
         super(firestoreUtilData);
 
   // "Name" field.
@@ -55,12 +58,19 @@ class PlanStruct extends FFFirebaseStruct {
   void incrementPrice(double amount) => _price = price + amount;
   bool hasPrice() => _price != null;
 
+  // "Description" field.
+  String? _description;
+  String get description => _description ?? '';
+  set description(String? val) => _description = val;
+  bool hasDescription() => _description != null;
+
   static PlanStruct fromMap(Map<String, dynamic> data) => PlanStruct(
         name: data['Name'] as String?,
         limit: castToType<int>(data['Limit']),
         used: castToType<int>(data['Used']),
         deadline: data['Deadline'] as DateTime?,
         price: castToType<double>(data['Price']),
+        description: data['Description'] as String?,
       );
 
   static PlanStruct? maybeFromMap(dynamic data) =>
@@ -72,6 +82,7 @@ class PlanStruct extends FFFirebaseStruct {
         'Used': _used,
         'Deadline': _deadline,
         'Price': _price,
+        'Description': _description,
       }.withoutNulls;
 
   @override
@@ -95,6 +106,10 @@ class PlanStruct extends FFFirebaseStruct {
         'Price': serializeParam(
           _price,
           ParamType.double,
+        ),
+        'Description': serializeParam(
+          _description,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -125,6 +140,11 @@ class PlanStruct extends FFFirebaseStruct {
           ParamType.double,
           false,
         ),
+        description: deserializeParam(
+          data['Description'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -137,12 +157,13 @@ class PlanStruct extends FFFirebaseStruct {
         limit == other.limit &&
         used == other.used &&
         deadline == other.deadline &&
-        price == other.price;
+        price == other.price &&
+        description == other.description;
   }
 
   @override
-  int get hashCode =>
-      const ListEquality().hash([name, limit, used, deadline, price]);
+  int get hashCode => const ListEquality()
+      .hash([name, limit, used, deadline, price, description]);
 }
 
 PlanStruct createPlanStruct({
@@ -151,6 +172,7 @@ PlanStruct createPlanStruct({
   int? used,
   DateTime? deadline,
   double? price,
+  String? description,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -162,6 +184,7 @@ PlanStruct createPlanStruct({
       used: used,
       deadline: deadline,
       price: price,
+      description: description,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

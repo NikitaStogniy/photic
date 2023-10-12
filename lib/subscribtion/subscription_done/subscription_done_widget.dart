@@ -41,10 +41,12 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.black,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Column(
@@ -57,18 +59,14 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                   Align(
                     alignment: AlignmentDirectional(0.00, 0.00),
                     child: Text(
-                      FFLocalizations.of(context).getText(
-                        'jx2d6h7s' /* Спасибо за подписку */,
-                      ),
-                      style: FlutterFlowTheme.of(context)
-                          .headlineMedium
-                          .override(
-                            fontFamily: 'Open Sans',
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      'Thanks for subscribing',
+                      style:
+                          FlutterFlowTheme.of(context).headlineMedium.override(
+                                fontFamily: 'Inter',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                     ),
                   ),
                   Align(
@@ -81,7 +79,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                       fillColor: Color(0x00E0E0E0),
                       icon: Icon(
                         Icons.close,
-                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        color: FlutterFlowTheme.of(context).primaryText,
                         size: 30.0,
                       ),
                       onPressed: () async {
@@ -133,34 +131,45 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                FFLocalizations.of(context).getText(
-                                  'gelju6d8' /* Ваш план  */,
-                                ),
+                                'Subscription plan ',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: 'Open Sans',
+                                      fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
+                                          .primaryText,
                                       fontSize: 24.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
-                              AuthUserStreamWidget(
-                                builder: (context) => Text(
-                                  valueOrDefault<String>(
-                                    currentUserDocument?.plan?.name,
-                                    'Pro',
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
                                   ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Open Sans',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.bold,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      4.0, 2.0, 4.0, 2.0),
+                                  child: AuthUserStreamWidget(
+                                    builder: (context) => Text(
+                                      valueOrDefault<String>(
+                                        currentUserDocument?.plan?.name,
+                                        'Pro',
                                       ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -168,16 +177,19 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 4.0, 0.0, 0.0),
-                            child: Text(
-                              FFLocalizations.of(context).getText(
-                                '5wxbl67r' /* Теперь у вас есть доступ ко вс... */,
+                            child: AuthUserStreamWidget(
+                              builder: (context) => Text(
+                                valueOrDefault<String>(
+                                  currentUserDocument?.plan?.description,
+                                  '13',
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color: Color(0xFF8C8C8C),
+                                    ),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Open Sans',
-                                    color: Color(0xFF8C8C8C),
-                                  ),
                             ),
                           ),
                         ],
@@ -194,9 +206,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                             },
                           );
                         },
-                        text: FFLocalizations.of(context).getText(
-                          'd2smy3c5' /* Начать */,
-                        ),
+                        text: 'Start',
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 44.0,
@@ -205,15 +215,15 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                           iconPadding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: Colors.black,
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Open Sans',
-                                    color: FlutterFlowTheme.of(context).accent3,
-                                  ),
+                          textStyle: FlutterFlowTheme.of(context)
+                              .titleSmall
+                              .override(
+                                fontFamily: 'Inter',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
                           elevation: 0.0,
                           borderSide: BorderSide(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
+                            color: FlutterFlowTheme.of(context).primaryText,
                             width: 1.0,
                           ),
                           borderRadius: BorderRadius.circular(12.0),
