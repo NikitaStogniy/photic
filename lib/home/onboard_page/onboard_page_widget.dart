@@ -410,7 +410,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                             image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image: Image.asset(
-                                                'assets/images/Rectangle_9-1.png',
+                                                'assets/images/Group_86.png',
                                               ).image,
                                             ),
                                             borderRadius:
@@ -475,7 +475,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                                   .fromSTEB(
                                                       0.0, 0.0, 0.0, 16.0),
                                               child: Text(
-                                                'Image generation',
+                                                'InPaint',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -491,7 +491,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                               ),
                                             ),
                                             Text(
-                                              'Artificial intelligence will independently create any picture at your request',
+                                              'Generate the required object on the pre-existing image in the area you have selected',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
