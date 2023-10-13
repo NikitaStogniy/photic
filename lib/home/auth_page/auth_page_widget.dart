@@ -435,7 +435,7 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                                     }
 
                                     context.goNamedAuth(
-                                        'HomePage', context.mounted);
+                                        'onboardPage', context.mounted);
                                   },
                                   child: Container(
                                     width:
@@ -764,7 +764,7 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                                     }
 
                                     context.goNamedAuth(
-                                        'HomePage', context.mounted);
+                                        'onboardPage', context.mounted);
                                   },
                                   child: Container(
                                     width:
