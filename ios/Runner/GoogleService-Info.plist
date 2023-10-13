@@ -2,18 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>829408357407-06ndkdj8ckr62iumoscj5ln502l10lf9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.829408357407-06ndkdj8ckr62iumoscj5ln502l10lf9</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>829408357407-0bv7920bsjgd67ncrf3u0il7s2588fl3.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBSAA9AFNT8oO44D4iThrkzf44DCZNJfXU</string>
+	<string>AIzaSyC8K03ZvwC9ygxx8E4lSj46bx4mVvl17V8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>818222575960</string>
+	<string>829408357407</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.photiq.photiq</string>
 	<key>PROJECT_ID</key>
-	<string>photic-3b3a4</string>
+	<string>photiq-eccd9</string>
 	<key>STORAGE_BUCKET</key>
-	<string>photic-3b3a4.appspot.com</string>
+	<string>photiq-eccd9.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:818222575960:ios:f700844d23422ac4d5752d</string>
+	<string>1:829408357407:ios:f71a93a4a7feed0001392a</string>
 </dict>
 </plist>
