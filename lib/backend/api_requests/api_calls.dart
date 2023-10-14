@@ -29,7 +29,7 @@ class StableDiffusionCall {
   }) {
     final ffApiRequestBody = '''
 {
-  "data": {
+  "--data": {
     "query": "${query}"
   }
 }''';
@@ -171,11 +171,13 @@ class ApplyMaskCall {
   Future<ApiCallResponse> call({
     String? imageUrl = '',
     String? maskImageUrl = '',
+    String? prompt = '',
   }) {
     final ffApiRequestBody = '''
 {
   "image_url": "${imageUrl}",
-  "mask_image_url": "${maskImageUrl}"
+  "mask_image_url": "${maskImageUrl}",
+  "prompt": "${prompt}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'applyMask',
