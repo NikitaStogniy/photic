@@ -274,7 +274,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 24.0, 0.0, 64.0),
+                                      0.0, 24.0, 0.0, 24.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     crossAxisAlignment:
@@ -447,7 +447,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 40.0, 0.0, 24.0),
+                                      0.0, 24.0, 0.0, 24.0),
                                   child: FFButtonWidget(
                                     onPressed: !_model.isLegalAge
                                         ? null
