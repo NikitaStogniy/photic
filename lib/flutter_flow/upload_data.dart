@@ -169,10 +169,10 @@ Future<List<SelectedFile>?> selectMedia({
       imageQuality: imageQuality,
     );
     final pickedMedia = await pickedMediaFuture;
-    if (pickedMedia?.isEmpty ?? false) {
+    if (pickedMedia.isEmpty) {
       return null;
     }
-    return Future.wait(pickedMedia!.asMap().entries.map((e) async {
+    return Future.wait(pickedMedia.asMap().entries.map((e) async {
       final index = e.key;
       final media = e.value;
       final mediaBytes = await media.readAsBytes();
