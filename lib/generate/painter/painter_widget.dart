@@ -159,7 +159,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                                   .override(
                                     fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                        .primaryText,
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
