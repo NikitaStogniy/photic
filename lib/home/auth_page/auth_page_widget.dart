@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'auth_page_model.dart';
@@ -26,13 +25,6 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
     super.initState();
     _model = createModel(context, () => AuthPageModel());
 
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.create = false;
-      });
-    });
-
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -54,6 +46,17 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Registration',
+            style: FlutterFlowTheme.of(context).bodyMedium,
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 0.0,
+        ),
         body: SafeArea(
           top: true,
           child: Align(
@@ -64,73 +67,94 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
               ),
               decoration: BoxDecoration(),
               child: Align(
-                alignment: AlignmentDirectional(0.00, 0.80),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    GoRouter.of(context).prepareAuthEvent();
-                    final user = await authManager.signInWithGoogle(context);
-                    if (user == null) {
-                      return;
-                    }
-                    await showDialog(
-                      context: context,
-                      builder: (alertDialogContext) {
-                        return AlertDialog(
-                          title: Text('Email'),
-                          content: Text(currentUserEmail),
-                          actions: [
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(alertDialogContext),
-                              child: Text('Ok'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-
-                    context.goNamedAuth('onboardPage', context.mounted);
-                  },
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width * 0.9,
-                    height: 51.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      borderRadius: BorderRadius.circular(12.0),
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        width: 0.0,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 8.0, 0.0),
-                          child: Image.asset(
-                            'assets/images/google.png',
-                            width: 20.0,
-                            height: 20.0,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Text(
-                          'Sign in with Google',
+                alignment: AlignmentDirectional(0.00, 1.00),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
+                        child: Text(
+                          'Sign in to your Google account',
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
                                 fontFamily: 'Inter',
-                                color: FlutterFlowTheme.of(context).primaryText,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
                               ),
                         ),
-                      ],
-                    ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(0.00, 0.80),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            GoRouter.of(context).prepareAuthEvent(true);
+                            final user =
+                                await authManager.signInWithGoogle(context);
+                            if (user == null) {
+                              return;
+                            }
+                            if (currentUserDocument?.plan != null) {
+                              context.goNamedAuth(
+                                'HomePage',
+                                context.mounted,
+                                ignoreRedirect: true,
+                              );
+                            } else {
+                              context.goNamedAuth(
+                                  'onboardPage', context.mounted);
+                            }
+                          },
+                          child: Container(
+                            width: MediaQuery.sizeOf(context).width * 0.9,
+                            height: 51.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              borderRadius: BorderRadius.circular(12.0),
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                width: 0.0,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 8.0, 0.0),
+                                  child: Image.asset(
+                                    'assets/images/google.png',
+                                    width: 20.0,
+                                    height: 20.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Text(
+                                  'Sign in with Google',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

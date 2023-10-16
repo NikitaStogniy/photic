@@ -344,7 +344,10 @@ class _PainterWidgetState extends State<PainterWidget> {
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.asset(
                                   'assets/images/Group_65.png',
-                                  fit: BoxFit.cover,
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 1.0,
+                                  fit: BoxFit.fitWidth,
                                 ),
                               ),
                             ),
