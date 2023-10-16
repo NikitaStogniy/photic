@@ -10,6 +10,60 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'index.dart'; // Imports other custom widgets
+
+import 'dart:ui';
+
+import 'package:flutter/rendering.dart';
+
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'dart:convert';
+// import 'dart:js' as js;
+
+class MyPainterShareState {
+  String _textFieldValue = '';
+
+  MyPainterShareState._privateConstructor();
+
+  static final MyPainterShareState _instance =
+      MyPainterShareState._privateConstructor();
+
+  factory MyPainterShareState() {
+    return _instance;
+  }
+
+  String get textFieldValue => _textFieldValue;
+
+  set textFieldValue(String value) {
+    _textFieldValue = value;
+  }
+}
+
+class MyPainter extends CustomPainter {
+  MyPainter({required this.points, required this.strokeWidth});
+
+  final List<Offset> points;
+  final double strokeWidth;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.white
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = strokeWidth;
+
+    for (int i = 0; i < points.length - 1; i++) {
+      canvas.drawLine(points[i], points[i + 1], paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
 class Painter extends StatefulWidget {
   const Painter({
     Key? key,

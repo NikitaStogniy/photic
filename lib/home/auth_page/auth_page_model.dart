@@ -16,41 +16,13 @@ class AuthPageModel extends FlutterFlowModel<AuthPageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for TextField widget.
-  TextEditingController? emailTextController1;
-  String? Function(BuildContext, String?)? emailTextController1Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? passwordTextController1;
-  late bool passwordVisibility1;
-  String? Function(BuildContext, String?)? passwordTextController1Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? confirmPasswordTextController0;
-  late bool passwordVisibility2;
-  String? Function(BuildContext, String?)?
-      confirmPasswordTextController0Validator;
-  // State field(s) for SignInEmail widget.
-  TextEditingController? signInEmailController;
-  String? Function(BuildContext, String?)? signInEmailControllerValidator;
-  // State field(s) for SignInPassword widget.
-  TextEditingController? signInPasswordController;
-  late bool signInPasswordVisibility;
-  String? Function(BuildContext, String?)? signInPasswordControllerValidator;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {
-    passwordVisibility1 = false;
-    passwordVisibility2 = false;
-    signInPasswordVisibility = false;
-  }
+  void initState(BuildContext context) {}
 
   void dispose() {
     unfocusNode.dispose();
-    emailTextController1?.dispose();
-    passwordTextController1?.dispose();
-    confirmPasswordTextController0?.dispose();
-    signInEmailController?.dispose();
-    signInPasswordController?.dispose();
   }
 
   /// Action blocks are added here.

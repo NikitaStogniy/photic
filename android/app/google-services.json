@@ -7,42 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:829408357407:android:64581d829b6016ea01392a",
+        "mobilesdk_app_id": "1:829408357407:android:1c09d16e916598f101392a",
         "android_client_info": {
           "package_name": "com.photiq.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "829408357407-0bv7920bsjgd67ncrf3u0il7s2588fl3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.photiq.app",
-            "certificate_hash": "979b7688296f316a3856eae8b924833d4d578c81"
-          }
-        },
-        {
-          "client_id": "829408357407-1ot6b4to0hsvkm4ia0o5l6cs2c9qm99l.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.photiq.app",
-            "certificate_hash": "18d761d2f161fbbc28cbd118c18b197a7e7bf00a"
-          }
-        },
-        {
           "client_id": "829408357407-i29l2nml75n52mhcfskf44ou09e322nl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.photiq.app",
             "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
-          }
-        },
-        {
-          "client_id": "829408357407-mtthbqr9jnrdg9hvha96ctkeislc6m68.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.photiq.app",
-            "certificate_hash": "06cf391fd74a64355432ddbf929c3dac50078c4d"
           }
         },
         {
