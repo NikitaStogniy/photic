@@ -94,54 +94,68 @@ class _GenerateBottomsheetWidgetState extends State<GenerateBottomsheetWidget> {
                 ),
               ],
             ),
-            Align(
-              alignment: AlignmentDirectional(0.00, 0.00),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    context.pushNamed('Generate_avatar_page');
-                  },
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width * 0.9,
-                    height: 51.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      borderRadius: BorderRadius.circular(12.0),
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              16.0, 0.0, 8.0, 0.0),
-                          child: SvgPicture.asset(
-                            'assets/images/avatars.svg',
-                            width: 20.0,
-                            height: 20.0,
-                            fit: BoxFit.contain,
+            Opacity(
+              opacity: currentUserDocument?.plan?.used ==
+                      currentUserDocument?.plan?.limit
+                  ? 0.5
+                  : 1.0,
+              child: Align(
+                alignment: AlignmentDirectional(0.00, 0.00),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+                  child: AuthUserStreamWidget(
+                    builder: (context) => InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        if (currentUserDocument?.plan?.used ==
+                            currentUserDocument?.plan?.limit) {
+                          context.goNamed('Subscribtion');
+                        } else {
+                          context.pushNamed('Generate_avatar_page');
+                        }
+                      },
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 0.9,
+                        height: 51.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          borderRadius: BorderRadius.circular(12.0),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).primaryText,
                           ),
                         ),
-                        Text(
-                          'Avatars',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Inter',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w500,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 8.0, 0.0),
+                              child: SvgPicture.asset(
+                                'assets/images/avatars.svg',
+                                width: 20.0,
+                                height: 20.0,
+                                fit: BoxFit.contain,
                               ),
+                            ),
+                            Text(
+                              'Avatars',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -209,7 +223,10 @@ class _GenerateBottomsheetWidgetState extends State<GenerateBottomsheetWidget> {
                 ),
               ),
             Opacity(
-              opacity: currentUserDocument?.plan?.price == 0.0 ? 0.5 : 1.0,
+              opacity: currentUserDocument?.plan?.inpaintUsed ==
+                      currentUserDocument?.plan?.inpaintLimit
+                  ? 0.5
+                  : 1.0,
               child: Align(
                 alignment: AlignmentDirectional(0.00, 0.00),
                 child: AuthUserStreamWidget(
@@ -219,7 +236,8 @@ class _GenerateBottomsheetWidgetState extends State<GenerateBottomsheetWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      if (currentUserDocument?.plan?.price == 0.0) {
+                      if (currentUserDocument?.plan?.inpaintUsed ==
+                          currentUserDocument?.plan?.inpaintLimit) {
                         context.pushNamed('Subscribtion');
                       } else {
                         context.pushNamed('painter');

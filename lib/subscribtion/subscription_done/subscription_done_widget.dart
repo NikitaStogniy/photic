@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'subscription_done_model.dart';
@@ -54,78 +55,83 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
           : FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: SafeArea(
-          top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Stack(
-                alignment: AlignmentDirectional(0.0, 0.0),
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(0.00, 0.00),
-                    child: Text(
-                      'Thanks for subscribing',
-                      style:
-                          FlutterFlowTheme.of(context).headlineMedium.override(
-                                fontFamily: 'Inter',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(1.00, 0.00),
-                    child: FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 60.0,
-                      fillColor: Color(0x00E0E0E0),
-                      icon: Icon(
-                        Icons.close,
-                        color: FlutterFlowTheme.of(context).primaryText,
-                        size: 30.0,
-                      ),
-                      onPressed: () async {
-                        context.goNamed(
-                          'authPage',
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
+      child: WillPopScope(
+        onWillPop: () async => false,
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          body: SafeArea(
+            top: true,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Stack(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(0.00, 0.00),
+                      child: Text(
+                        'Thanks for subscribing',
+                        style: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .override(
+                              fontFamily: 'Inter',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
                             ),
-                          },
-                        );
-                      },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
-                child: Container(
-                  width: MediaQuery.sizeOf(context).width * 1.0,
-                  height: MediaQuery.sizeOf(context).height * 0.5,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: Image.asset(
-                        'assets/images/plan_done.png',
-                      ).image,
+                    Align(
+                      alignment: AlignmentDirectional(1.00, 0.00),
+                      child: FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30.0,
+                        borderWidth: 1.0,
+                        buttonSize: 60.0,
+                        fillColor: Color(0x00E0E0E0),
+                        icon: Icon(
+                          Icons.close,
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          size: 30.0,
+                        ),
+                        onPressed: () async {
+                          context.goNamed(
+                            'authPage',
+                            extra: <String, dynamic>{
+                              kTransitionInfoKey: TransitionInfo(
+                                hasTransition: true,
+                                transitionType: PageTransitionType.fade,
+                              ),
+                            },
+                          );
+                        },
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(16.0),
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: MediaQuery.sizeOf(context).height * 1.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: Image.asset(
+                            'assets/images/plan_done.png',
+                          ).image,
+                        ),
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Padding(
+                Padding(
                   padding:
                       EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 24.0),
                   child: Column(
@@ -133,77 +139,143 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
+                      if (currentUserDocument?.plan?.price != 0.0)
+                        AuthUserStreamWidget(
+                          builder: (context) => Column(
                             mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Subscription plan ',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      fontSize: 24.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100.0),
-                                  border: Border.all(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'Subscription plan ',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          fontSize: 24.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      4.0, 2.0, 4.0, 2.0),
-                                  child: AuthUserStreamWidget(
-                                    builder: (context) => Text(
-                                      valueOrDefault<String>(
-                                        currentUserDocument?.plan?.name,
-                                        'Pro',
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(100.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.normal,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          4.0, 2.0, 4.0, 2.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            child: SvgPicture.asset(
+                                              'assets/images/Subtract.svg',
+                                              width: 13.0,
+                                              height: 13.0,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
+                                          Text(
+                                            valueOrDefault<String>(
+                                              currentUserDocument?.plan?.name,
+                                              'Pro',
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 4.0, 0.0, 0.0),
+                                child: Text(
+                                  'Now you have access to all the functions of our application:',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: Color(0xFF8C8C8C),
+                                      ),
                                 ),
+                              ),
+                              Builder(
+                                builder: (context) {
+                                  final feature = currentUserDocument
+                                          ?.plan?.featureList
+                                          ?.toList() ??
+                                      [];
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: List.generate(feature.length,
+                                            (featureIndex) {
+                                      final featureItem = feature[featureIndex];
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Container(
+                                            width: 4.0,
+                                            height: 4.0,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFF8C8C8C),
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                          Text(
+                                            featureItem,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  color: Color(0xFF8C8C8C),
+                                                ),
+                                          ),
+                                        ]
+                                            .divide(SizedBox(width: 4.0))
+                                            .around(SizedBox(width: 4.0)),
+                                      );
+                                    })
+                                        .divide(SizedBox(height: 4.0))
+                                        .around(SizedBox(height: 4.0)),
+                                  );
+                                },
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 4.0, 0.0, 0.0),
-                            child: AuthUserStreamWidget(
-                              builder: (context) => Text(
-                                valueOrDefault<String>(
-                                  currentUserDocument?.plan?.description,
-                                  '13',
+                        ),
+                      if (currentUserDocument?.plan?.price != 0.0)
+                        AuthUserStreamWidget(
+                          builder: (context) => Text(
+                            '3 free generations are available to you in our application',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  color: Color(0xFF8C8C8C),
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      color: Color(0xFF8C8C8C),
-                                    ),
-                              ),
-                            ),
                           ),
-                        ],
-                      ),
+                        ),
                       FFButtonWidget(
                         onPressed: () async {
                           context.goNamed(
@@ -242,8 +314,8 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                     ].divide(SizedBox(height: 16.0)),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

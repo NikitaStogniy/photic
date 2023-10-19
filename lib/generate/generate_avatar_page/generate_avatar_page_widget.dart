@@ -1430,8 +1430,13 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                       final firestoreBatch =
                                           FirebaseFirestore.instance.batch();
                                       try {
-                                        if (currentUserDocument?.plan?.price ==
-                                            0.0) {
+                                        if (((currentUserDocument!.plan.limit -
+                                                        currentUserDocument!
+                                                            .plan.used) <=
+                                                    5
+                                                ? true
+                                                : false) ==
+                                            true) {
                                           await showAlignedDialog(
                                             context: context,
                                             isGlobal: true,
