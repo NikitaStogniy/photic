@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>829408357407-5uaoefkjt9d6gpo9hmbnp66ignhn8bef.apps.googleusercontent.com</string>
+	<string>909582697749-vcd148tf3huduvrfs5k9aros5dni911j.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.829408357407-5uaoefkjt9d6gpo9hmbnp66ignhn8bef</string>
+	<string>com.googleusercontent.apps.909582697749-vcd148tf3huduvrfs5k9aros5dni911j</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>829408357407-0bv7920bsjgd67ncrf3u0il7s2588fl3.apps.googleusercontent.com</string>
+	<string>909582697749-is22io1c3jih4rivfvs42ftonkn20pvq.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC8K03ZvwC9ygxx8E4lSj46bx4mVvl17V8</string>
+	<string>AIzaSyBqtM3wiU4OuLSnECaQ9HFoUfgqxzgpDjs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>829408357407</string>
+	<string>909582697749</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.photiq.app</string>
+	<string>com.photiq.usTest</string>
 	<key>PROJECT_ID</key>
-	<string>photiq-eccd9</string>
+	<string>photicus</string>
 	<key>STORAGE_BUCKET</key>
-	<string>photiq-eccd9.appspot.com</string>
+	<string>photicus.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:829408357407:ios:3d3b9ed0eabb3b8301392a</string>
+	<string>1:909582697749:ios:d4e0afb590dcd0568c151c</string>
 </dict>
 </plist>

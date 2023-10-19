@@ -1,92 +1,56 @@
 {
   "project_info": {
-    "project_number": "829408357407",
-    "project_id": "photiq-eccd9",
-    "storage_bucket": "photiq-eccd9.appspot.com"
+    "project_number": "909582697749",
+    "project_id": "photicus",
+    "storage_bucket": "photicus.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:829408357407:android:1c09d16e916598f101392a",
+        "mobilesdk_app_id": "1:909582697749:android:e1f11c1f2ab256aa8c151c",
         "android_client_info": {
-          "package_name": "com.photiq.app"
+          "package_name": "com.photiq.usTest"
         }
       },
       "oauth_client": [
         {
-          "client_id": "829408357407-i29l2nml75n52mhcfskf44ou09e322nl.apps.googleusercontent.com",
+          "client_id": "909582697749-is22io1c3jih4rivfvs42ftonkn20pvq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.photiq.app",
+            "package_name": "com.photiq.usTest",
+            "certificate_hash": "5f9f9e68e267f208072db00a5eef63820da595b2"
+          }
+        },
+        {
+          "client_id": "909582697749-nq1s1r7lf0au2dfvk1q4r5gsrv4a1ld6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.photiq.usTest",
             "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
           }
         },
         {
-          "client_id": "829408357407-qg0e3u6gmirt1d3eq3v3tmrb148pbnd1.apps.googleusercontent.com",
+          "client_id": "909582697749-756ar1gjair1icmc2nuj17r3ne9taq5g.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCfKarptQavY-NFQkxPpPU2cXjAh5njzwg"
+          "current_key": "AIzaSyAEelkdMhfSJmvo6dA-EpsMKSS1XNibUyY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "829408357407-2u6l69h9kpd8bv74vrlrf116nq6vr0u8.apps.googleusercontent.com",
+              "client_id": "909582697749-756ar1gjair1icmc2nuj17r3ne9taq5g.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "829408357407-06ndkdj8ckr62iumoscj5ln502l10lf9.apps.googleusercontent.com",
+              "client_id": "909582697749-vcd148tf3huduvrfs5k9aros5dni911j.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.photiq.photiq"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:829408357407:android:9fc9a974fe9c7c1301392a",
-        "android_client_info": {
-          "package_name": "com.photiq.photiq"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "829408357407-c9v4m8urkps2nlt2m8il8qsfvotc3iuk.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.photiq.photiq",
-            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
-          }
-        },
-        {
-          "client_id": "829408357407-qg0e3u6gmirt1d3eq3v3tmrb148pbnd1.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCfKarptQavY-NFQkxPpPU2cXjAh5njzwg"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "829408357407-2u6l69h9kpd8bv74vrlrf116nq6vr0u8.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "829408357407-06ndkdj8ckr62iumoscj5ln502l10lf9.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.photiq.photiq"
+                "bundle_id": "com.photiq.usTest"
               }
             }
           ]

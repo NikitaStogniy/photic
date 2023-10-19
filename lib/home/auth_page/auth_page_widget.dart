@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/components/loader_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -60,104 +61,134 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.00, -1.00),
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: 600.0,
-              ),
-              decoration: BoxDecoration(),
-              child: Align(
-                alignment: AlignmentDirectional(0.00, 1.00),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
+            alignment: AlignmentDirectional(0.00, 1.00),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: AlignmentDirectional(0.00, -1.00),
+                  child: Container(
+                    constraints: BoxConstraints(
+                      maxWidth: 600.0,
+                    ),
+                    decoration: BoxDecoration(),
+                    child: Align(
+                      alignment: AlignmentDirectional(0.00, 1.00),
+                      child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
-                        child: Text(
-                          'Sign in to your Google account',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Inter',
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                              ),
-                        ),
-                      ),
-                      Align(
-                        alignment: AlignmentDirectional(0.00, 0.80),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            GoRouter.of(context).prepareAuthEvent(true);
-                            final user =
-                                await authManager.signInWithGoogle(context);
-                            if (user == null) {
-                              return;
-                            }
-                            if (currentUserDocument?.plan != null) {
-                              context.goNamedAuth(
-                                'HomePage',
-                                context.mounted,
-                                ignoreRedirect: true,
-                              );
-                            } else {
-                              context.goNamedAuth(
-                                  'onboardPage', context.mounted);
-                            }
-                          },
-                          child: Container(
-                            width: MediaQuery.sizeOf(context).width * 0.9,
-                            height: 51.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                              borderRadius: BorderRadius.circular(12.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                width: 0.0,
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 24.0),
+                              child: Text(
+                                'Sign in to your Google account',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                    ),
                               ),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 8.0, 0.0),
-                                  child: Image.asset(
-                                    'assets/images/google.png',
-                                    width: 20.0,
-                                    height: 20.0,
-                                    fit: BoxFit.cover,
+                            Align(
+                              alignment: AlignmentDirectional(0.00, 0.80),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  setState(() {
+                                    _model.loader = true;
+                                  });
+                                  GoRouter.of(context).prepareAuthEvent(true);
+                                  final user = await authManager
+                                      .signInWithGoogle(context);
+                                  if (user == null) {
+                                    return;
+                                  }
+                                  if ((currentUserDocument?.plan != null) &&
+                                      (currentUserDocument?.plan?.name !=
+                                              null &&
+                                          currentUserDocument?.plan?.name !=
+                                              '')) {
+                                    context.goNamedAuth(
+                                      'HomePage',
+                                      context.mounted,
+                                      ignoreRedirect: true,
+                                    );
+                                  } else {
+                                    context.goNamedAuth(
+                                      'Subscribtion',
+                                      context.mounted,
+                                      ignoreRedirect: true,
+                                    );
+                                  }
+                                },
+                                child: Container(
+                                  width: MediaQuery.sizeOf(context).width * 0.9,
+                                  height: 51.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      width: 0.0,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 8.0, 0.0),
+                                        child: Image.asset(
+                                          'assets/images/google.png',
+                                          width: 20.0,
+                                          height: 20.0,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Sign in with Google',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Text(
-                                  'Sign in with Google',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                      ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+                if (_model.loader)
+                  Align(
+                    alignment: AlignmentDirectional(0.00, 1.00),
+                    child: wrapWithModel(
+                      model: _model.loaderModel,
+                      updateCallback: () => setState(() {}),
+                      updateOnChange: true,
+                      child: LoaderWidget(),
+                    ),
+                  ),
+              ],
             ),
           ),
         ),
