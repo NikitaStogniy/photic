@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import '../../flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -26,7 +26,7 @@ class DebGroup {
 class StableDiffusionCall {
   Future<ApiCallResponse> call({
     String? query = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "data": {
@@ -60,7 +60,7 @@ class StableDiffusionCall {
 class MidjourneyCall {
   Future<ApiCallResponse> call({
     String? query = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "data": {
@@ -95,7 +95,7 @@ class FaceSwapCall {
   Future<ApiCallResponse> call({
     String? firstImage = '',
     String? secondImage = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "image_from": "${firstImage}",
@@ -128,7 +128,7 @@ class FaceSwapCall {
 class StatusCheckCall {
   Future<ApiCallResponse> call({
     String? id = '3805',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'StatusCheck',
       apiUrl: '${DebGroup.baseUrl}/task/${id}',
@@ -171,7 +171,7 @@ class ApplyMaskCall {
   Future<ApiCallResponse> call({
     String? imageUrl = '',
     String? maskImageUrl = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "image_url": "${imageUrl}",
@@ -207,7 +207,7 @@ class ImgToImgCall {
   static Future<ApiCallResponse> call({
     String? img = 'img',
     String? promt = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "version": "2b017d9b67edd2ee1401238df49d75da53c523f36e363881e057f5dc3ed3c5b2",
@@ -248,7 +248,7 @@ class ImgToImgCall {
 class StatusCall {
   static Future<ApiCallResponse> call({
     String? id = 'ptrl7y36wjfg3frvplvfrioesu',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'status',
       apiUrl: 'https://api.replicate.com/v1/predictions',
@@ -282,7 +282,7 @@ class StatusCall {
 class TextToImgCall {
   static Future<ApiCallResponse> call({
     String? prompt = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "version": "2b017d9b67edd2ee1401238df49d75da53c523f36e363881e057f5dc3ed3c5b2",

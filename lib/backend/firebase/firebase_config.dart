@@ -5,12 +5,13 @@ Future initFirebase() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: FirebaseOptions(
-            apiKey: "AIzaSyB25MtJwyHKM20tMHXKQZK1aZ-MznzCF14",
-            authDomain: "photicus.firebaseapp.com",
-            projectId: "photicus",
-            storageBucket: "photicus.appspot.com",
-            messagingSenderId: "909582697749",
-            appId: "1:909582697749:web:b49b3ee9b110e2498c151c"));
+            apiKey: "AIzaSyDP6IeR4Ik3rxnWcEUlzh_NjyTPU041Deo",
+            authDomain: "photiq-eccd9.firebaseapp.com",
+            projectId: "photiq-eccd9",
+            storageBucket: "photiq-eccd9.appspot.com",
+            messagingSenderId: "829408357407",
+            appId: "1:829408357407:web:9f2e355fdf4dde0901392a",
+            measurementId: "G-QJGL353QW7"));
   } else {
     await Firebase.initializeApp();
   }

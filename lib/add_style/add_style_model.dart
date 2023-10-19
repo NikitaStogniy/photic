@@ -10,6 +10,7 @@ import '/flutter_flow/upload_data.dart';
 import 'add_style_widget.dart' show AddStyleWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ class AddStyleModel extends FlutterFlowModel<AddStyleWidget> {
 
   final unfocusNode = FocusNode();
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // State field(s) for DropDown widget.
@@ -39,6 +41,7 @@ class AddStyleModel extends FlutterFlowModel<AddStyleWidget> {
 
   void dispose() {
     unfocusNode.dispose();
+    textFieldFocusNode?.dispose();
     textController?.dispose();
   }
 

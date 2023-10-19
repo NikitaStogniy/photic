@@ -13,6 +13,7 @@ import '/flutter_flow/permissions_util.dart';
 import 'painter_widget.dart' show PainterWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +30,7 @@ class PainterModel extends FlutterFlowModel<PainterWidget> {
   // State field(s) for Slider widget.
   double? sliderValue;
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // Stores action output result for [Custom Action - getMyCustomWidgeCurrentValue] action in Button widget.
@@ -48,6 +50,7 @@ class PainterModel extends FlutterFlowModel<PainterWidget> {
 
   void dispose() {
     unfocusNode.dispose();
+    textFieldFocusNode?.dispose();
     textController?.dispose();
   }
 

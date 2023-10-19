@@ -9,6 +9,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'add_style_model.dart';
@@ -32,6 +33,7 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
     _model = createModel(context, () => AddStyleModel());
 
     _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -44,6 +46,15 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -77,6 +88,7 @@ class _AddStyleWidgetState extends State<AddStyleWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 8.0),
                 child: TextFormField(
                   controller: _model.textController,
+                  focusNode: _model.textFieldFocusNode,
                   autofocus: true,
                   obscureText: false,
                   decoration: InputDecoration(
