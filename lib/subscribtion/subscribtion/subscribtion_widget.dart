@@ -47,8 +47,6 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
         });
       }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -452,110 +450,131 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    4.0),
-                                                        child: Text(
-                                                          listViewPlanListRecord
-                                                              .plan.description,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                color: _model
-                                                                            .plan
-                                                                            ?.reference ==
-                                                                        listViewPlanListRecord
-                                                                            .reference
-                                                                    ? FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryBackground
-                                                                    : FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      if (listViewPlanListRecord
-                                                              .plan
-                                                              .featureList
-                                                              .length >
-                                                          0)
-                                                        Builder(
-                                                          builder: (context) {
-                                                            final featureList =
+                                                  Expanded(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Wrap(
+                                                          spacing: 0.0,
+                                                          runSpacing: 0.0,
+                                                          alignment:
+                                                              WrapAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              WrapCrossAlignment
+                                                                  .start,
+                                                          direction:
+                                                              Axis.horizontal,
+                                                          runAlignment:
+                                                              WrapAlignment
+                                                                  .start,
+                                                          verticalDirection:
+                                                              VerticalDirection
+                                                                  .down,
+                                                          clipBehavior:
+                                                              Clip.none,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          4.0),
+                                                              child: Text(
                                                                 listViewPlanListRecord
                                                                     .plan
-                                                                    .featureList
-                                                                    .toList();
-                                                            return Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: List.generate(
-                                                                  featureList
-                                                                      .length,
-                                                                  (featureListIndex) {
-                                                                final featureListItem =
-                                                                    featureList[
-                                                                        featureListIndex];
-                                                                return Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Container(
-                                                                      width:
-                                                                          2.0,
-                                                                      height:
-                                                                          2.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryBackground,
-                                                                        shape: BoxShape
-                                                                            .circle,
-                                                                      ),
+                                                                    .description,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Inter',
+                                                                      color: _model.plan?.reference ==
+                                                                              listViewPlanListRecord
+                                                                                  .reference
+                                                                          ? FlutterFlowTheme.of(context)
+                                                                              .primaryBackground
+                                                                          : FlutterFlowTheme.of(context)
+                                                                              .primaryText,
                                                                     ),
-                                                                    Text(
-                                                                      featureListItem,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Inter',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryBackground,
-                                                                          ),
-                                                                    ),
-                                                                  ]
-                                                                      .divide(SizedBox(
-                                                                          width:
-                                                                              2.0))
-                                                                      .addToStart(SizedBox(
-                                                                          width:
-                                                                              4.0)),
-                                                                );
-                                                              }),
-                                                            );
-                                                          },
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                    ],
+                                                        if (listViewPlanListRecord
+                                                                .plan
+                                                                .featureList
+                                                                .first !=
+                                                            '0')
+                                                          Builder(
+                                                            builder: (context) {
+                                                              final featureList =
+                                                                  listViewPlanListRecord
+                                                                      .plan
+                                                                      .featureList
+                                                                      .toList();
+                                                              return Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: List.generate(
+                                                                    featureList
+                                                                        .length,
+                                                                    (featureListIndex) {
+                                                                  final featureListItem =
+                                                                      featureList[
+                                                                          featureListIndex];
+                                                                  return Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Container(
+                                                                        width:
+                                                                            2.0,
+                                                                        height:
+                                                                            2.0,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                      ),
+                                                                      Text(
+                                                                        featureListItem,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Inter',
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                            ),
+                                                                      ),
+                                                                    ]
+                                                                        .divide(SizedBox(
+                                                                            width:
+                                                                                2.0))
+                                                                        .addToStart(SizedBox(
+                                                                            width:
+                                                                                4.0)),
+                                                                  );
+                                                                }),
+                                                              );
+                                                            },
+                                                          ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),

@@ -34,8 +34,6 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.lockOrientation();
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

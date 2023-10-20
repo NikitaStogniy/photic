@@ -39,8 +39,6 @@ class _PackPageWidgetState extends State<PackPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PackPageModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

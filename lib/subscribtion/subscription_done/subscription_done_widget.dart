@@ -27,8 +27,6 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SubscriptionDoneModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -84,7 +82,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(1.00, 0.00),
+                      alignment: AlignmentDirectional(0.92, 0.00),
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30.0,
@@ -98,7 +96,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                         ),
                         onPressed: () async {
                           context.goNamed(
-                            'authPage',
+                            'HomePage',
                             extra: <String, dynamic>{
                               kTransitionInfoKey: TransitionInfo(
                                 hasTransition: true,
@@ -264,7 +262,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                             ],
                           ),
                         ),
-                      if (currentUserDocument?.plan?.price != 0.0)
+                      if (currentUserDocument?.plan?.price == 0.0)
                         AuthUserStreamWidget(
                           builder: (context) => Text(
                             '3 free generations are available to you in our application',

@@ -26,8 +26,6 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AccountPageModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

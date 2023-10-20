@@ -32,8 +32,6 @@ class _GenerateBottomsheetWidgetState extends State<GenerateBottomsheetWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => GenerateBottomsheetModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

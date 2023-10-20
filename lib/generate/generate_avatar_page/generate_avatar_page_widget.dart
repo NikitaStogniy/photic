@@ -45,8 +45,6 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
         });
       }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

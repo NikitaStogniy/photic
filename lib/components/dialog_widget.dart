@@ -43,8 +43,6 @@ class _DialogWidgetState extends State<DialogWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DialogModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

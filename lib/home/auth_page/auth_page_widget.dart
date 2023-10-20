@@ -26,8 +26,6 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AuthPageModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

@@ -116,8 +116,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         await firestoreBatch.commit();
       }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
