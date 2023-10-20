@@ -117,25 +117,25 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                           Align(
                             alignment: AlignmentDirectional(1.00, 0.00),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 24.0, 16.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 24, 16, 0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.safePop();
+                                  context.goNamed('authPage');
                                 },
                                 child: Icon(
                                   Icons.close,
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
-                                  size: 24.0,
+                                  size: 24,
                                 ),
                               ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                       Padding(
