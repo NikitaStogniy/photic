@@ -169,9 +169,9 @@ Future<List<SelectedFile>?> selectMedia({
       imageQuality: imageQuality,
     );
     final pickedMedia = await pickedMediaFuture;
-    if (pickedMedia.isEmpty) {
+    if (pickedMedia==null || pickedMedia.isEmpty) {
       return null;
-    }
+    }else{
     return Future.wait(pickedMedia.asMap().entries.map((e) async {
       final index = e.key;
       final media = e.value;
@@ -190,6 +190,7 @@ Future<List<SelectedFile>?> selectMedia({
         dimensions: await dimensions,
       );
     }));
+    }
   }
 
   final source = mediaSource == MediaSource.camera

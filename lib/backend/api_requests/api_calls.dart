@@ -167,23 +167,25 @@ class StatusCheckCall {
       );
 }
 
+
 class ApplyMaskCall {
   Future<ApiCallResponse> call({
     String? imageUrl = '',
     String? maskImageUrl = '',
+    String? prompt = '',
   }) {
     final ffApiRequestBody = '''
 {
   "image_url": "${imageUrl}",
-  "mask_image_url": "${maskImageUrl}"
+  "mask_image_url": "${maskImageUrl}",
+  "prompt": "${prompt}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'applyMask',
       apiUrl: '${DebGroup.baseUrl}/flow/photiq/execute',
       callType: ApiCallType.POST,
       headers: {
-        'Authorization':
-            'Basic OGIxMWM3ZmEtZmVlMy00YWUwLWEwMmYtZjBlNTY2MjA0MGY4OlFSZ0VWd3RCb2hIQm5JdnoyQzRZQnpoY3FhUEpMSg==',
+        ...DebGroup.headers,
       },
       params: {},
       body: ffApiRequestBody,

@@ -83,23 +83,7 @@ class _SplashWidgetState extends State<SplashWidget> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 0.0, 32.0, 0.0),
-                            child: Text(
-                              'Универсальный редактор с искусственным интеллектом',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ),
+                       
                         ],
                       ),
                     ),
