@@ -72,7 +72,6 @@ class _PainterWidgetState extends State<PainterWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -83,7 +82,8 @@ class _PainterWidgetState extends State<PainterWidget> {
         appBar: AppBar(
           backgroundColor: Colors.black,
           automaticallyImplyLeading: true,
-          title: Text('Inpaint',
+          title: Text(
+            'Inpaint',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Open Sans',
                   color: Colors.white,
@@ -174,205 +174,294 @@ class _PainterWidgetState extends State<PainterWidget> {
                         );
                       }),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height - 450 - 80,
-                      child: ListView(
-                        children: [
-                          if (allSketchesGlobal != null &&
-                              currentSketchGlobal != null &&
-                              strokeSizeGlobal != null)
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 16.0, 16.0, 0.0),
-                              child: Container(
-                                color: Colors.black,
-                                child: GestureDetector(
-                                  onTap: () => {setState(() {})},
-                                  child: Row(
-                                    children: [
-                                      CanvasSideBar(
-                                        currentSketch: currentSketchGlobal!,
-                                        allSketches: allSketchesGlobal!,
-                                        strokeSize: strokeSizeGlobal!,
-                                      ),
-                                      Expanded(
-                                        child: Slider(
-                                          activeColor: Colors.white,
-                                          inactiveColor: Colors.white30,
-                                          value: strokeSizeGlobal!.value,
-                                          min: 0,
-                                          max: 50,
-                                          onChanged: (val) {
-                                            strokeSizeGlobal!.value = val;
-                                            setState(() {});
-                                          },
+                    Expanded(
+                      child: DraggableScrollableSheet(
+                          initialChildSize: 0.6,
+                          minChildSize: 0.15,
+                          maxChildSize: 1,
+                          builder: (context, scrollController) =>
+                              SingleChildScrollView(
+                                controller: scrollController,
+                                child: Stack(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 20,
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 16.0, 16.0, 0.0),
-                            child: TextFormField(
-                              controller: _model.textController,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                         hintText: 'Describe your idea...',
-                    hintStyle: FlutterFlowTheme.of(context).bodySmall.override(
-                          fontFamily: 'Inter',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Open Sans',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                              validator: _model.textControllerValidator
-                                  .asValidator(context),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 16.0, 16.0, 16.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                final firestoreBatch =
-                                    FirebaseFirestore.instance.batch();
-                                try {
-                                  final uint8list = await getBytes();
-                                  _model.getWidget = await uploadResizedMask(
-                                    uint8list!,
-                                    imageOrigHeight!,
-                                    imageOrigWidth!,
-                                  );
-                                  _model.apiResult74h =
-                                      await DebGroup.applyMaskCall.call(
-                                    imageUrl: _model.image,
-                                    maskImageUrl: _model.getWidget,
-                                    prompt: _model.textController.text,
-                                  );
-                                  if ((_model.apiResult74h?.succeeded ??
-                                      true)) {
-                                    firestoreBatch
-                                        .set(AiImageRecord.collection.doc(), {
-                                      ...createAiImageRecordData(
-                                        creator: currentUserReference,
-                                        firstImage: _model.image,
-                                      ),
-                                      'generatedImages': [
-                                        DebGroup.applyMaskCall.image(
-                                          (_model.apiResult74h?.jsonBody ?? ''),
-                                        )
+                                        if (allSketchesGlobal != null &&
+                                            currentSketchGlobal != null &&
+                                            strokeSizeGlobal != null)
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 16.0, 16.0, 0.0),
+                                            child: Container(
+                                              color: Colors.black,
+                                              child: GestureDetector(
+                                                onTap: () => {setState(() {})},
+                                                child: Row(
+                                                  children: [
+                                                    CanvasSideBar(
+                                                      currentSketch:
+                                                          currentSketchGlobal!,
+                                                      allSketches:
+                                                          allSketchesGlobal!,
+                                                      strokeSize:
+                                                          strokeSizeGlobal!,
+                                                    ),
+                                                    Expanded(
+                                                      child: Slider(
+                                                        activeColor:
+                                                            Colors.white,
+                                                        inactiveColor:
+                                                            Colors.white30,
+                                                        value: strokeSizeGlobal!
+                                                            .value,
+                                                        min: 0,
+                                                        max: 50,
+                                                        onChanged: (val) {
+                                                          strokeSizeGlobal!
+                                                              .value = val;
+                                                          setState(() {});
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 16.0, 16.0, 0.0),
+                                          child: TextFormField(
+                                            controller: _model.textController,
+                                            autofocus: true,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              hintText: 'Describe your idea...',
+                                              hintStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodySmall
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                      ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Open Sans',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                            validator: _model
+                                                .textControllerValidator
+                                                .asValidator(context),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  16.0, 16.0, 16.0, 16.0),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              final firestoreBatch =
+                                                  FirebaseFirestore.instance
+                                                      .batch();
+                                              try {
+                                                final uint8list =
+                                                    await getBytes();
+                                                _model.getWidget =
+                                                    await uploadResizedMask(
+                                                  uint8list!,
+                                                  imageOrigHeight!,
+                                                  imageOrigWidth!,
+                                                );
+                                                _model.apiResult74h =
+                                                    await DebGroup.applyMaskCall
+                                                        .call(
+                                                  imageUrl: _model.image,
+                                                  maskImageUrl:
+                                                      _model.getWidget,
+                                                  prompt: _model
+                                                      .textController.text,
+                                                );
+                                                if ((_model.apiResult74h
+                                                        ?.succeeded ??
+                                                    true)) {
+                                                  firestoreBatch.set(
+                                                      AiImageRecord.collection
+                                                          .doc(),
+                                                      {
+                                                        ...createAiImageRecordData(
+                                                          creator:
+                                                              currentUserReference,
+                                                          firstImage:
+                                                              _model.image,
+                                                        ),
+                                                        'generatedImages': [
+                                                          DebGroup.applyMaskCall
+                                                              .image(
+                                                            (_model.apiResult74h
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          )
+                                                        ],
+                                                      });
+
+                                                  context.goNamed('HomePage');
+
+                                                  setState(() {
+                                                    _model.step = 0;
+                                                    _model.image = 'false';
+                                                  });
+                                                } else {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: Text('Err'),
+                                                        content: Text((_model
+                                                                    .apiResult74h
+                                                                    ?.jsonBody ??
+                                                                '')
+                                                            .toString()),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+
+                                                  firestoreBatch.set(
+                                                      AiImageRecord.collection
+                                                          .doc(),
+                                                      createAiImageRecordData(
+                                                        creator:
+                                                            currentUserReference,
+                                                        firstImage:
+                                                            _model.image,
+                                                      ));
+                                                }
+                                              } finally {
+                                                await firestoreBatch.commit();
+                                              }
+
+                                              setState(() {});
+                                            },
+                                            text: 'Edit',
+                                            options: FFButtonOptions(
+                                              width: double.infinity,
+                                              height: 40.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      24.0, 0.0, 24.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color: Colors.black,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Open Sans',
+                                                        color: Colors.white,
+                                                      ),
+                                              elevation: 3.0,
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ),
                                       ],
-                                    });
-
-                                    context.goNamed('HomePage');
-
-                                    setState(() {
-                                      _model.step = 0;
-                                      _model.image = 'false';
-                                    });
-                                  } else {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (alertDialogContext) {
-                                        return AlertDialog(
-                                          title: Text('Err'),
-                                          content: Text(
-                                              (_model.apiResult74h?.jsonBody ??
-                                                      '')
-                                                  .toString()),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  alertDialogContext),
-                                              child: Text('Ok'),
+                                    ),
+                                    IgnorePointer(
+                                      child: Container(
+                                        // color: Colors.green,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(
+                                                  top: 20, bottom: 20),
+                                              height: 10,
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Colors.white60),
                                             ),
                                           ],
-                                        );
-                                      },
-                                    );
-
-                                    firestoreBatch.set(
-                                        AiImageRecord.collection.doc(),
-                                        createAiImageRecordData(
-                                          creator: currentUserReference,
-                                          firstImage: _model.image,
-                                        ));
-                                  }
-                                } finally {
-                                  await firestoreBatch.commit();
-                                }
-
-                                setState(() {});
-                              },
-                              text: 'Edit',
-                              options: FFButtonOptions(
-                                width: double.infinity,
-                                height: 40.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Colors.black,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Open Sans',
-                                      color: Colors.white,
+                                        ),
+                                      ),
                                     ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryText,
-                                  width: 1.0,
+                                  ],
                                 ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                              )),
                     ),
                   ],
                 ),
-            if (_model.step == 0)
+              if (_model.step == 0)
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 32),
                   child: Column(
@@ -404,96 +493,113 @@ class _PainterWidgetState extends State<PainterWidget> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Expanded(
-                                    child: FFButtonWidget(
-                                onPressed: () async {
-                                  await requestPermission(
-                                      photoLibraryPermission);
-                                  final selectedMedia = await selectMedia(
-                                    imageQuality: 100,
-                                    mediaSource: MediaSource.photoGallery,
-                                    multiImage: false,
-                                  );
-                                  if (selectedMedia != null &&
-                                      selectedMedia.every((m) =>
-                                          validateFileFormat(
-                                              m.storagePath, context))) {
-                                    setState(
-                                        () => _model.isDataUploading2 = true);
-                                    var selectedUploadedFiles =
-                                        <FFUploadedFile>[];
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          await requestPermission(
+                                              photoLibraryPermission);
+                                          final selectedMedia =
+                                              await selectMedia(
+                                            imageQuality: 100,
+                                            mediaSource:
+                                                MediaSource.photoGallery,
+                                            multiImage: false,
+                                          );
+                                          if (selectedMedia != null &&
+                                              selectedMedia.every((m) =>
+                                                  validateFileFormat(
+                                                      m.storagePath,
+                                                      context))) {
+                                            setState(() =>
+                                                _model.isDataUploading2 = true);
+                                            var selectedUploadedFiles =
+                                                <FFUploadedFile>[];
 
-                                    var downloadUrls = <String>[];
-                                    try {
-                                      selectedUploadedFiles = selectedMedia
-                                          .map((m) => FFUploadedFile(
-                                                name: m.storagePath
-                                                    .split('/')
-                                                    .last,
-                                                bytes: m.bytes,
-                                                height: m.dimensions?.height,
-                                                width: m.dimensions?.width,
-                                                blurHash: m.blurHash,
+                                            var downloadUrls = <String>[];
+                                            try {
+                                              selectedUploadedFiles =
+                                                  selectedMedia
+                                                      .map(
+                                                          (m) => FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                                height: m
+                                                                    .dimensions
+                                                                    ?.height,
+                                                                width: m
+                                                                    .dimensions
+                                                                    ?.width,
+                                                                blurHash:
+                                                                    m.blurHash,
+                                                              ))
+                                                      .toList();
+
+                                              downloadUrls = (await Future.wait(
+                                                selectedMedia.map(
+                                                  (m) async => await uploadData(
+                                                      m.storagePath, m.bytes),
+                                                ),
                                               ))
-                                          .toList();
+                                                  .where((u) => u != null)
+                                                  .map((u) => u!)
+                                                  .toList();
+                                            } finally {
+                                              _model.isDataUploading2 = false;
+                                            }
+                                            if (selectedUploadedFiles.length ==
+                                                    selectedMedia.length &&
+                                                downloadUrls.length ==
+                                                    selectedMedia.length) {
+                                              setState(() {
+                                                _model.uploadedLocalFile2 =
+                                                    selectedUploadedFiles.first;
+                                                _model.uploadedFileUrl2 =
+                                                    downloadUrls.first;
+                                              });
+                                            } else {
+                                              setState(() {});
+                                              return;
+                                            }
+                                          }
 
-                                      downloadUrls = (await Future.wait(
-                                        selectedMedia.map(
-                                          (m) async => await uploadData(
-                                              m.storagePath, m.bytes),
+                                          setState(() {
+                                            _model.step = _model.step! + 1;
+                                            _model.image =
+                                                _model.uploadedFileUrl2;
+                                          });
+                                        },
+                                        text: 'Upload',
+                                        options: FFButtonOptions(
+                                          width: 130.0,
+                                          height: 48.0,
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: Colors.black,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .titleSmall
+                                              .override(
+                                                fontFamily: 'Open Sans',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                          elevation: 0.0,
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
                                         ),
-                                      ))
-                                          .where((u) => u != null)
-                                          .map((u) => u!)
-                                          .toList();
-                                    } finally {
-                                      _model.isDataUploading2 = false;
-                                    }
-                                    if (selectedUploadedFiles.length ==
-                                            selectedMedia.length &&
-                                        downloadUrls.length ==
-                                            selectedMedia.length) {
-                                      setState(() {
-                                        _model.uploadedLocalFile2 =
-                                            selectedUploadedFiles.first;
-                                        _model.uploadedFileUrl2 =
-                                            downloadUrls.first;
-                                      });
-                                    } else {
-                                      setState(() {});
-                                      return;
-                                    }
-                                  }
-
-                                  setState(() {
-                                    _model.step = _model.step! + 1;
-                                    _model.image = _model.uploadedFileUrl2;
-                                  });
-                                },
-                                text: 'Upload',
-                                options: FFButtonOptions(
-                                  width: 130.0,
-                                  height: 48.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: Colors.black,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Open Sans',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
                                       ),
-                                  elevation: 0.0,
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 1.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              ),
                                     ),
                                   ],
                                 ),
@@ -505,7 +611,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                     ],
                   ),
                 ),
-              ],
+            ],
           ),
         ),
       ),
