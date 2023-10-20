@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,7 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
     _model = createModel(context, () => GenerateImagePageModel());
 
     _model.textController ??= TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    _model.textFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -43,6 +44,15 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -433,6 +443,7 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                     Expanded(
                                       child: TextFormField(
                                         controller: _model.textController,
+                                        focusNode: _model.textFieldFocusNode,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           hintText: 'Опишите идею...',

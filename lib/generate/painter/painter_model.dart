@@ -29,6 +29,7 @@ class PainterModel extends FlutterFlowModel {
   // State field(s) for Slider widget.
   double? sliderValue;
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // Stores action output result for [Custom Action - getMyCustomWidgeCurrentValue] action in Button widget.
@@ -53,6 +54,7 @@ class PainterModel extends FlutterFlowModel {
 
   void dispose() {
     unfocusNode.dispose();
+    textFieldFocusNode?.dispose();
     textController?.dispose();
   }
 

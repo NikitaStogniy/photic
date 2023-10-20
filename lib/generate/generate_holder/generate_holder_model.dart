@@ -12,6 +12,7 @@ import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
@@ -40,7 +41,12 @@ class GenerateHolderModel extends FlutterFlowModel<GenerateHolderWidget> {
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    timerController.timer.setPresetTime(
+      mSec: 60000,
+      add: false,
+    );
+  }
 
   void dispose() {
     unfocusNode.dispose();

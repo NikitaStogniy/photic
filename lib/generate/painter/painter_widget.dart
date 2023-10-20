@@ -59,6 +59,7 @@ class _PainterWidgetState extends State<PainterWidget> {
     _model = createModel(context, () => PainterModel());
 
     _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -71,6 +72,15 @@ class _PainterWidgetState extends State<PainterWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(

@@ -16,6 +16,9 @@ class PlanStruct extends FFFirebaseStruct {
     DateTime? deadline,
     double? price,
     String? description,
+    List<String>? featureList,
+    int? inpaintLimit,
+    int? inpaintUsed,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _name = name,
         _limit = limit,
@@ -23,6 +26,9 @@ class PlanStruct extends FFFirebaseStruct {
         _deadline = deadline,
         _price = price,
         _description = description,
+        _featureList = featureList,
+        _inpaintLimit = inpaintLimit,
+        _inpaintUsed = inpaintUsed,
         super(firestoreUtilData);
 
   // "Name" field.
@@ -64,6 +70,29 @@ class PlanStruct extends FFFirebaseStruct {
   set description(String? val) => _description = val;
   bool hasDescription() => _description != null;
 
+  // "FeatureList" field.
+  List<String>? _featureList;
+  List<String> get featureList => _featureList ?? const [];
+  set featureList(List<String>? val) => _featureList = val;
+  void updateFeatureList(Function(List<String>) updateFn) =>
+      updateFn(_featureList ??= []);
+  bool hasFeatureList() => _featureList != null;
+
+  // "InpaintLimit" field.
+  int? _inpaintLimit;
+  int get inpaintLimit => _inpaintLimit ?? 0;
+  set inpaintLimit(int? val) => _inpaintLimit = val;
+  void incrementInpaintLimit(int amount) =>
+      _inpaintLimit = inpaintLimit + amount;
+  bool hasInpaintLimit() => _inpaintLimit != null;
+
+  // "inpaintUsed" field.
+  int? _inpaintUsed;
+  int get inpaintUsed => _inpaintUsed ?? 0;
+  set inpaintUsed(int? val) => _inpaintUsed = val;
+  void incrementInpaintUsed(int amount) => _inpaintUsed = inpaintUsed + amount;
+  bool hasInpaintUsed() => _inpaintUsed != null;
+
   static PlanStruct fromMap(Map<String, dynamic> data) => PlanStruct(
         name: data['Name'] as String?,
         limit: castToType<int>(data['Limit']),
@@ -71,6 +100,9 @@ class PlanStruct extends FFFirebaseStruct {
         deadline: data['Deadline'] as DateTime?,
         price: castToType<double>(data['Price']),
         description: data['Description'] as String?,
+        featureList: getDataList(data['FeatureList']),
+        inpaintLimit: castToType<int>(data['InpaintLimit']),
+        inpaintUsed: castToType<int>(data['inpaintUsed']),
       );
 
   static PlanStruct? maybeFromMap(dynamic data) =>
@@ -83,6 +115,9 @@ class PlanStruct extends FFFirebaseStruct {
         'Deadline': _deadline,
         'Price': _price,
         'Description': _description,
+        'FeatureList': _featureList,
+        'InpaintLimit': _inpaintLimit,
+        'inpaintUsed': _inpaintUsed,
       }.withoutNulls;
 
   @override
@@ -110,6 +145,19 @@ class PlanStruct extends FFFirebaseStruct {
         'Description': serializeParam(
           _description,
           ParamType.String,
+        ),
+        'FeatureList': serializeParam(
+          _featureList,
+          ParamType.String,
+          true,
+        ),
+        'InpaintLimit': serializeParam(
+          _inpaintLimit,
+          ParamType.int,
+        ),
+        'inpaintUsed': serializeParam(
+          _inpaintUsed,
+          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -145,6 +193,21 @@ class PlanStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        featureList: deserializeParam<String>(
+          data['FeatureList'],
+          ParamType.String,
+          true,
+        ),
+        inpaintLimit: deserializeParam(
+          data['InpaintLimit'],
+          ParamType.int,
+          false,
+        ),
+        inpaintUsed: deserializeParam(
+          data['inpaintUsed'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -152,18 +215,31 @@ class PlanStruct extends FFFirebaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is PlanStruct &&
         name == other.name &&
         limit == other.limit &&
         used == other.used &&
         deadline == other.deadline &&
         price == other.price &&
-        description == other.description;
+        description == other.description &&
+        listEquality.equals(featureList, other.featureList) &&
+        inpaintLimit == other.inpaintLimit &&
+        inpaintUsed == other.inpaintUsed;
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([name, limit, used, deadline, price, description]);
+  int get hashCode => const ListEquality().hash([
+        name,
+        limit,
+        used,
+        deadline,
+        price,
+        description,
+        featureList,
+        inpaintLimit,
+        inpaintUsed
+      ]);
 }
 
 PlanStruct createPlanStruct({
@@ -173,6 +249,8 @@ PlanStruct createPlanStruct({
   DateTime? deadline,
   double? price,
   String? description,
+  int? inpaintLimit,
+  int? inpaintUsed,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -185,6 +263,8 @@ PlanStruct createPlanStruct({
       deadline: deadline,
       price: price,
       description: description,
+      inpaintLimit: inpaintLimit,
+      inpaintUsed: inpaintUsed,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

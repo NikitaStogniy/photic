@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 
-import '../../auth/base_auth_user_provider.dart';
+import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
 import '/main.dart';
