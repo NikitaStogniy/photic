@@ -99,366 +99,382 @@ class _PainterWidgetState extends State<PainterWidget> {
           child: Stack(
             children: [
               if (_model.step == 1)
-                Column(
-                  mainAxisSize: MainAxisSize.max,
+                Stack(
                   children: [
-                    Align(
-                      alignment: AlignmentDirectional(0.00, 0.00),
-                      child: Builder(builder: (context) {
-                        if (image == null && _model.image != null) {
-                          print('image is null');
-                          image = Image.network(_model.image!);
-                          Completer<ui.Image> completer =
-                              new Completer<ui.Image>();
-                          image!.image
-                              .resolve(new ImageConfiguration())
-                              .addListener(
-                                  ImageStreamListener((ImageInfo info, bool _) {
-                            completer.complete(info.image);
-                            print(
-                                '[eeee] orig image height ${info.image.height}');
-                            print(
-                                '[eeee] orig image width ${info.image.width}');
-                            imageOrigHeight = info.image.height;
-                            imageOrigWidth = info.image.width;
-                          }));
-                        }
-                        return Stack(
-                          // alignment: AlignmentDirectional(0.0, 0.0),
-                          children: [
-                            ConstrainedBox(
-                              constraints: BoxConstraints(maxHeight: 450),
-                              child: Align(
-                                alignment: Alignment.topCenter,
-                                child: WidgetSizeOffsetWrapper(
-                                  onSizeChange: (Size size) {
-                                    print(
-                                        '[eeee] render size: width ${size.width}, height ${size.height}');
-                                    imageRenderHeight = size.height;
-                                    imageRenderWidth = size.width;
-                                    setState(() {});
-                                  },
-                                  child: image != null
-                                      ? Image(
-                                          image: image!.image,
-                                          fit: BoxFit.scaleDown,
-                                          // height: 400,
-                                        )
-                                      : Container(),
-                                ),
-                              ),
-                            ),
-                            Align(
-                              child: ClipRect(
-                                child: ImageFiltered(
-                                  imageFilter: ui.ImageFilter.blur(
-                                    sigmaX: 2.0,
-                                    sigmaY: 2.0,
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(0.00, 0.00),
+                          child: Builder(builder: (context) {
+                            if (image == null && _model.image != null) {
+                              print('image is null');
+                              image = Image.network(_model.image!);
+                              Completer<ui.Image> completer =
+                                  new Completer<ui.Image>();
+                              image!.image
+                                  .resolve(new ImageConfiguration())
+                                  .addListener(
+                                      ImageStreamListener((ImageInfo info, bool _) {
+                                completer.complete(info.image);
+                                print(
+                                    '[eeee] orig image height ${info.image.height}');
+                                print(
+                                    '[eeee] orig image width ${info.image.width}');
+                                imageOrigHeight = info.image.height;
+                                imageOrigWidth = info.image.width;
+                              }));
+                            }
+                            return Stack(
+                              // alignment: AlignmentDirectional(0.0, 0.0),
+                              children: [
+                                ConstrainedBox(
+                                  constraints: BoxConstraints(maxHeight: 450),
+                                  child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: WidgetSizeOffsetWrapper(
+                                      onSizeChange: (Size size) {
+                                        print(
+                                            '[eeee] render size: width ${size.width}, height ${size.height}');
+                                        imageRenderHeight = size.height;
+                                        imageRenderWidth = size.width;
+                                        setState(() {});
+                                      },
+                                      child: image != null
+                                          ? Image(
+                                              image: image!.image,
+                                              fit: BoxFit.scaleDown,
+                                              // height: 400,
+                                            )
+                                          : Container(),
+                                    ),
                                   ),
-                                  child: image != null &&
-                                          imageRenderHeight != null &&
-                                          imageRenderWidth != null
-                                      ? SizedBox(
-                                          height: imageRenderHeight,
-                                          width: imageRenderWidth,
-                                          child: DrawingWidget(
-                                            height: imageRenderHeight!,
-                                            width: imageRenderWidth!,
-                                          ),
-                                        )
-                                      : Container(),
                                 ),
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
+                                Align(
+                                  child: ClipRect(
+                                    child: ImageFiltered(
+                                      imageFilter: ui.ImageFilter.blur(
+                                        sigmaX: 2.0,
+                                        sigmaY: 2.0,
+                                      ),
+                                      child: image != null &&
+                                              imageRenderHeight != null &&
+                                              imageRenderWidth != null
+                                          ? SizedBox(
+                                              height: imageRenderHeight,
+                                              width: imageRenderWidth,
+                                              child: DrawingWidget(
+                                                height: imageRenderHeight!,
+                                                width: imageRenderWidth!,
+                                              ),
+                                            )
+                                          : Container(),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: DraggableScrollableSheet(
-                          initialChildSize: 0.6,
-                          minChildSize: 0.15,
-                          maxChildSize: 1,
-                          builder: (context, scrollController) =>
-                              SingleChildScrollView(
-                                controller: scrollController,
-                                child: Stack(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        if (allSketchesGlobal != null &&
-                                            currentSketchGlobal != null &&
-                                            strokeSizeGlobal != null)
+                    DraggableScrollableSheet(
+                        initialChildSize: 0.4,
+                        minChildSize: 0.15,
+                        maxChildSize: 0.4,
+
+                        builder: (context, scrollController) =>
+                            SingleChildScrollView(
+                              controller: scrollController,
+                              child: Container(
+                                color: Colors.black,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                     color: FlutterFlowTheme.of(context).accent2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Stack(
+                                    children: [
+                                      Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          if (allSketchesGlobal != null &&
+                                              currentSketchGlobal != null &&
+                                              strokeSizeGlobal != null)
+                                            Padding(
+                                              padding:
+                                                  EdgeInsetsDirectional.fromSTEB(
+                                                      16.0, 16.0, 16.0, 0.0),
+                                              child: Container(
+                                                color: Colors.black,
+                                                child: GestureDetector(
+                                                  onTap: () => {setState(() {})},
+                                                  child: Row(
+                                                    children: [
+                                                      CanvasSideBar(
+                                                        currentSketch:
+                                                            currentSketchGlobal!,
+                                                        allSketches:
+                                                            allSketchesGlobal!,
+                                                        strokeSize:
+                                                            strokeSizeGlobal!,
+                                                      ),
+                                                      Expanded(
+                                                        child: Slider(
+                                                          activeColor:
+                                                              Colors.white,
+                                                          inactiveColor:
+                                                              Colors.white30,
+                                                          value: strokeSizeGlobal!
+                                                              .value,
+                                                          min: 0,
+                                                          max: 50,
+                                                          onChanged: (val) {
+                                                            strokeSizeGlobal!
+                                                                .value = val;
+                                                            setState(() {});
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 16.0, 16.0, 0.0),
-                                            child: Container(
-                                              color: Colors.black,
-                                              child: GestureDetector(
-                                                onTap: () => {setState(() {})},
-                                                child: Row(
-                                                  children: [
-                                                    CanvasSideBar(
-                                                      currentSketch:
-                                                          currentSketchGlobal!,
-                                                      allSketches:
-                                                          allSketchesGlobal!,
-                                                      strokeSize:
-                                                          strokeSizeGlobal!,
-                                                    ),
-                                                    Expanded(
-                                                      child: Slider(
-                                                        activeColor:
-                                                            Colors.white,
-                                                        inactiveColor:
-                                                            Colors.white30,
-                                                        value: strokeSizeGlobal!
-                                                            .value,
-                                                        min: 0,
-                                                        max: 50,
-                                                        onChanged: (val) {
-                                                          strokeSizeGlobal!
-                                                              .value = val;
-                                                          setState(() {});
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ],
+                                            child: TextFormField(
+                                              controller: _model.textController,
+                                              autofocus: false,
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                hintText: 'Describe your idea...',
+                                                hintStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodySmall
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primaryText,
+                                                        ),
+                                                enabledBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8.0),
+                                                ),
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8.0),
+                                                ),
+                                                errorBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8.0),
+                                                ),
+                                                focusedErrorBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8.0),
                                                 ),
                                               ),
+                                              style: FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Open Sans',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
+                                              validator: _model
+                                                  .textControllerValidator
+                                                  .asValidator(context),
                                             ),
                                           ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 16.0, 16.0, 0.0),
-                                          child: TextFormField(
-                                            controller: _model.textController,
-                                            autofocus: true,
-                                            obscureText: false,
-                                            decoration: InputDecoration(
-                                              hintText: 'Describe your idea...',
-                                              hintStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodySmall
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                      ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              errorBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              focusedErrorBorder:
-                                                  OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
-                                                  width: 1.0,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Open Sans',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                ),
-                                            validator: _model
-                                                .textControllerValidator
-                                                .asValidator(context),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 16.0, 16.0, 16.0),
-                                          child: FFButtonWidget(
-                                            onPressed: () async {
-                                              final firestoreBatch =
-                                                  FirebaseFirestore.instance
-                                                      .batch();
-                                              try {
-                                                final uint8list =
-                                                    await getBytes();
-                                                _model.getWidget =
-                                                    await uploadResizedMask(
-                                                  uint8list!,
-                                                  imageOrigHeight!,
-                                                  imageOrigWidth!,
-                                                );
-                                                _model.apiResult74h =
-                                                    await DebGroup.applyMaskCall
-                                                        .call(
-                                                  imageUrl: _model.image,
-                                                  maskImageUrl:
-                                                      _model.getWidget,
-                                                  prompt: _model
-                                                      .textController.text,
-                                                );
-                                                if ((_model.apiResult74h
-                                                        ?.succeeded ??
-                                                    true)) {
-                                                  firestoreBatch.set(
-                                                      AiImageRecord.collection
-                                                          .doc(),
-                                                      {
-                                                        ...createAiImageRecordData(
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 16.0, 16.0, 16.0),
+                                            child: FFButtonWidget(
+                                              onPressed: () async {
+                                                final firestoreBatch =
+                                                    FirebaseFirestore.instance
+                                                        .batch();
+                                                try {
+                                                  final uint8list =
+                                                      await getBytes();
+                                                  _model.getWidget =
+                                                      await uploadResizedMask(
+                                                    uint8list!,
+                                                    imageOrigHeight!,
+                                                    imageOrigWidth!,
+                                                  );
+                                                  _model.apiResult74h =
+                                                      await DebGroup.applyMaskCall
+                                                          .call(
+                                                    imageUrl: _model.image,
+                                                    maskImageUrl:
+                                                        _model.getWidget,
+                                                    prompt: _model
+                                                        .textController.text,
+                                                  );
+                                                  if ((_model.apiResult74h
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    firestoreBatch.set(
+                                                        AiImageRecord.collection
+                                                            .doc(),
+                                                        {
+                                                          ...createAiImageRecordData(
+                                                            creator:
+                                                                currentUserReference,
+                                                            firstImage:
+                                                                _model.image,
+                                                          ),
+                                                          'generatedImages': [
+                                                            DebGroup.applyMaskCall
+                                                                .image(
+                                                              (_model.apiResult74h
+                                                                      ?.jsonBody ??
+                                                                  ''),
+                                                            )
+                                                          ],
+                                                        });
+
+                                                    context.goNamed('HomePage');
+
+                                                    setState(() {
+                                                      _model.step = 0;
+                                                      _model.image = 'false';
+                                                    });
+                                                  } else {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: Text('Err'),
+                                                          content: Text((_model
+                                                                      .apiResult74h
+                                                                      ?.jsonBody ??
+                                                                  '')
+                                                              .toString()),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+
+                                                    firestoreBatch.set(
+                                                        AiImageRecord.collection
+                                                            .doc(),
+                                                        createAiImageRecordData(
                                                           creator:
                                                               currentUserReference,
                                                           firstImage:
                                                               _model.image,
-                                                        ),
-                                                        'generatedImages': [
-                                                          DebGroup.applyMaskCall
-                                                              .image(
-                                                            (_model.apiResult74h
-                                                                    ?.jsonBody ??
-                                                                ''),
-                                                          )
-                                                        ],
-                                                      });
-
-                                                  context.goNamed('HomePage');
-
-                                                  setState(() {
-                                                    _model.step = 0;
-                                                    _model.image = 'false';
-                                                  });
-                                                } else {
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder:
-                                                        (alertDialogContext) {
-                                                      return AlertDialog(
-                                                        title: Text('Err'),
-                                                        content: Text((_model
-                                                                    .apiResult74h
-                                                                    ?.jsonBody ??
-                                                                '')
-                                                            .toString()),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () =>
-                                                                Navigator.pop(
-                                                                    alertDialogContext),
-                                                            child: Text('Ok'),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-
-                                                  firestoreBatch.set(
-                                                      AiImageRecord.collection
-                                                          .doc(),
-                                                      createAiImageRecordData(
-                                                        creator:
-                                                            currentUserReference,
-                                                        firstImage:
-                                                            _model.image,
-                                                      ));
+                                                        ));
+                                                  }
+                                                } finally {
+                                                  await firestoreBatch.commit();
                                                 }
-                                              } finally {
-                                                await firestoreBatch.commit();
-                                              }
 
-                                              setState(() {});
-                                            },
-                                            text: 'Edit',
-                                            options: FFButtonOptions(
-                                              width: double.infinity,
-                                              height: 40.0,
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color: Colors.black,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Open Sans',
-                                                        color: Colors.white,
-                                                      ),
-                                              elevation: 3.0,
-                                              borderSide: BorderSide(
-                                                color:
+                                                setState(() {});
+                                              },
+                                              text: 'Edit',
+                                              options: FFButtonOptions(
+                                                width: double.infinity,
+                                                height: 40.0,
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        24.0, 0.0, 24.0, 0.0),
+                                                iconPadding: EdgeInsetsDirectional
+                                                    .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                color: Colors.black,
+                                                textStyle:
                                                     FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                width: 1.0,
+                                                        .titleSmall
+                                                        .override(
+                                                          fontFamily: 'Open Sans',
+                                                          color: Colors.white,
+                                                        ),
+                                                elevation: 3.0,
+                                                borderSide: BorderSide(
+                                                  color:
+                                                      FlutterFlowTheme.of(context)
+                                                          .primaryText,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    IgnorePointer(
-                                      child: Container(
-                                        // color: Colors.green,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.only(
-                                                  top: 20, bottom: 20),
-                                              height: 10,
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: Colors.white60),
-                                            ),
-                                          ],
+                                        ],
+                                      ),
+                                      IgnorePointer(
+                                        child: Container(
+                                          // color: Colors.green,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                margin: EdgeInsets.only(
+                                                    top: 20, bottom: 20),
+                                                height: 10,
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(10),
+                                                    color: Colors.white60),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              )),
-                    ),
+                              ),
+                            )),
                   ],
                 ),
               if (_model.step == 0)
