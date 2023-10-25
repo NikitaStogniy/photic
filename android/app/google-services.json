@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:829408357407:android:4a00df2751f5544c01392a",
         "android_client_info": {
-          "package_name": "com.photiq.app"
+          "package_name": "com.photiq.photiq"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "829408357407-0bv7920bsjgd67ncrf3u0il7s2588fl3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.photiq.app",
+            "package_name": "com.photiq.photiq",
             "certificate_hash": "979b7688296f316a3856eae8b924833d4d578c81"
           }
         },
@@ -25,7 +25,7 @@
           "client_id": "829408357407-aa6i7vbs8euoh0p3bp2q1ne4mgh8ihvp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.photiq.app",
+            "package_name": "com.photiq.photiq",
             "certificate_hash": "0faa8206c93e2d4dfbbb3414701502be62f0d7c5"
           }
         },
@@ -33,7 +33,7 @@
           "client_id": "829408357407-i29l2nml75n52mhcfskf44ou09e322nl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.photiq.app",
+            "package_name": "com.photiq.photiq",
             "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
           }
         },
