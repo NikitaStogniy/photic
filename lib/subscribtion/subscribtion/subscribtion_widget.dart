@@ -125,7 +125,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.safePop();
+                                  context.goNamed('authPage');
                                 },
                                 child: Icon(
                                   Icons.close,

@@ -83,6 +83,8 @@ class _FlutterFlowTimerState extends State<FlutterFlowTimer> {
   @override
   void initState() {
     super.initState();
+    // Set the initial time.
+    widget.controller.timer.setPresetTime(mSec: widget.initialTime, add: false);
     // Initialize timer properties without updating outer state.
     _initTimer(shouldUpdate: false);
     // Add a listener for when the timer value changes to update the
