@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'subscribtion_widget.dart' show SubscribtionWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -24,6 +25,8 @@ class SubscribtionModel extends FlutterFlowModel<SubscribtionWidget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in Subscribtion widget.
   PlanListRecord? currentPlan;
+  // Stores action output result for [RevenueCat - Purchase] action in Button widget.
+  bool? revenue;
 
   /// Initialization and disposal methods.
 

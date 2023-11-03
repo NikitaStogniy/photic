@@ -26,9 +26,15 @@ class PlanListRecord extends FirestoreRecord {
   String get description => _description ?? '';
   bool hasDescription() => _description != null;
 
+  // "packageId" field.
+  String? _packageId;
+  String get packageId => _packageId ?? '';
+  bool hasPackageId() => _packageId != null;
+
   void _initializeFields() {
     _plan = PlanStruct.maybeFromMap(snapshotData['Plan']);
     _description = snapshotData['Description'] as String?;
+    _packageId = snapshotData['packageId'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -68,11 +74,13 @@ class PlanListRecord extends FirestoreRecord {
 Map<String, dynamic> createPlanListRecordData({
   PlanStruct? plan,
   String? description,
+  String? packageId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'Plan': PlanStruct().toMap(),
       'Description': description,
+      'packageId': packageId,
     }.withoutNulls,
   );
 
@@ -87,12 +95,14 @@ class PlanListRecordDocumentEquality implements Equality<PlanListRecord> {
 
   @override
   bool equals(PlanListRecord? e1, PlanListRecord? e2) {
-    return e1?.plan == e2?.plan && e1?.description == e2?.description;
+    return e1?.plan == e2?.plan &&
+        e1?.description == e2?.description &&
+        e1?.packageId == e2?.packageId;
   }
 
   @override
   int hash(PlanListRecord? e) =>
-      const ListEquality().hash([e?.plan, e?.description]);
+      const ListEquality().hash([e?.plan, e?.description, e?.packageId]);
 
   @override
   bool isValidKey(Object? o) => o is PlanListRecord;

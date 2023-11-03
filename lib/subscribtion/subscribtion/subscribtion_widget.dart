@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -602,32 +603,30 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                         onPressed: !(_model.plan != null)
                             ? null
                             : () async {
-                                await currentUserReference!
-                                    .update(createUsersRecordData(
-                                  plan: updatePlanStruct(
-                                    _model.plan?.plan,
-                                    clearUnsetFields: false,
-                                  ),
-                                ));
-
-                                await currentUserReference!
-                                    .update(createUsersRecordData(
-                                  plan: createPlanStruct(
-                                    deadline: functions
-                                        .plusMonth(getCurrentTimestamp),
-                                    clearUnsetFields: false,
-                                  ),
-                                ));
-
-                                context.goNamed(
-                                  'subscription_done',
-                                  extra: <String, dynamic>{
-                                    kTransitionInfoKey: TransitionInfo(
-                                      hasTransition: true,
-                                      transitionType: PageTransitionType.fade,
+                                _model.revenue = await revenue_cat
+                                    .purchasePackage(_model.plan!.packageId);
+                                if (_model.revenue!) {
+                                  await currentUserReference!
+                                      .update(createUsersRecordData(
+                                    plan: createPlanStruct(
+                                      deadline: functions
+                                          .plusMonth(getCurrentTimestamp),
+                                      clearUnsetFields: false,
                                     ),
-                                  },
-                                );
+                                  ));
+
+                                  context.goNamed(
+                                    'subscription_done',
+                                    extra: <String, dynamic>{
+                                      kTransitionInfoKey: TransitionInfo(
+                                        hasTransition: true,
+                                        transitionType: PageTransitionType.fade,
+                                      ),
+                                    },
+                                  );
+                                }
+
+                                setState(() {});
                               },
                         text: 'Next',
                         options: FFButtonOptions(

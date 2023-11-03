@@ -30,7 +30,7 @@ void main() async {
 
   await revenue_cat.initialize(
     "hgasdjhagsdjgasdjh",
-    "hgasdjhagsdjgasdjh",
+    "goog_GdQNyzpIWPkUliRgQDoTRiUicBL",
     loadDataAfterLaunch: true,
   );
 
