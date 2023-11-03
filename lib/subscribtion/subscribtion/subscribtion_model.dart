@@ -26,7 +26,7 @@ class SubscribtionModel extends FlutterFlowModel<SubscribtionWidget> {
   // Stores action output result for [Firestore Query - Query a collection] action in Subscribtion widget.
   PlanListRecord? currentPlan;
   // Stores action output result for [RevenueCat - Purchase] action in Button widget.
-  bool? revenue;
+  bool? buy;
 
   /// Initialization and disposal methods.
 
