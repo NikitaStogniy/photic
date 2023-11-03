@@ -91,6 +91,7 @@ class _SplashWidgetState extends State<SplashWidget> {
                               ),
                             ),
                           ),
+                       
                         ],
                       ),
                     ),
