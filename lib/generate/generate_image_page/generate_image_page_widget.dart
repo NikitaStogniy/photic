@@ -549,7 +549,7 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                                     FormFieldController<String>(
                                                   _model.dropDownValue1 ??= '',
                                                 ),
-                                                options: [
+                                                options: List<String>.from([
                                                   'Option 1',
                                                   '1',
                                                   '2',
@@ -557,7 +557,7 @@ class _GenerateImagePageWidgetState extends State<GenerateImagePageWidget> {
                                                   '4',
                                                   '5',
                                                   '6'
-                                                ],
+                                                ]),
                                                 optionLabels: [
                                                   'Реалистичный',
                                                   'Дикий запад',
