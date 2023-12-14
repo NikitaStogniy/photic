@@ -1,15 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/permissions_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -375,80 +372,92 @@ class _PainterWidgetState extends State<PainterWidget> {
                                     Expanded(
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          await requestPermission(
-                                              photoLibraryPermission);
-                                          final selectedMedia =
-                                              await selectMedia(
-                                            imageQuality: 100,
-                                            mediaSource:
-                                                MediaSource.photoGallery,
-                                            multiImage: false,
+                                          _model.firstMask =
+                                              await DebGroup.applyMaskCall.call(
+                                            imageUrl: 'blabla',
+                                            maskImageUrl: '2bla2bla',
                                           );
-                                          if (selectedMedia != null &&
-                                              selectedMedia.every((m) =>
-                                                  validateFileFormat(
-                                                      m.storagePath,
-                                                      context))) {
-                                            setState(() =>
-                                                _model.isDataUploading = true);
-                                            var selectedUploadedFiles =
-                                                <FFUploadedFile>[];
+                                          if ((_model.firstMask?.succeeded ??
+                                              true)) {
+                                            var aiImageRecordReference =
+                                                AiImageRecord.collection.doc();
+                                            await aiImageRecordReference
+                                                .set(createAiImageRecordData(
+                                              creator: currentUserReference,
+                                              refImage: _model.image,
+                                            ));
+                                            _model.generation = AiImageRecord
+                                                .getDocumentFromData(
+                                                    createAiImageRecordData(
+                                                      creator:
+                                                          currentUserReference,
+                                                      refImage: _model.image,
+                                                    ),
+                                                    aiImageRecordReference);
 
-                                            var downloadUrls = <String>[];
-                                            try {
-                                              selectedUploadedFiles =
-                                                  selectedMedia
-                                                      .map(
-                                                          (m) => FFUploadedFile(
-                                                                name: m
-                                                                    .storagePath
-                                                                    .split('/')
-                                                                    .last,
-                                                                bytes: m.bytes,
-                                                                height: m
-                                                                    .dimensions
-                                                                    ?.height,
-                                                                width: m
-                                                                    .dimensions
-                                                                    ?.width,
-                                                                blurHash:
-                                                                    m.blurHash,
-                                                              ))
-                                                      .toList();
+                                            await currentUserReference!
+                                                .update(createUsersRecordData(
+                                              plan: createPlanStruct(
+                                                fieldValues: {
+                                                  'inpaintUsed':
+                                                      FieldValue.increment(1),
+                                                },
+                                                clearUnsetFields: false,
+                                              ),
+                                            ));
 
-                                              downloadUrls = (await Future.wait(
-                                                selectedMedia.map(
-                                                  (m) async => await uploadData(
-                                                      m.storagePath, m.bytes),
+                                            var pendingRecordReference =
+                                                PendingRecord.createDoc(
+                                                    currentUserReference!);
+                                            await pendingRecordReference
+                                                .set(createPendingRecordData(
+                                              id: DebGroup.applyMaskCall
+                                                  .id(
+                                                    (_model.firstMask
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                  )
+                                                  .toString(),
+                                              genRef:
+                                                  _model.generation?.reference,
+                                            ));
+                                            _model.ref = PendingRecord
+                                                .getDocumentFromData(
+                                                    createPendingRecordData(
+                                                      id: DebGroup.applyMaskCall
+                                                          .id(
+                                                            (_model.firstMask
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          )
+                                                          .toString(),
+                                                      genRef: _model.generation
+                                                          ?.reference,
+                                                    ),
+                                                    pendingRecordReference);
+
+                                            context.goNamed(
+                                              'generate_holder',
+                                              queryParameters: {
+                                                'id': serializeParam(
+                                                  DebGroup.applyMaskCall
+                                                      .id(
+                                                        (_model.firstMask
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      )
+                                                      .toString(),
+                                                  ParamType.String,
                                                 ),
-                                              ))
-                                                  .where((u) => u != null)
-                                                  .map((u) => u!)
-                                                  .toList();
-                                            } finally {
-                                              _model.isDataUploading = false;
-                                            }
-                                            if (selectedUploadedFiles.length ==
-                                                    selectedMedia.length &&
-                                                downloadUrls.length ==
-                                                    selectedMedia.length) {
-                                              setState(() {
-                                                _model.uploadedLocalFile =
-                                                    selectedUploadedFiles.first;
-                                                _model.uploadedFileUrl =
-                                                    downloadUrls.first;
-                                              });
-                                            } else {
-                                              setState(() {});
-                                              return;
-                                            }
+                                                'packRef': serializeParam(
+                                                  _model.generation?.reference,
+                                                  ParamType.DocumentReference,
+                                                ),
+                                              }.withoutNulls,
+                                            );
                                           }
 
-                                          setState(() {
-                                            _model.step = _model.step! + 1;
-                                            _model.image =
-                                                _model.uploadedFileUrl;
-                                          });
+                                          setState(() {});
                                         },
                                         text: 'Upload',
                                         options: FFButtonOptions(

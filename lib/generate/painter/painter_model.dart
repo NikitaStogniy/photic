@@ -1,15 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/permissions_util.dart';
 import 'painter_widget.dart' show PainterWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +36,12 @@ class PainterModel extends FlutterFlowModel<PainterWidget> {
   String? uploaded;
   // Stores action output result for [Backend Call - API (applyMask)] action in Button widget.
   ApiCallResponse? apiResult74h;
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
+  // Stores action output result for [Backend Call - API (applyMask)] action in Button widget.
+  ApiCallResponse? firstMask;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  AiImageRecord? generation;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  PendingRecord? ref;
 
   /// Initialization and disposal methods.
 

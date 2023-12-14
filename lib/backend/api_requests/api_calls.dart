@@ -135,6 +135,10 @@ class ApplyMaskCall {
         response,
         r'''$''',
       );
+  dynamic id(dynamic response) => getJsonField(
+        response,
+        r'''$.id''',
+      );
 }
 
 /// End DEB Group Code
