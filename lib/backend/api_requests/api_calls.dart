@@ -98,21 +98,22 @@ class ApplyMaskCall {
   Future<ApiCallResponse> call({
     String? imageUrl = '',
     String? maskImageUrl = '',
+    String? prompt = 'naked',
   }) async {
     final ffApiRequestBody = '''
 {
-    "start_node_id": "55f68523-fc5f-41fe-a75d-7cdfa5ed9773",
-    "end_node_id": "656719a2-2b17-4ba2-a7ef-f31a11514c79",
-    "result_node_id": "656719a2-2b17-4ba2-a7ef-f31a11514c79",
-    "node_settings": {
-        "55f68523-fc5f-41fe-a75d-7cdfa5ed9773": {
-            "data": {
-                "image": "${imageUrl}",
-                "mask": "${maskImageUrl}",
-                "promt": "naked"
-            }
-        }
+  "start_node_id": "55f68523-fc5f-41fe-a75d-7cdfa5ed9773",
+  "end_node_id": "656719a2-2b17-4ba2-a7ef-f31a11514c79",
+  "result_node_id": "656719a2-2b17-4ba2-a7ef-f31a11514c79",
+  "node_settings": {
+    "55f68523-fc5f-41fe-a75d-7cdfa5ed9773": {
+      "data": {
+        "image": "${imageUrl}",
+        "mask": "${maskImageUrl}",
+        "promt": "${prompt}"
+      }
     }
+  }
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'applyMask',
@@ -131,10 +132,6 @@ class ApplyMaskCall {
     );
   }
 
-  dynamic image(dynamic response) => getJsonField(
-        response,
-        r'''$''',
-      );
   dynamic id(dynamic response) => getJsonField(
         response,
         r'''$.id''',

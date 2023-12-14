@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -216,96 +215,8 @@ class _PainterWidgetState extends State<PainterWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: () async {
-                              final firestoreBatch =
-                                  FirebaseFirestore.instance.batch();
-                              try {
-                                _model.getWidget =
-                                    await actions.getMyCustomWidgeCurrentValue(
-                                  context,
-                                );
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Err'),
-                                      content: Text(_model.getWidget!),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                                _model.uploaded = await actions.savePaintImage(
-                                  context,
-                                );
-                                _model.apiResult74h =
-                                    await DebGroup.applyMaskCall.call(
-                                  imageUrl: _model.image,
-                                  maskImageUrl: _model.uploaded,
-                                );
-                                if ((_model.apiResult74h?.succeeded ?? true)) {
-                                  firestoreBatch
-                                      .set(AiImageRecord.collection.doc(), {
-                                    ...createAiImageRecordData(
-                                      creator: currentUserReference,
-                                      firstImage: _model.image,
-                                    ),
-                                    ...mapToFirestore(
-                                      {
-                                        'generatedImages': [
-                                          DebGroup.applyMaskCall.image(
-                                            (_model.apiResult74h?.jsonBody ??
-                                                ''),
-                                          )
-                                        ],
-                                      },
-                                    ),
-                                  });
-
-                                  context.goNamed('HomePage');
-
-                                  setState(() {
-                                    _model.step = 0;
-                                    _model.image = 'false';
-                                  });
-                                } else {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('Err'),
-                                        content: Text(
-                                            (_model.apiResult74h?.jsonBody ??
-                                                    '')
-                                                .toString()),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-
-                                  firestoreBatch.set(
-                                      AiImageRecord.collection.doc(),
-                                      createAiImageRecordData(
-                                        creator: currentUserReference,
-                                        firstImage: _model.image,
-                                      ));
-                                }
-                              } finally {
-                                await firestoreBatch.commit();
-                              }
-
-                              setState(() {});
+                            onPressed: () {
+                              print('Button pressed ...');
                             },
                             text: 'Edit',
                             options: FFButtonOptions(
@@ -454,6 +365,28 @@ class _PainterWidgetState extends State<PainterWidget> {
                                                   ParamType.DocumentReference,
                                                 ),
                                               }.withoutNulls,
+                                            );
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text('ERR'),
+                                                  content: Text((_model
+                                                              .firstMask
+                                                              ?.jsonBody ??
+                                                          '')
+                                                      .toString()),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
                                             );
                                           }
 

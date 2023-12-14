@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'painter_widget.dart' show PainterWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,12 +29,6 @@ class PainterModel extends FlutterFlowModel<PainterWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  // Stores action output result for [Custom Action - getMyCustomWidgeCurrentValue] action in Button widget.
-  String? getWidget;
-  // Stores action output result for [Custom Action - savePaintImage] action in Button widget.
-  String? uploaded;
-  // Stores action output result for [Backend Call - API (applyMask)] action in Button widget.
-  ApiCallResponse? apiResult74h;
   // Stores action output result for [Backend Call - API (applyMask)] action in Button widget.
   ApiCallResponse? firstMask;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
