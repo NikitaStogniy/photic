@@ -75,22 +75,13 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
               context.goNamed('HomePage');
             },
           ),
-          title: InkWell(
-            splashColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onLongPress: () async {
-              context.pushNamed('addStyle');
-            },
-            child: Text(
-              'Settings',
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    fontFamily: 'Inter',
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: 22.0,
-                  ),
-            ),
+          title: Text(
+            'Settings',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Inter',
+                  color: FlutterFlowTheme.of(context).primaryText,
+                  fontSize: 22.0,
+                ),
           ),
           actions: [],
           centerTitle: true,
