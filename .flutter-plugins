@@ -1,4 +1,5 @@
 # This is a generated file; do not edit or check into version control.
+appmetrica_plugin=/Users/nikita/.pub-cache/hosted/pub.dev/appmetrica_plugin-1.4.0/
 cloud_firestore=/Users/nikita/.pub-cache/hosted/pub.dev/cloud_firestore-4.8.0/
 cloud_firestore_web=/Users/nikita/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.6.0/
 file_picker=/Users/nikita/.pub-cache/hosted/pub.dev/file_picker-5.2.6/
@@ -11,6 +12,7 @@ firebase_performance=/Users/nikita/.pub-cache/hosted/pub.dev/firebase_performanc
 firebase_performance_web=/Users/nikita/.pub-cache/hosted/pub.dev/firebase_performance_web-0.1.4+2/
 firebase_storage=/Users/nikita/.pub-cache/hosted/pub.dev/firebase_storage-11.2.2/
 firebase_storage_web=/Users/nikita/.pub-cache/hosted/pub.dev/firebase_storage_web-3.6.2/
+flutter_branch_sdk=/Users/nikita/.pub-cache/hosted/pub.dev/flutter_branch_sdk-6.6.0/
 flutter_native_splash=/Users/nikita/.pub-cache/hosted/pub.dev/flutter_native_splash-2.3.1/
 flutter_plugin_android_lifecycle=/Users/nikita/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.9/
 gallery_saver=/Users/nikita/.pub-cache/hosted/pub.dev/gallery_saver-2.3.2/
@@ -32,6 +34,7 @@ permission_handler=/Users/nikita/.pub-cache/hosted/pub.dev/permission_handler-10
 permission_handler_android=/Users/nikita/.pub-cache/hosted/pub.dev/permission_handler_android-10.3.6/
 permission_handler_apple=/Users/nikita/.pub-cache/hosted/pub.dev/permission_handler_apple-9.1.4/
 permission_handler_windows=/Users/nikita/.pub-cache/hosted/pub.dev/permission_handler_windows-0.1.3/
+purchases_flutter=/Users/nikita/.pub-cache/hosted/pub.dev/purchases_flutter-6.0.0/
 shared_preferences=/Users/nikita/.pub-cache/hosted/pub.dev/shared_preferences-2.0.15/
 shared_preferences_android=/Users/nikita/.pub-cache/hosted/pub.dev/shared_preferences_android-2.1.0/
 shared_preferences_ios=/Users/nikita/.pub-cache/hosted/pub.dev/shared_preferences_ios-2.1.1/

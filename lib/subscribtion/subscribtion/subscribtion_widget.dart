@@ -15,6 +15,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'subscribtion_model.dart';
 export 'subscribtion_model.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 class SubscribtionWidget extends StatefulWidget {
   const SubscribtionWidget({Key? key}) : super(key: key);
@@ -607,6 +608,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                     FirebaseFirestore.instance.batch();
                                 try {
                                   if (_model.plan?.plan?.name == 'Free') {
+                                    AppMetrica.reportEvent('Trial');
                                     firestoreBatch.update(
                                         currentUserReference!,
                                         createUsersRecordData(
@@ -637,6 +639,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                       },
                                     );
                                   } else {
+                                    AppMetrica.reportEvent('Buy');
                                     _model.buy =
                                         await revenue_cat.purchasePackage(
                                             _model.plan!.packageId);

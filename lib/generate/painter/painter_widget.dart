@@ -188,7 +188,6 @@ class _PainterWidgetState extends State<PainterWidget> {
                             SingleChildScrollView(
                               controller: scrollController,
                               child: Container(
-                                color: Colors.black,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     width: 1,

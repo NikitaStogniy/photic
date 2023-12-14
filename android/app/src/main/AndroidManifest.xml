@@ -38,10 +38,14 @@
               android:resource="@drawable/launch_background"
               />
             <intent-filter>
+                <data android:scheme="deeplink" />
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <!-- Deep linking -->
+            <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_ntfzq2tjb3lsf7Qej8l1robktzcMOm0y" />
+            <meta-data android:name="io.branch.sdk.BranchUriScheme" android:value="photiq://photiq.com" />
+
             <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -57,7 +61,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="@string/branch_key" />
+        <meta-data android:name="io.branch.sdk.BranchUriScheme" android:value="@string/branch_uri_scheme" />
 
 
     </application>
