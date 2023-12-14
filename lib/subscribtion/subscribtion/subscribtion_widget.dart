@@ -118,8 +118,8 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                           Align(
                             alignment: AlignmentDirectional(1.00, 0.00),
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 24, 16, 0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 24.0, 16.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -132,11 +132,11 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                   Icons.close,
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
-                                  size: 24,
+                                  size: 24.0,
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                       Padding(
@@ -205,180 +205,145 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                           ),
                         ),
                       ),
-                      StreamBuilder<List<PlanListRecord>>(
-                        stream: queryPlanListRecord(
-                          queryBuilder: (planListRecord) => planListRecord
-                              .orderBy('Plan.Price', descending: true),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primaryText,
+                      Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: MediaQuery.sizeOf(context).height * 0.6,
+                        decoration: BoxDecoration(),
+                        child: StreamBuilder<List<PlanListRecord>>(
+                          stream: queryPlanListRecord(
+                            queryBuilder: (planListRecord) => planListRecord
+                                .orderBy('Plan.Price', descending: true),
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primaryText,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }
-                          List<PlanListRecord> listViewPlanListRecordList =
-                              snapshot.data!;
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listViewPlanListRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewPlanListRecord =
-                                  listViewPlanListRecordList[listViewIndex];
-                              return Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    8.0, 16.0, 8.0, 0.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    setState(() {
-                                      _model.plan = listViewPlanListRecord;
-                                    });
-                                  },
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    elevation: 0.0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    child: Container(
-                                      width: MediaQuery.sizeOf(context).width *
-                                          0.9,
-                                      decoration: BoxDecoration(
-                                        color: _model.plan?.reference ==
-                                                listViewPlanListRecord.reference
-                                            ? FlutterFlowTheme.of(context)
-                                                .primaryText
-                                            : Colors.transparent,
+                              );
+                            }
+                            List<PlanListRecord> listViewPlanListRecordList =
+                                snapshot.data!;
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              scrollDirection: Axis.vertical,
+                              itemCount: listViewPlanListRecordList.length,
+                              itemBuilder: (context, listViewIndex) {
+                                final listViewPlanListRecord =
+                                    listViewPlanListRecordList[listViewIndex];
+                                return Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 16.0, 8.0, 0.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      setState(() {
+                                        _model.plan = listViewPlanListRecord;
+                                      });
+                                    },
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      elevation: 0.0,
+                                      shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(12.0),
-                                        border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                        ),
                                       ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 12.0, 0.0, 12.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  16.0,
-                                                                  0.0,
-                                                                  8.0,
-                                                                  0.0),
-                                                      child: Container(
-                                                        width: 16.0,
-                                                        height: 16.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: Colors.black,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      100.0),
-                                                          border: Border.all(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
+                                      child: Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.9,
+                                        decoration: BoxDecoration(
+                                          color: _model.plan?.reference ==
+                                                  listViewPlanListRecord
+                                                      .reference
+                                              ? FlutterFlowTheme.of(context)
+                                                  .primaryText
+                                              : Colors.transparent,
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryBackground,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 12.0, 0.0, 12.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    16.0,
+                                                                    0.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: Container(
+                                                          width: 16.0,
+                                                          height: 16.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.black,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        100.0),
+                                                            border: Border.all(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText,
+                                                            ),
                                                           ),
-                                                        ),
-                                                        child: Visibility(
-                                                          visible: _model.plan
-                                                                  ?.reference ==
-                                                              listViewPlanListRecord
-                                                                  .reference,
-                                                          child: Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0.00, 0.00),
-                                                            child: SvgPicture
-                                                                .asset(
-                                                              'assets/images/Checkbox.svg',
-                                                              width: 8.0,
-                                                              height: 8.0,
-                                                              fit: BoxFit.cover,
+                                                          child: Visibility(
+                                                            visible: _model.plan
+                                                                    ?.reference ==
+                                                                listViewPlanListRecord
+                                                                    .reference,
+                                                            child: Align(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      0.00,
+                                                                      0.00),
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                'assets/images/Checkbox.svg',
+                                                                width: 8.0,
+                                                                height: 8.0,
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      listViewPlanListRecord
-                                                          .plan.name,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            color:
-                                                                valueOrDefault<
-                                                                    Color>(
-                                                              _model.plan?.reference ==
-                                                                      listViewPlanListRecord
-                                                                          .reference
-                                                                  ? FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBackground
-                                                                  : FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primaryText,
-                                                            ),
-                                                            fontSize: 16.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 16.0, 0.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    if (listViewPlanListRecord
-                                                            .plan.price !=
-                                                        0.0)
                                                       Text(
-                                                        '\$ ${listViewPlanListRecord.plan.price.toString()}',
+                                                        listViewPlanListRecord
+                                                            .plan.name,
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -407,188 +372,234 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                                           .bold,
                                                                 ),
                                                       ),
-                                                    Text(
-                                                      listViewPlanListRecord
-                                                                  .plan.price !=
-                                                              0.0
-                                                          ? '/ mon'
-                                                          : 'free',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            color:
-                                                                valueOrDefault<
-                                                                    Color>(
-                                                              _model.plan?.reference ==
-                                                                      listViewPlanListRecord
-                                                                          .reference
-                                                                  ? FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBackground
-                                                                  : FlutterFlowTheme.of(
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 16.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      if (listViewPlanListRecord
+                                                              .plan.price !=
+                                                          0.0)
+                                                        Text(
+                                                          '\$ ${listViewPlanListRecord.plan.price.toString()}',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                color:
+                                                                    valueOrDefault<
+                                                                        Color>(
+                                                                  _model.plan?.reference ==
+                                                                          listViewPlanListRecord
+                                                                              .reference
+                                                                      ? FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBackground
+                                                                      : FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                  FlutterFlowTheme.of(
                                                                           context)
                                                                       .primaryText,
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .primaryText,
-                                                            ),
-                                                            fontSize: 12.0,
+                                                                ),
+                                                                fontSize: 16.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                        ),
+                                                      Text(
+                                                        listViewPlanListRecord
+                                                                    .plan
+                                                                    .price !=
+                                                                0.0
+                                                            ? '/ mon'
+                                                            : 'free',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  color:
+                                                                      valueOrDefault<
+                                                                          Color>(
+                                                                    _model.plan?.reference ==
+                                                                            listViewPlanListRecord
+                                                                                .reference
+                                                                        ? FlutterFlowTheme.of(context)
+                                                                            .primaryBackground
+                                                                        : FlutterFlowTheme.of(context)
+                                                                            .primaryText,
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                  ),
+                                                                  fontSize:
+                                                                      12.0,
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            if (_model.plan?.reference ==
+                                                listViewPlanListRecord
+                                                    .reference)
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        16.0, 0.0, 16.0, 16.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Wrap(
+                                                            spacing: 0.0,
+                                                            runSpacing: 0.0,
+                                                            alignment:
+                                                                WrapAlignment
+                                                                    .start,
+                                                            crossAxisAlignment:
+                                                                WrapCrossAlignment
+                                                                    .start,
+                                                            direction:
+                                                                Axis.horizontal,
+                                                            runAlignment:
+                                                                WrapAlignment
+                                                                    .start,
+                                                            verticalDirection:
+                                                                VerticalDirection
+                                                                    .down,
+                                                            clipBehavior:
+                                                                Clip.none,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            4.0),
+                                                                child: Text(
+                                                                  listViewPlanListRecord
+                                                                      .plan
+                                                                      .description,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Inter',
+                                                                        color: _model.plan?.reference ==
+                                                                                listViewPlanListRecord.reference
+                                                                            ? FlutterFlowTheme.of(context).primaryBackground
+                                                                            : FlutterFlowTheme.of(context).primaryText,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
+                                                          if (listViewPlanListRecord
+                                                                  .plan
+                                                                  .featureList
+                                                                  .first !=
+                                                              '0')
+                                                            Builder(
+                                                              builder:
+                                                                  (context) {
+                                                                final featureList =
+                                                                    listViewPlanListRecord
+                                                                        .plan
+                                                                        .featureList
+                                                                        .toList();
+                                                                return Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: List.generate(
+                                                                      featureList
+                                                                          .length,
+                                                                      (featureListIndex) {
+                                                                    final featureListItem =
+                                                                        featureList[
+                                                                            featureListIndex];
+                                                                    return Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children:
+                                                                          [
+                                                                        Container(
+                                                                          width:
+                                                                              2.0,
+                                                                          height:
+                                                                              2.0,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                            shape:
+                                                                                BoxShape.circle,
+                                                                          ),
+                                                                        ),
+                                                                        Text(
+                                                                          featureListItem,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Inter',
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                              ),
+                                                                        ),
+                                                                      ].divide(SizedBox(width: 2.0)).addToStart(
+                                                                              SizedBox(width: 4.0)),
+                                                                    );
+                                                                  }),
+                                                                );
+                                                              },
+                                                            ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                          if (_model.plan?.reference ==
-                                              listViewPlanListRecord.reference)
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      16.0, 0.0, 16.0, 16.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Expanded(
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Wrap(
-                                                          spacing: 0.0,
-                                                          runSpacing: 0.0,
-                                                          alignment:
-                                                              WrapAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              WrapCrossAlignment
-                                                                  .start,
-                                                          direction:
-                                                              Axis.horizontal,
-                                                          runAlignment:
-                                                              WrapAlignment
-                                                                  .start,
-                                                          verticalDirection:
-                                                              VerticalDirection
-                                                                  .down,
-                                                          clipBehavior:
-                                                              Clip.none,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          4.0),
-                                                              child: Text(
-                                                                listViewPlanListRecord
-                                                                    .plan
-                                                                    .description,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      color: _model.plan?.reference ==
-                                                                              listViewPlanListRecord
-                                                                                  .reference
-                                                                          ? FlutterFlowTheme.of(context)
-                                                                              .primaryBackground
-                                                                          : FlutterFlowTheme.of(context)
-                                                                              .primaryText,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        if (listViewPlanListRecord
-                                                                .plan
-                                                                .featureList
-                                                                .first !=
-                                                            '0')
-                                                          Builder(
-                                                            builder: (context) {
-                                                              final featureList =
-                                                                  listViewPlanListRecord
-                                                                      .plan
-                                                                      .featureList
-                                                                      .toList();
-                                                              return Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: List.generate(
-                                                                    featureList
-                                                                        .length,
-                                                                    (featureListIndex) {
-                                                                  final featureListItem =
-                                                                      featureList[
-                                                                          featureListIndex];
-                                                                  return Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Container(
-                                                                        width:
-                                                                            2.0,
-                                                                        height:
-                                                                            2.0,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryBackground,
-                                                                          shape:
-                                                                              BoxShape.circle,
-                                                                        ),
-                                                                      ),
-                                                                      Text(
-                                                                        featureListItem,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Inter',
-                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                            ),
-                                                                      ),
-                                                                    ]
-                                                                        .divide(SizedBox(
-                                                                            width:
-                                                                                2.0))
-                                                                        .addToStart(SizedBox(
-                                                                            width:
-                                                                                4.0)),
-                                                                  );
-                                                                }),
-                                                              );
-                                                            },
-                                                          ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          );
-                        },
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
