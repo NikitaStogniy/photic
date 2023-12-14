@@ -10,13 +10,14 @@ import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
+import 'painter_widget.dart' show PainterWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class PainterModel extends FlutterFlowModel {
+class PainterModel extends FlutterFlowModel<PainterWidget> {
   ///  Local state fields for this page.
 
   int? step = 0;
@@ -38,15 +39,10 @@ class PainterModel extends FlutterFlowModel {
   String? uploaded;
   // Stores action output result for [Backend Call - API (applyMask)] action in Button widget.
   ApiCallResponse? apiResult74h;
-  bool isDataUploading1 = false;
-  FFUploadedFile uploadedLocalFile1 =
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl1 = '';
-
-  bool isDataUploading2 = false;
-  FFUploadedFile uploadedLocalFile2 =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl2 = '';
+  String uploadedFileUrl = '';
 
   /// Initialization and disposal methods.
 

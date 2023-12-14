@@ -6,13 +6,10 @@ export '/subscribtion/subscribtion/subscribtion_widget.dart'
     show SubscribtionWidget;
 export '/subscribtion/subscription_done/subscription_done_widget.dart'
     show SubscriptionDoneWidget;
-export '/generate/generate_image_page/generate_image_page_widget.dart'
-    show GenerateImagePageWidget;
 export '/generate/generate_holder/generate_holder_widget.dart'
     show GenerateHolderWidget;
 export '/generate/generate_avatar_page/generate_avatar_page_widget.dart'
     show GenerateAvatarPageWidget;
-export '/add_style/add_style_widget.dart' show AddStyleWidget;
 export '/home/pack_page/pack_page_widget.dart' show PackPageWidget;
 export '/home/settings_page/settings_page_widget.dart' show SettingsPageWidget;
 export '/home/account_page/account_page_widget.dart' show AccountPageWidget;
