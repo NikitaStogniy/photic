@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
     <string name="app_name">photiq</string>
-    <string name="deeplink_test_link">your_test_link_here</string>
-    <string name="deeplink_alternate_test_link">your_alternate_test_link_here</string>
-    <string name="branch_key">key_live_ntfzq2tjb3lsf7Qej8l1robktzcMOm0y</string>
-    <string name="branch_uri_scheme">photiq://photiq.com</string>
+
 </resources>
