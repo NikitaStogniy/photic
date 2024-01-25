@@ -11,8 +11,6 @@ class SubscribtionModel extends FlutterFlowModel<SubscribtionWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [RevenueCat - Purchase] action in Button widget.
-  bool? buy;
 
   /// Initialization and disposal methods.
 

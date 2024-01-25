@@ -626,10 +626,15 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                       },
                                     );
                                   } else {
-                                    _model.buy =
-                                        await revenue_cat.purchasePackage(
-                                            _model.plan!.packageId);
-                                    if (_model.buy!) {
+                                    final isEntitled =
+                                        await revenue_cat.isEntitled(
+                                                _model.plan!.packageId) ??
+                                            false;
+                                    if (!isEntitled) {
+                                      await revenue_cat.loadOfferings();
+                                    }
+
+                                    if (isEntitled) {
                                       firestoreBatch.update(
                                           currentUserReference!,
                                           createUsersRecordData(
@@ -683,8 +688,6 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                 } finally {
                                   await firestoreBatch.commit();
                                 }
-
-                                setState(() {});
                               },
                         text: 'Next',
                         options: FFButtonOptions(
