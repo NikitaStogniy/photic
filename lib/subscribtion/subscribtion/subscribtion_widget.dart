@@ -13,6 +13,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'subscribtion_model.dart';
 export 'subscribtion_model.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 class SubscribtionWidget extends StatefulWidget {
   const SubscribtionWidget({super.key});
@@ -644,6 +645,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                       },
                                     );
                                   } else {
+                                    AppMetrica.reportEvent('Buy');
                                     _model.buy =
                                         await revenue_cat.purchasePackage(
                                             _model.plan!.packageId);
