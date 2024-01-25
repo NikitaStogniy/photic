@@ -1,15 +1,13 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'loader_model.dart';
 export 'loader_model.dart';
 
 class LoaderWidget extends StatefulWidget {
-  const LoaderWidget({Key? key}) : super(key: key);
+  const LoaderWidget({super.key});
 
   @override
   _LoaderWidgetState createState() => _LoaderWidgetState();
@@ -46,7 +44,7 @@ class _LoaderWidgetState extends State<LoaderWidget> {
       height: 350.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
           topLeft: Radius.circular(16.0),
@@ -54,13 +52,13 @@ class _LoaderWidgetState extends State<LoaderWidget> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(4.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Lottie.asset(
                 'assets/lottie_animations/loader_start.json',
                 width: 50.0,

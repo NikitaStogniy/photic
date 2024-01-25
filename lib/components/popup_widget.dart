@@ -1,18 +1,16 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'popup_model.dart';
 export 'popup_model.dart';
 
 class PopupWidget extends StatefulWidget {
   const PopupWidget({
-    Key? key,
+    super.key,
     required this.headline,
     required this.text,
-  }) : super(key: key);
+  });
 
   final String? headline;
   final String? text;
@@ -48,7 +46,7 @@ class _PopupWidgetState extends State<PopupWidget> {
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 16.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 16.0),
       child: Material(
         color: Colors.transparent,
         elevation: 0.0,
@@ -60,7 +58,7 @@ class _PopupWidgetState extends State<PopupWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               maxHeight: 500.0,
             ),
             decoration: BoxDecoration(
@@ -72,7 +70,7 @@ class _PopupWidgetState extends State<PopupWidget> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,9 +98,9 @@ class _PopupWidgetState extends State<PopupWidget> {
                   Expanded(
                     child: ClipRRect(
                       child: Container(
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 8.0, 0.0, 0.0),
                           child: SingleChildScrollView(
                             child: Column(
@@ -110,7 +108,7 @@ class _PopupWidgetState extends State<PopupWidget> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 8.0),
                                   child: Text(
                                     widget.headline!,

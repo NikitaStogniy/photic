@@ -1,21 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
-import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -80,38 +73,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? HomePageWidget() : SplashWidget(),
+          appStateNotifier.loggedIn ? const HomePageWidget() : const SplashWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomePageWidget() : SplashWidget(),
+              appStateNotifier.loggedIn ? const HomePageWidget() : const SplashWidget(),
         ),
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
-          builder: (context, params) => HomePageWidget(),
+          builder: (context, params) => const HomePageWidget(),
         ),
         FFRoute(
           name: 'authPage',
           path: '/authPage',
-          builder: (context, params) => AuthPageWidget(),
+          builder: (context, params) => const AuthPageWidget(),
         ),
         FFRoute(
           name: 'onboardPage',
           path: '/onboardPage',
-          builder: (context, params) => OnboardPageWidget(),
+          builder: (context, params) => const OnboardPageWidget(),
         ),
         FFRoute(
           name: 'Subscribtion',
           path: '/subscribtion',
-          builder: (context, params) => SubscribtionWidget(),
+          builder: (context, params) => const SubscribtionWidget(),
         ),
         FFRoute(
           name: 'subscription_done',
           path: '/subscriptionDone',
-          builder: (context, params) => SubscriptionDoneWidget(),
+          builder: (context, params) => const SubscriptionDoneWidget(),
         ),
         FFRoute(
           name: 'generate_holder',
@@ -125,7 +118,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Generate_avatar_page',
           path: '/generateAvatarPage',
-          builder: (context, params) => GenerateAvatarPageWidget(),
+          builder: (context, params) => const GenerateAvatarPageWidget(),
         ),
         FFRoute(
           name: 'packPage',
@@ -141,27 +134,27 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'settingsPage',
           path: '/settingsPage',
-          builder: (context, params) => SettingsPageWidget(),
+          builder: (context, params) => const SettingsPageWidget(),
         ),
         FFRoute(
           name: 'accountPage',
           path: '/accountPage',
-          builder: (context, params) => AccountPageWidget(),
+          builder: (context, params) => const AccountPageWidget(),
         ),
         FFRoute(
           name: 'painter',
           path: '/painter',
-          builder: (context, params) => PainterWidget(),
+          builder: (context, params) => const PainterWidget(),
         ),
         FFRoute(
           name: 'Splash',
           path: '/splash',
-          builder: (context, params) => SplashWidget(),
+          builder: (context, params) => const SplashWidget(),
         ),
         FFRoute(
           name: 'Subscribtion_active',
           path: '/subscribtionActive',
-          builder: (context, params) => SubscribtionActiveWidget(),
+          builder: (context, params) => const SubscribtionActiveWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -390,7 +383,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

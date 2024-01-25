@@ -3,17 +3,15 @@ import '/components/popup_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'settings_page_model.dart';
 export 'settings_page_model.dart';
 
 class SettingsPageWidget extends StatefulWidget {
-  const SettingsPageWidget({Key? key}) : super(key: key);
+  const SettingsPageWidget({super.key});
 
   @override
   _SettingsPageWidgetState createState() => _SettingsPageWidgetState();
@@ -82,21 +80,21 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, -1.0),
+            alignment: const AlignmentDirectional(0.0, -1.0),
             child: Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 600.0,
               ),
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 0.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -105,12 +103,12 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                       'Account and subscription',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
-                            color: Color(0xFF8C8C8C),
+                            color: const Color(0xFF8C8C8C),
                           ),
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -122,15 +120,15 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                         child: Container(
                           width: 100.0,
                           height: 56.0,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 24.0, 0.0),
                                   child: SvgPicture.asset(
                                     'assets/images/Vector.svg',
@@ -157,7 +155,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -169,19 +167,19 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                         child: Container(
                           width: 100.0,
                           height: 56.0,
-                          decoration: BoxDecoration(),
+                          decoration: const BoxDecoration(),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 24.0, 0.0),
                                       child: SvgPicture.asset(
                                         'assets/images/Union.svg',
@@ -206,14 +204,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                               AuthUserStreamWidget(
                                 builder: (context) => Text(
                                   valueOrDefault<String>(
-                                    currentUserDocument?.plan?.name,
+                                    currentUserDocument?.plan.name,
                                     'Free',
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Inter',
-                                        color: Color(0xFF542CAD),
+                                        color: const Color(0xFF542CAD),
                                       ),
                                 ),
                               ),
@@ -224,25 +222,25 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                       child: Text(
                         'Privacy policy',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
-                              color: Color(0xFF8C8C8C),
+                              color: const Color(0xFF8C8C8C),
                             ),
                       ),
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                       child: Container(
                         width: 100.0,
                         height: 56.0,
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Builder(
                           builder: (context) => Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -256,7 +254,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     return Dialog(
                                       insetPadding: EdgeInsets.zero,
                                       backgroundColor: Colors.transparent,
-                                      alignment: AlignmentDirectional(0.0, 0.0)
+                                      alignment: const AlignmentDirectional(0.0, 0.0)
                                           .resolve(Directionality.of(context)),
                                       child: GestureDetector(
                                         onTap: () => _model
@@ -265,7 +263,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                 .requestFocus(
                                                     _model.unfocusNode)
                                             : FocusScope.of(context).unfocus(),
-                                        child: PopupWidget(
+                                        child: const PopupWidget(
                                           headline: 'Privacy Policy',
                                           text: 'Privacy',
                                         ),
@@ -278,7 +276,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 24.0, 0.0),
                                     child: SvgPicture.asset(
                                       'assets/images/Vector-1.svg',
@@ -306,14 +304,14 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                       child: Container(
                         width: 100.0,
                         height: 56.0,
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: Builder(
                           builder: (context) => Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
@@ -327,7 +325,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                     return Dialog(
                                       insetPadding: EdgeInsets.zero,
                                       backgroundColor: Colors.transparent,
-                                      alignment: AlignmentDirectional(0.0, 0.0)
+                                      alignment: const AlignmentDirectional(0.0, 0.0)
                                           .resolve(Directionality.of(context)),
                                       child: GestureDetector(
                                         onTap: () => _model
@@ -336,7 +334,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                                 .requestFocus(
                                                     _model.unfocusNode)
                                             : FocusScope.of(context).unfocus(),
-                                        child: PopupWidget(
+                                        child: const PopupWidget(
                                           headline: 'Terms of Use',
                                           text: 'Terms',
                                         ),
@@ -349,7 +347,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 24.0, 0.0),
                                     child: SvgPicture.asset(
                                       'assets/images/Vector-1.svg',

@@ -5,19 +5,17 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'subscribtion_model.dart';
 export 'subscribtion_model.dart';
 
 class SubscribtionWidget extends StatefulWidget {
-  const SubscribtionWidget({Key? key}) : super(key: key);
+  const SubscribtionWidget({super.key});
 
   @override
   _SubscribtionWidgetState createState() => _SubscribtionWidgetState();
@@ -39,7 +37,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
         _model.currentPlan = await queryPlanListRecordOnce(
           queryBuilder: (planListRecord) => planListRecord.where(
             'Plan.Name',
-            isEqualTo: currentUserDocument?.plan?.name,
+            isEqualTo: currentUserDocument?.plan.name,
           ),
           singleRecord: true,
         ).then((s) => s.firstOrNull);
@@ -80,12 +78,12 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, -1.0),
+            alignment: const AlignmentDirectional(0.0, -1.0),
             child: Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 600.0,
               ),
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,12 +92,12 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Stack(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 24.0, 0.0, 0.0),
                               child: Text(
                                 'Choose a plan',
@@ -116,9 +114,9 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(1.0, 0.0),
+                            alignment: const AlignmentDirectional(1.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 24.0, 16.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
@@ -141,7 +139,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                       ),
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
+                            const EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
                         child: Material(
                           color: Colors.transparent,
                           elevation: 0.0,
@@ -151,7 +149,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                 colors: [Color(0x23F041FF), Color(0x174B39EF)],
                                 stops: [0.0, 1.0],
                                 begin: AlignmentDirectional(-0.98, -1.0),
@@ -164,13 +162,13 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.all(16.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 8.0),
                                     child: Text(
                                       'Open all\nthe potential of our\napplications',
@@ -207,7 +205,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                       Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         height: MediaQuery.sizeOf(context).height * 0.6,
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: StreamBuilder<List<PlanListRecord>>(
                           stream: queryPlanListRecord(
                             queryBuilder: (planListRecord) => planListRecord
@@ -238,7 +236,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                 final listViewPlanListRecord =
                                     listViewPlanListRecordList[listViewIndex];
                                 return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       8.0, 16.0, 8.0, 0.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
@@ -287,7 +285,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                       .spaceBetween,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 12.0, 0.0, 12.0),
                                                   child: Row(
@@ -296,7 +294,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     16.0,
                                                                     0.0,
@@ -325,7 +323,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                                     .reference,
                                                             child: Align(
                                                               alignment:
-                                                                  AlignmentDirectional(
+                                                                  const AlignmentDirectional(
                                                                       0.0, 0.0),
                                                               child: SvgPicture
                                                                   .asset(
@@ -374,7 +372,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
+                                                  padding: const EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 0.0, 16.0, 0.0),
                                                   child: Row(
@@ -458,7 +456,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                 listViewPlanListRecord
                                                     .reference)
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         16.0, 0.0, 16.0, 16.0),
                                                 child: Row(
@@ -495,7 +493,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                             children: [
                                                               Padding(
                                                                 padding:
-                                                                    EdgeInsetsDirectional
+                                                                    const EdgeInsetsDirectional
                                                                         .fromSTEB(
                                                                             0.0,
                                                                             0.0,
@@ -575,8 +573,8 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                                                 color: FlutterFlowTheme.of(context).primaryBackground,
                                                                               ),
                                                                         ),
-                                                                      ].divide(SizedBox(width: 2.0)).addToStart(
-                                                                              SizedBox(width: 4.0)),
+                                                                      ].divide(const SizedBox(width: 2.0)).addToStart(
+                                                                              const SizedBox(width: 4.0)),
                                                                     );
                                                                   }),
                                                                 );
@@ -607,7 +605,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                   ))
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 48.0),
+                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 48.0),
                       child: FFButtonWidget(
                         onPressed: !(_model.plan != null)
                             ? null
@@ -615,7 +613,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                 final firestoreBatch =
                                     FirebaseFirestore.instance.batch();
                                 try {
-                                  if (_model.plan?.plan?.name == 'Free') {
+                                  if (_model.plan?.plan.name == 'Free') {
                                     firestoreBatch.update(
                                         currentUserReference!,
                                         createUsersRecordData(
@@ -638,7 +636,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                     context.goNamed(
                                       'subscription_done',
                                       extra: <String, dynamic>{
-                                        kTransitionInfoKey: TransitionInfo(
+                                        kTransitionInfoKey: const TransitionInfo(
                                           hasTransition: true,
                                           transitionType:
                                               PageTransitionType.fade,
@@ -672,7 +670,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                       context.goNamed(
                                         'subscription_done',
                                         extra: <String, dynamic>{
-                                          kTransitionInfoKey: TransitionInfo(
+                                          kTransitionInfoKey: const TransitionInfo(
                                             hasTransition: true,
                                             transitionType:
                                                 PageTransitionType.fade,
@@ -692,7 +690,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                             ),
                                           ),
                                           duration:
-                                              Duration(milliseconds: 4000),
+                                              const Duration(milliseconds: 4000),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .primaryText,
@@ -710,11 +708,11 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 40.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          color: Color(0x004B39EF),
+                          color: const Color(0x004B39EF),
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Inter',

@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
-import '../schema/structs/index.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -28,8 +26,8 @@ class FaceSwapCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "image_from": "${firstImage}",
-  "image_to": "${secondImage}"
+  "image_from": "$firstImage",
+  "image_to": "$secondImage"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'FaceSwap',
@@ -61,7 +59,7 @@ class StatusCheckCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'StatusCheck',
-      apiUrl: '${DebGroup.baseUrl}/task/${id}',
+      apiUrl: '${DebGroup.baseUrl}/task/$id',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Basic dXNlcjpiZ3NRRXJadFhiR2pDcmZjenZhU3BoWmZTd0NB',
@@ -111,9 +109,9 @@ class ApplyMaskCall {
   "node_settings": {
     "55f68523-fc5f-41fe-a75d-7cdfa5ed9773": {
       "data": {
-        "image": "${imageUrl}",
-        "mask": "${maskImageUrl}",
-        "promt": "${prompt}"
+        "image": "$imageUrl",
+        "mask": "$maskImageUrl",
+        "promt": "$prompt"
       }
     }
   }

@@ -8,18 +8,16 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'generate_avatar_page_model.dart';
 export 'generate_avatar_page_model.dart';
 
 class GenerateAvatarPageWidget extends StatefulWidget {
-  const GenerateAvatarPageWidget({Key? key}) : super(key: key);
+  const GenerateAvatarPageWidget({super.key});
 
   @override
   _GenerateAvatarPageWidgetState createState() =>
@@ -76,26 +74,26 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.0, -1.0),
+            alignment: const AlignmentDirectional(0.0, -1.0),
             child: Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 500.0,
               ),
-              decoration: BoxDecoration(),
-              child: Container(
+              decoration: const BoxDecoration(),
+              child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
                 child: Stack(
                   children: [
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       height: 64.0,
                       child: Stack(
-                        alignment: AlignmentDirectional(-1.0, -1.0),
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
                         children: [
                           if (_model.step < 5)
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: Text(
                                 'Step ${valueOrDefault<String>(
                                   _model.step.toString(),
@@ -129,7 +127,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                 context.goNamed(
                                   'HomePage',
                                   extra: <String, dynamic>{
-                                    kTransitionInfoKey: TransitionInfo(
+                                    kTransitionInfoKey: const TransitionInfo(
                                       hasTransition: true,
                                       transitionType:
                                           PageTransitionType.rightToLeft,
@@ -148,9 +146,9 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                     ),
                     if (_model.step == 1)
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 64.0, 16.0, 16.0),
                           child: SingleChildScrollView(
                             child: Column(
@@ -158,7 +156,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 8.0),
                                   child: Text(
                                     'What to expect?',
@@ -188,7 +186,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                       ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 24.0, 0.0, 0.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -196,7 +194,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                         child: Text(
                                           'Good Examples',
@@ -213,7 +211,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -244,7 +242,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                 ),
                                               ),
                                             ),
-                                          ].divide(SizedBox(width: 8.0)),
+                                          ].divide(const SizedBox(width: 8.0)),
                                         ),
                                       ),
                                       Row(
@@ -274,13 +272,13 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                               ),
                                             ),
                                           ),
-                                        ].divide(SizedBox(width: 8.0)),
+                                        ].divide(const SizedBox(width: 8.0)),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 24.0, 0.0, 24.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -288,7 +286,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                         child: Text(
                                           'Examples with artifacts',
@@ -305,7 +303,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 8.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -334,7 +332,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                 ),
                                               ),
                                             ),
-                                          ].divide(SizedBox(width: 8.0)),
+                                          ].divide(const SizedBox(width: 8.0)),
                                         ),
                                       ),
                                       Row(
@@ -364,7 +362,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                               ),
                                             ),
                                           ),
-                                        ].divide(SizedBox(width: 8.0)),
+                                        ].divide(const SizedBox(width: 8.0)),
                                       ),
                                     ],
                                   ),
@@ -389,13 +387,13 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 12.0, 0.0, 12.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 8.0, 0.0),
                                               child: Container(
@@ -418,7 +416,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                   visible: _model.isLegalAge,
                                                   child: Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             0.0, 0.0),
                                                     child: SvgPicture.asset(
                                                       'assets/images/Checkbox.svg',
@@ -453,7 +451,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 24.0, 0.0, 24.0),
                                   child: FFButtonWidget(
                                     onPressed: !_model.isLegalAge
@@ -467,10 +465,10 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                     options: FFButtonOptions(
                                       width: double.infinity,
                                       height: 44.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 0.0),
                                       iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,
@@ -500,7 +498,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                       ),
                     if (_model.step == 2)
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 64.0, 16.0, 16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -511,7 +509,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),
                                   child: Text(
                                     'Enter your gender',
@@ -528,9 +526,9 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 16.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
@@ -564,7 +562,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                               MainAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       16.0, 0.0, 8.0, 0.0),
                                               child: SvgPicture.asset(
@@ -595,7 +593,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -628,7 +626,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     16.0, 0.0, 8.0, 0.0),
                                             child: SvgPicture.asset(
                                               'assets/images/woman.svg',
@@ -662,9 +660,9 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                       ),
                     if (_model.step == 3)
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 64.0, 16.0, 16.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -675,7 +673,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 16.0),
                                     child: Text(
                                       'Choose a style',
@@ -728,7 +726,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                     return GridView.builder(
                                       padding: EdgeInsets.zero,
                                       gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
                                         crossAxisSpacing: 8.0,
                                         mainAxisSpacing: 8.0,
@@ -750,7 +748,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                             onTap: () async {
                                               if (gridViewStylesRecord.isPro &&
                                                   (currentUserDocument
-                                                          ?.plan?.price ==
+                                                          ?.plan.price ==
                                                       0.0)) {
                                                 context
                                                     .pushNamed('Subscribtion');
@@ -783,22 +781,22 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                               .isPro &&
                                                           (currentUserDocument
                                                                   ?.plan
-                                                                  ?.price ==
+                                                                  .price ==
                                                               0.0)
                                                       ? FlutterFlowTheme.of(
                                                               context)
                                                           .lineColor
-                                                      : Color(0x00101213),
+                                                      : const Color(0x00101213),
                                                   width: 1.0,
                                                 ),
                                               ),
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 1.0),
                                               child: Stack(
                                                 children: [
                                                   Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             -0.8, 1.0),
                                                     child: Row(
                                                       mainAxisSize:
@@ -811,11 +809,11 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                                 .isPro &&
                                                             (currentUserDocument
                                                                     ?.plan
-                                                                    ?.price ==
+                                                                    .price ==
                                                                 0.0))
                                                           Align(
                                                             alignment:
-                                                                AlignmentDirectional(
+                                                                const AlignmentDirectional(
                                                                     0.0, 0.8),
                                                             child: ClipRRect(
                                                               borderRadius:
@@ -842,7 +840,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                         ))
                                                           Align(
                                                             alignment:
-                                                                AlignmentDirectional(
+                                                                const AlignmentDirectional(
                                                                     0.0, 0.8),
                                                             child: Text(
                                                               gridViewStylesRecord
@@ -860,21 +858,21 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                             ),
                                                           ),
                                                       ].divide(
-                                                          SizedBox(width: 8.0)),
+                                                          const SizedBox(width: 8.0)),
                                                     ),
                                                   ),
                                                   if (gridViewStylesRecord
                                                           .isPro &&
                                                       (currentUserDocument
-                                                              ?.plan?.price ==
+                                                              ?.plan.price ==
                                                           0.0))
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               1.0, -1.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsets.all(8.0),
+                                                            const EdgeInsets.all(8.0),
                                                         child: ClipRRect(
                                                           borderRadius:
                                                               BorderRadius
@@ -906,9 +904,9 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                       ),
                     if (_model.step == 4)
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 64.0, 16.0, 16.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -916,7 +914,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 24.0, 0.0, 0.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -929,7 +927,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                       children: [
                                         Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 16.0),
                                           child: Text(
                                             'Upload a photo',
@@ -959,7 +957,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                           ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 12.0),
                                       child: Text(
                                         'Take a selfie or select a photo from the gallery. The photo should be only close-up of you, only the face and a little of the neck. Without hats and foreign things in the frame.',
@@ -1011,7 +1009,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                       ],
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 24.0, 0.0, 0.0),
                                       child: Text(
                                         '❌  Bad photos',
@@ -1026,7 +1024,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 12.0, 0.0, 12.0),
                                       child: Text(
                                         'In full growth, children, something covers the face, there are other people or animals, nudes.',
@@ -1084,7 +1082,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 24.0),
                                     child: Text(
                                       'Our servers will delete photos immediately after Avatars are created.',
@@ -1174,8 +1172,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                             }
                                           }
 
-                                          if (_model.uploadedFileUrl1 != null &&
-                                              _model.uploadedFileUrl1 != '') {
+                                          if (_model.uploadedFileUrl1 != '') {
                                             setState(() {
                                               _model.step = 5;
                                               _model.uploaded =
@@ -1200,7 +1197,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                           ),
                                           child: Align(
                                             alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                                const AlignmentDirectional(0.0, 0.0),
                                             child: SvgPicture.asset(
                                               'assets/images/images.svg',
                                               width: 24.0,
@@ -1213,7 +1210,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                       Expanded(
                                         child: Padding(
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 0.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
@@ -1294,8 +1291,6 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                               }
 
                                               if (_model.uploadedFileUrl2 !=
-                                                      null &&
-                                                  _model.uploadedFileUrl2 !=
                                                       '') {
                                                 setState(() {
                                                   _model.step = 5;
@@ -1308,9 +1303,9 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                             options: FFButtonOptions(
                                               width: 130.0,
                                               height: 48.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -1353,15 +1348,15 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 120.0, 0.0, 0.0),
-                            child: Container(
+                            child: SizedBox(
                               height: 350.0,
                               child: Stack(
-                                alignment: AlignmentDirectional(0.0, -1.0),
+                                alignment: const AlignmentDirectional(0.0, -1.0),
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(12.0),
@@ -1374,9 +1369,9 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: AlignmentDirectional(-1.0, 1.0),
+                                    alignment: const AlignmentDirectional(-1.0, 1.0),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           32.0, 0.0, 0.0, 0.0),
                                       child: ClipRRect(
                                         borderRadius:
@@ -1398,7 +1393,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     32.0, 0.0, 32.0, 24.0),
                                 child: Text(
                                   'Make sure your photo matches our guidelines so that the result is as expected.',
@@ -1414,7 +1409,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                               ),
                               Builder(
                                 builder: (context) => Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 40.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
@@ -1435,7 +1430,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                 insetPadding: EdgeInsets.zero,
                                                 backgroundColor:
                                                     Colors.transparent,
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                         0.0, 0.0)
                                                     .resolve(Directionality.of(
                                                         context)),
@@ -1542,10 +1537,10 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                     options: FFButtonOptions(
                                       width: double.infinity,
                                       height: 48.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 0.0),
                                       iconPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
+                                          const EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBackground,

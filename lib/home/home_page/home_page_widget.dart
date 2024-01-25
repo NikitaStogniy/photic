@@ -9,19 +9,16 @@ import '/generate/generate_bottomsheet/generate_bottomsheet_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
 class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({Key? key}) : super(key: key);
+  const HomePageWidget({super.key});
 
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
@@ -53,7 +50,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 1,
               )) {
             _model.statusApi = await DebGroup.statusCheckCall.call(
-              id: _model.pending?[_model.pendingIterator!]?.id,
+              id: _model.pending?[_model.pendingIterator!].id,
             );
             if ((_model.statusApi?.succeeded ?? true) &&
                 (DebGroup.statusCheckCall.status(
@@ -106,7 +103,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             await Future.delayed(const Duration(milliseconds: 5000));
           }
         } else {
-          if (revenue_cat.activeEntitlementIds.length != 0) {
+          if (revenue_cat.activeEntitlementIds.isNotEmpty) {
             firestoreBatch.update(
                 currentUserReference!,
                 createUsersRecordData(
@@ -159,7 +156,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           automaticallyImplyLeading: false,
           leading: Stack(
             children: [
-              if (_model.toDelete.length == 0)
+              if (_model.toDelete.isEmpty)
                 FlutterFlowIconButton(
                   borderRadius: 30.0,
                   borderWidth: 1.0,
@@ -173,7 +170,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     context.pushNamed(
                       'settingsPage',
                       extra: <String, dynamic>{
-                        kTransitionInfoKey: TransitionInfo(
+                        kTransitionInfoKey: const TransitionInfo(
                           hasTransition: true,
                           transitionType: PageTransitionType.fade,
                           duration: Duration(milliseconds: 0),
@@ -182,7 +179,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     );
                   },
                 ),
-              if (_model.toDelete.length > 0)
+              if (_model.toDelete.isNotEmpty)
                 FlutterFlowIconButton(
                   borderColor: Colors.transparent,
                   borderRadius: 30.0,
@@ -203,7 +200,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           ),
           actions: [
             Visibility(
-              visible: _model.toDelete.length > 0,
+              visible: _model.toDelete.isNotEmpty,
               child: FlutterFlowIconButton(
                 borderRadius: 100.0,
                 borderWidth: 0.0,
@@ -214,7 +211,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  while (_model.toDelete.length > 0) {
+                  while (_model.toDelete.isNotEmpty) {
                     await _model.toDelete.last.delete();
                     setState(() {
                       _model.removeAtIndexFromToDelete(
@@ -231,7 +228,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         body: SafeArea(
           top: true,
           child: Container(
-            decoration: BoxDecoration(),
+            decoration: const BoxDecoration(),
             child: Stack(
               children: [
                 StreamBuilder<List<AiImageRecord>>(
@@ -271,7 +268,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       );
                     }
                     return ListView.separated(
-                      padding: EdgeInsets.fromLTRB(
+                      padding: const EdgeInsets.fromLTRB(
                         0,
                         0,
                         0,
@@ -279,34 +276,33 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                       scrollDirection: Axis.vertical,
                       itemCount: listViewAiImageRecordList.length,
-                      separatorBuilder: (_, __) => SizedBox(height: 8.0),
+                      separatorBuilder: (_, __) => const SizedBox(height: 8.0),
                       itemBuilder: (context, listViewIndex) {
                         final listViewAiImageRecord =
                             listViewAiImageRecordList[listViewIndex];
                         return Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 8.0),
                             child: Container(
                               height: 160.0,
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                 maxWidth: 400.0,
                               ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 height: double.infinity,
                                 child: Stack(
                                   children: [
                                     if (listViewAiImageRecord
-                                            .generatedImages.length ==
-                                        0)
+                                            .generatedImages.isEmpty)
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Container(
                                           width: double.infinity,
                                           height: double.infinity,
@@ -315,10 +311,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 BorderRadius.circular(16.0),
                                           ),
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                              const AlignmentDirectional(0.0, 0.0),
                                           child: Align(
                                             alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                                const AlignmentDirectional(0.0, 0.0),
                                             child: Lottie.asset(
                                               'assets/lottie_animations/Loader_main_screen.json',
                                               width: 200.0,
@@ -330,8 +326,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                     if (listViewAiImageRecord
-                                            .generatedImages.length >
-                                        0)
+                                            .generatedImages.isNotEmpty)
                                       Container(
                                         width: double.infinity,
                                         height: double.infinity,
@@ -349,7 +344,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                     Align(
-                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -357,8 +352,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           if (listViewAiImageRecord
-                                                  .generatedImages.length ==
-                                              0) {
+                                                  .generatedImages.isEmpty) {
                                             HapticFeedback.lightImpact();
                                           } else {
                                             context.pushNamed(
@@ -380,7 +374,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               extra: <String, dynamic>{
                                                 'pack': listViewAiImageRecord,
                                                 kTransitionInfoKey:
-                                                    TransitionInfo(
+                                                    const TransitionInfo(
                                                   hasTransition: true,
                                                   transitionType:
                                                       PageTransitionType.fade,
@@ -402,13 +396,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           width: double.infinity,
                                           height: double.infinity,
                                           decoration: BoxDecoration(
-                                            color: Color(0x1A101213),
+                                            color: const Color(0x1A101213),
                                             borderRadius:
                                                 BorderRadius.circular(12.0),
                                           ),
                                           child: Align(
                                             alignment:
-                                                AlignmentDirectional(-0.9, 0.7),
+                                                const AlignmentDirectional(-0.9, 0.7),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               crossAxisAlignment:
@@ -436,7 +430,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                     ),
-                                    if (_model.toDelete.length > 0)
+                                    if (_model.toDelete.isNotEmpty)
                                       Builder(
                                         builder: (context) {
                                           if (_model.toDelete.contains(
@@ -444,9 +438,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   .reference)) {
                                             return Visibility(
                                               visible:
-                                                  _model.toDelete.length > 0,
+                                                  _model.toDelete.isNotEmpty,
                                               child: Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     -0.9, -0.9),
                                                 child: InkWell(
                                                   splashColor:
@@ -498,7 +492,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     ),
                                                     child: Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0.0, 0.0),
                                                       child: Container(
                                                         width: 18.0,
@@ -520,9 +514,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           } else {
                                             return Visibility(
                                               visible:
-                                                  _model.toDelete.length > 0,
+                                                  _model.toDelete.isNotEmpty,
                                               child: Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     -0.9, -0.9),
                                                 child: InkWell(
                                                   splashColor:
@@ -590,13 +584,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   },
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.0, 1.0),
+                  alignment: const AlignmentDirectional(0.0, 1.0),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
                     child: Container(
                       height: 100.0,
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxWidth: 600.0,
                       ),
                       decoration: BoxDecoration(
@@ -607,9 +601,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 16.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
@@ -617,7 +611,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       currentUserDocument!.plan.used) {
                                     await showModalBottomSheet(
                                       isScrollControlled: true,
-                                      backgroundColor: Color(0xB4101213),
+                                      backgroundColor: const Color(0xB4101213),
                                       useSafeArea: true,
                                       context: context,
                                       builder: (context) {
@@ -632,12 +626,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
-                                            child: Container(
+                                            child: SizedBox(
                                               height: MediaQuery.sizeOf(context)
                                                       .height *
                                                   0.5,
                                               child:
-                                                  GenerateBottomsheetWidget(),
+                                                  const GenerateBottomsheetWidget(),
                                             ),
                                           ),
                                         );
@@ -651,9 +645,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 48.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context)
                                       .primaryBackground,
@@ -675,7 +669,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               ),
                             ),
                           ),
-                        ].divide(SizedBox(height: 8.0)),
+                        ].divide(const SizedBox(height: 8.0)),
                       ),
                     ),
                   ),

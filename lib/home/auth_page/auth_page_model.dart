@@ -1,13 +1,7 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/components/loader_widget.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'auth_page_widget.dart' show AuthPageWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class AuthPageModel extends FlutterFlowModel<AuthPageWidget> {
   ///  Local state fields for this page.
@@ -22,10 +16,12 @@ class AuthPageModel extends FlutterFlowModel<AuthPageWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     loaderModel = createModel(context, () => LoaderModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     loaderModel.dispose();

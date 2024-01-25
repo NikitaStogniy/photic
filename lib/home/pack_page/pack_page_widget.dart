@@ -3,24 +3,21 @@ import '/components/dialog_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'pack_page_model.dart';
 export 'pack_page_model.dart';
 
 class PackPageWidget extends StatefulWidget {
   const PackPageWidget({
-    Key? key,
+    super.key,
     String? packNum,
     required this.pack,
-  })  : this.packNum = packNum ?? '1',
-        super(key: key);
+  })  : packNum = packNum ?? '1';
 
   final String packNum;
   final AiImageRecord? pack;
@@ -93,10 +90,10 @@ class _PackPageWidgetState extends State<PackPageWidget> {
           ),
           actions: [
             Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Builder(
                 builder: (context) => Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                   child: InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -109,14 +106,14 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                           return Dialog(
                             insetPadding: EdgeInsets.zero,
                             backgroundColor: Colors.transparent,
-                            alignment: AlignmentDirectional(0.0, 0.0)
+                            alignment: const AlignmentDirectional(0.0, 0.0)
                                 .resolve(Directionality.of(context)),
                             child: GestureDetector(
                               onTap: () => _model.unfocusNode.canRequestFocus
                                   ? FocusScope.of(context)
                                       .requestFocus(_model.unfocusNode)
                                   : FocusScope.of(context).unfocus(),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: DialogWidget(
                                   deleteImage: widget.pack?.reference,
@@ -147,19 +144,19 @@ class _PackPageWidgetState extends State<PackPageWidget> {
           child: Stack(
             children: [
               Align(
-                alignment: AlignmentDirectional(0.0, -1.0),
+                alignment: const AlignmentDirectional(0.0, -1.0),
                 child: Container(
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxWidth: 600.0,
                   ),
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 32.0, 16.0, 0.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12.0),
@@ -179,13 +176,13 @@ class _PackPageWidgetState extends State<PackPageWidget> {
               Stack(
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(0.0, 0.7),
+                    alignment: const AlignmentDirectional(0.0, 0.7),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.8),
+                          alignment: const AlignmentDirectional(0.0, 0.8),
                           child: Material(
                             color: Colors.transparent,
                             elevation: 10.0,
@@ -201,7 +198,7 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                                 ),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     8.0, 4.0, 8.0, 4.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
@@ -226,7 +223,7 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                                               await actions.downloadImage(
                                             valueOrDefault<String>(
                                               widget
-                                                  .pack?.generatedImages?.first,
+                                                  .pack?.generatedImages.first,
                                               '123',
                                             ),
                                           );
@@ -239,7 +236,7 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                                                   backgroundColor:
                                                       Colors.transparent,
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                               0.0, 0.0)
                                                           .resolve(
                                                               Directionality.of(
@@ -253,7 +250,7 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                                                                 .unfocusNode)
                                                         : FocusScope.of(context)
                                                             .unfocus(),
-                                                    child: DialogWidget(
+                                                    child: const DialogWidget(
                                                       success: true,
                                                     ),
                                                   ),
@@ -269,7 +266,7 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                                                   backgroundColor:
                                                       Colors.transparent,
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                               0.0, 0.0)
                                                           .resolve(
                                                               Directionality.of(
@@ -283,7 +280,7 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                                                                 .unfocusNode)
                                                         : FocusScope.of(context)
                                                             .unfocus(),
-                                                    child: DialogWidget(
+                                                    child: const DialogWidget(
                                                       success: false,
                                                     ),
                                                   ),
@@ -303,7 +300,7 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 8.0, 0.0, 0.0),
                           child: Text(
                             'Save',

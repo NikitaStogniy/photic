@@ -8,13 +8,12 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'onboard_page_model.dart';
 export 'onboard_page_model.dart';
 
 class OnboardPageWidget extends StatefulWidget {
-  const OnboardPageWidget({Key? key}) : super(key: key);
+  const OnboardPageWidget({super.key});
 
   @override
   _OnboardPageWidgetState createState() => _OnboardPageWidgetState();
@@ -65,7 +64,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.sizeOf(context).width * 1.0,
             child: Stack(
               children: [
@@ -76,16 +75,16 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                     gradient: LinearGradient(
                       colors: [
                         FlutterFlowTheme.of(context).primaryBackground,
-                        Color(0x97422487),
+                        const Color(0x97422487),
                         FlutterFlowTheme.of(context).primaryBackground
                       ],
-                      stops: [0.0, 0.8, 1.0],
-                      begin: AlignmentDirectional(0.0, -1.0),
-                      end: AlignmentDirectional(0, 1.0),
+                      stops: const [0.0, 0.8, 1.0],
+                      begin: const AlignmentDirectional(0.0, -1.0),
+                      end: const AlignmentDirectional(0, 1.0),
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   height: MediaQuery.sizeOf(context).height * 1.0,
                   child: Stack(
@@ -96,7 +95,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 24.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -104,13 +103,13 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     children: [
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Text(
                                           'Application features',
                                           style: FlutterFlowTheme.of(context)
@@ -127,13 +126,13 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(1.0, 0.0),
+                                            const AlignmentDirectional(1.0, 0.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: Colors.transparent,
                                           borderRadius: 30.0,
                                           borderWidth: 1.0,
                                           buttonSize: 60.0,
-                                          fillColor: Color(0x00E0E0E0),
+                                          fillColor: const Color(0x00E0E0E0),
                                           icon: Icon(
                                             Icons.close,
                                             color: FlutterFlowTheme.of(context)
@@ -145,7 +144,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                               'authPage',
                                               extra: <String, dynamic>{
                                                 kTransitionInfoKey:
-                                                    TransitionInfo(
+                                                    const TransitionInfo(
                                                   hasTransition: true,
                                                   transitionType:
                                                       PageTransitionType.fade,
@@ -159,17 +158,17 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),
-                                  child: Container(
+                                  child: SizedBox(
                                     width: double.infinity,
                                     height: MediaQuery.sizeOf(context).height *
                                         0.55,
                                     child: Stack(
-                                      alignment: AlignmentDirectional(0.0, 1.0),
+                                      alignment: const AlignmentDirectional(0.0, 1.0),
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.all(16.0),
+                                          padding: const EdgeInsets.all(16.0),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -194,7 +193,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(-0.75, 1.0),
+                                              const AlignmentDirectional(-0.75, 1.0),
                                           child: Container(
                                             width: 140.0,
                                             height: 40.0,
@@ -211,7 +210,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                               ),
                                             ),
                                             child: Align(
-                                              alignment: AlignmentDirectional(
+                                              alignment: const AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
                                                 'Powered by AI',
@@ -232,9 +231,9 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                 ),
                                 Expanded(
                                   child: Align(
-                                    alignment: AlignmentDirectional(0.0, 1.0),
+                                    alignment: const AlignmentDirectional(0.0, 1.0),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           16.0, 16.0, 16.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
@@ -249,7 +248,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 8.0),
                                                 child: Text(
@@ -277,7 +276,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           color:
-                                                              Color(0xFF8C8C8C),
+                                                              const Color(0xFF8C8C8C),
                                                         ),
                                               ),
                                             ],
@@ -287,7 +286,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                               await _model.pageViewController
                                                   ?.nextPage(
                                                 duration:
-                                                    Duration(milliseconds: 300),
+                                                    const Duration(milliseconds: 300),
                                                 curve: Curves.ease,
                                               );
                                             },
@@ -295,9 +294,9 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                             options: FFButtonOptions(
                                               width: double.infinity,
                                               height: 44.0,
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              iconPadding: EdgeInsetsDirectional
+                                              iconPadding: const EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 0.0),
                                               color:
                                                   FlutterFlowTheme.of(context)
@@ -331,7 +330,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 24.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -339,13 +338,13 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
                                     children: [
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            const AlignmentDirectional(0.0, 0.0),
                                         child: Text(
                                           'Application features',
                                           style: FlutterFlowTheme.of(context)
@@ -362,13 +361,13 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(1.0, 0.0),
+                                            const AlignmentDirectional(1.0, 0.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: Colors.transparent,
                                           borderRadius: 30.0,
                                           borderWidth: 1.0,
                                           buttonSize: 60.0,
-                                          fillColor: Color(0x00E0E0E0),
+                                          fillColor: const Color(0x00E0E0E0),
                                           icon: Icon(
                                             Icons.close,
                                             color: FlutterFlowTheme.of(context)
@@ -380,7 +379,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                               'authPage',
                                               extra: <String, dynamic>{
                                                 kTransitionInfoKey:
-                                                    TransitionInfo(
+                                                    const TransitionInfo(
                                                   hasTransition: true,
                                                   transitionType:
                                                       PageTransitionType.fade,
@@ -393,15 +392,15 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                     ],
                                   ),
                                 ),
-                                Container(
+                                SizedBox(
                                   width: double.infinity,
                                   height:
                                       MediaQuery.sizeOf(context).height * 0.55,
                                   child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 1.0),
+                                    alignment: const AlignmentDirectional(0.0, 1.0),
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.all(16.0),
+                                        padding: const EdgeInsets.all(16.0),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -425,7 +424,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(-0.75, 1.0),
+                                            const AlignmentDirectional(-0.75, 1.0),
                                         child: Container(
                                           width: 140.0,
                                           height: 40.0,
@@ -442,7 +441,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                           ),
                                           child: Align(
                                             alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                                const AlignmentDirectional(0.0, 0.0),
                                             child: Text(
                                               'Powered by AI',
                                               style: TextStyle(
@@ -461,7 +460,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                 ),
                                 Expanded(
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 16.0, 16.0, 0.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -476,7 +475,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsetsDirectional
+                                              padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 0.0, 16.0),
                                               child: Text(
@@ -503,7 +502,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                                       .override(
                                                         fontFamily: 'Inter',
                                                         color:
-                                                            Color(0xFF8C8C8C),
+                                                            const Color(0xFF8C8C8C),
                                                       ),
                                             ),
                                           ],
@@ -514,7 +513,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                               'authPage',
                                               extra: <String, dynamic>{
                                                 kTransitionInfoKey:
-                                                    TransitionInfo(
+                                                    const TransitionInfo(
                                                   hasTransition: true,
                                                   transitionType:
                                                       PageTransitionType.fade,
@@ -527,10 +526,10 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                             width: double.infinity,
                                             height: 44.0,
                                             padding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
+                                                const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryBackground,
@@ -564,9 +563,9 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                         ],
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.0, 0.75),
+                        alignment: const AlignmentDirectional(0.0, 0.75),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 10.0),
                           child: smooth_page_indicator.SmoothPageIndicator(
                             controller: _model.pageViewController ??=
@@ -576,7 +575,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                             onDotClicked: (i) async {
                               await _model.pageViewController!.animateToPage(
                                 i,
-                                duration: Duration(milliseconds: 500),
+                                duration: const Duration(milliseconds: 500),
                                 curve: Curves.ease,
                               );
                             },
