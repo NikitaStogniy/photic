@@ -106,7 +106,7 @@ class PlanStruct extends FFFirebaseStruct {
       );
 
   static PlanStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? PlanStruct.fromMap(data) : null;
+      data is Map ? PlanStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'Name': _name,

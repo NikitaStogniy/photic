@@ -6,13 +6,12 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'subscription_done_model.dart';
 export 'subscription_done_model.dart';
 
 class SubscriptionDoneWidget extends StatefulWidget {
-  const SubscriptionDoneWidget({Key? key}) : super(key: key);
+  const SubscriptionDoneWidget({super.key});
 
   @override
   _SubscriptionDoneWidgetState createState() => _SubscriptionDoneWidgetState();
@@ -65,10 +64,10 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Stack(
-                  alignment: AlignmentDirectional(0.0, 0.0),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.00, 0.00),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Text(
                         'Thanks for subscribing',
                         style: FlutterFlowTheme.of(context)
@@ -82,13 +81,13 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.92, 0.00),
+                      alignment: const AlignmentDirectional(0.92, 0.0),
                       child: FlutterFlowIconButton(
                         borderColor: Colors.transparent,
                         borderRadius: 30.0,
                         borderWidth: 1.0,
                         buttonSize: 60.0,
-                        fillColor: Color(0x00E0E0E0),
+                        fillColor: const Color(0x00E0E0E0),
                         icon: Icon(
                           Icons.close,
                           color: FlutterFlowTheme.of(context).primaryText,
@@ -98,7 +97,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                           context.goNamed(
                             'HomePage',
                             extra: <String, dynamic>{
-                              kTransitionInfoKey: TransitionInfo(
+                              kTransitionInfoKey: const TransitionInfo(
                                 hasTransition: true,
                                 transitionType: PageTransitionType.fade,
                               ),
@@ -111,8 +110,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: MediaQuery.sizeOf(context).height * 1.0,
@@ -131,13 +129,13 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                 ),
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 24.0),
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 24.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (currentUserDocument?.plan?.price != 0.0)
+                      if (currentUserDocument?.plan.price != 0.0)
                         AuthUserStreamWidget(
                           builder: (context) => Column(
                             mainAxisSize: MainAxisSize.max,
@@ -168,7 +166,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                                       ),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           4.0, 2.0, 4.0, 2.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -185,7 +183,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                                           ),
                                           Text(
                                             valueOrDefault<String>(
-                                              currentUserDocument?.plan?.name,
+                                              currentUserDocument?.plan.name,
                                               'Pro',
                                             ),
                                             style: FlutterFlowTheme.of(context)
@@ -206,7 +204,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 4.0, 0.0, 0.0),
                                 child: Text(
                                   'Now you have access to all the functions of our application:',
@@ -214,15 +212,15 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Inter',
-                                        color: Color(0xFF8C8C8C),
+                                        color: const Color(0xFF8C8C8C),
                                       ),
                                 ),
                               ),
                               Builder(
                                 builder: (context) {
                                   final feature = currentUserDocument
-                                          ?.plan?.featureList
-                                          ?.toList() ??
+                                          ?.plan.featureList
+                                          .toList() ??
                                       [];
                                   return Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -235,7 +233,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                                           Container(
                                             width: 4.0,
                                             height: 4.0,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               color: Color(0xFF8C8C8C),
                                               shape: BoxShape.circle,
                                             ),
@@ -246,23 +244,23 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Inter',
-                                                  color: Color(0xFF8C8C8C),
+                                                  color: const Color(0xFF8C8C8C),
                                                 ),
                                           ),
                                         ]
-                                            .divide(SizedBox(width: 4.0))
-                                            .around(SizedBox(width: 4.0)),
+                                            .divide(const SizedBox(width: 4.0))
+                                            .around(const SizedBox(width: 4.0)),
                                       );
                                     })
-                                        .divide(SizedBox(height: 4.0))
-                                        .around(SizedBox(height: 4.0)),
+                                        .divide(const SizedBox(height: 4.0))
+                                        .around(const SizedBox(height: 4.0)),
                                   );
                                 },
                               ),
                             ],
                           ),
                         ),
-                      if (currentUserDocument?.plan?.price == 0.0)
+                      if (currentUserDocument?.plan.price == 0.0)
                         AuthUserStreamWidget(
                           builder: (context) => Text(
                             '3 free generations are available to you in our application',
@@ -270,7 +268,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Inter',
-                                  color: Color(0xFF8C8C8C),
+                                  color: const Color(0xFF8C8C8C),
                                 ),
                           ),
                         ),
@@ -279,7 +277,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                           context.goNamed(
                             'HomePage',
                             extra: <String, dynamic>{
-                              kTransitionInfoKey: TransitionInfo(
+                              kTransitionInfoKey: const TransitionInfo(
                                 hasTransition: true,
                                 transitionType: PageTransitionType.fade,
                               ),
@@ -290,9 +288,9 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 44.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
                           color: Colors.black,
                           textStyle: FlutterFlowTheme.of(context)
@@ -309,7 +307,7 @@ class _SubscriptionDoneWidgetState extends State<SubscriptionDoneWidget> {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                       ),
-                    ].divide(SizedBox(height: 16.0)),
+                    ].divide(const SizedBox(height: 16.0)),
                   ),
                 ),
               ],

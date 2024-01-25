@@ -1,25 +1,19 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/permissions_util.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'painter_model.dart';
 export 'painter_model.dart';
 
 class PainterWidget extends StatefulWidget {
-  const PainterWidget({Key? key}) : super(key: key);
+  const PainterWidget({super.key});
 
   @override
   _PainterWidgetState createState() => _PainterWidgetState();
@@ -79,7 +73,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                   fontSize: 22.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
           elevation: 2.0,
         ),
@@ -92,12 +86,12 @@ class _PainterWidgetState extends State<PainterWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.00, 0.00),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Stack(
-                        alignment: AlignmentDirectional(0.0, 0.0),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(0.0),
                               child: Image.network(
@@ -109,14 +103,14 @@ class _PainterWidgetState extends State<PainterWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: ClipRect(
                               child: ImageFiltered(
                                 imageFilter: ImageFilter.blur(
                                   sigmaX: 4.0,
                                   sigmaY: 4.0,
                                 ),
-                                child: Container(
+                                child: SizedBox(
                                   width: 400.0,
                                   height: 400.0,
                                   child: custom_widgets.Painter(
@@ -151,7 +145,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                           },
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 0.0),
                           child: TextFormField(
                             controller: _model.textController,
@@ -216,107 +210,19 @@ class _PainterWidgetState extends State<PainterWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 0.0),
                           child: FFButtonWidget(
-                            onPressed: () async {
-                              final firestoreBatch =
-                                  FirebaseFirestore.instance.batch();
-                              try {
-                                _model.getWidget =
-                                    await actions.getMyCustomWidgeCurrentValue(
-                                  context,
-                                );
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Err'),
-                                      content: Text(_model.getWidget!),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                                _model.uploaded = await actions.savePaintImage(
-                                  context,
-                                );
-                                _model.apiResult74h =
-                                    await DebGroup.applyMaskCall.call(
-                                  imageUrl: _model.image,
-                                  maskImageUrl: _model.uploaded,
-                                );
-                                if ((_model.apiResult74h?.succeeded ?? true)) {
-                                  firestoreBatch
-                                      .set(AiImageRecord.collection.doc(), {
-                                    ...createAiImageRecordData(
-                                      creator: currentUserReference,
-                                      firstImage: _model.image,
-                                    ),
-                                    ...mapToFirestore(
-                                      {
-                                        'generatedImages': [
-                                          DebGroup.applyMaskCall.image(
-                                            (_model.apiResult74h?.jsonBody ??
-                                                ''),
-                                          )
-                                        ],
-                                      },
-                                    ),
-                                  });
-
-                                  context.goNamed('HomePage');
-
-                                  setState(() {
-                                    _model.step = 0;
-                                    _model.image = 'false';
-                                  });
-                                } else {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('Err'),
-                                        content: Text(
-                                            (_model.apiResult74h?.jsonBody ??
-                                                    '')
-                                                .toString()),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-
-                                  firestoreBatch.set(
-                                      AiImageRecord.collection.doc(),
-                                      createAiImageRecordData(
-                                        creator: currentUserReference,
-                                        firstImage: _model.image,
-                                      ));
-                                }
-                              } finally {
-                                await firestoreBatch.commit();
-                              }
-
-                              setState(() {});
+                            onPressed: () {
+                              print('Button pressed ...');
                             },
                             text: 'Edit',
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 40.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context)
                                   .primaryBackground,
@@ -342,7 +248,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                 ),
               if (_model.step == 0)
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -352,7 +258,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                         child: Stack(
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: const AlignmentDirectional(0.0, 0.0),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.asset(
@@ -365,9 +271,9 @@ class _PainterWidgetState extends State<PainterWidget> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.00, 1.00),
+                              alignment: const AlignmentDirectional(0.0, 1.0),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
@@ -375,90 +281,123 @@ class _PainterWidgetState extends State<PainterWidget> {
                                     Expanded(
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          await requestPermission(
-                                              photoLibraryPermission);
-                                          final selectedMedia =
-                                              await selectMedia(
-                                            imageQuality: 100,
-                                            mediaSource:
-                                                MediaSource.photoGallery,
-                                            multiImage: false,
+                                          _model.firstMask =
+                                              await DebGroup.applyMaskCall.call(
+                                            imageUrl: 'blabla',
+                                            maskImageUrl: '2bla2bla',
                                           );
-                                          if (selectedMedia != null &&
-                                              selectedMedia.every((m) =>
-                                                  validateFileFormat(
-                                                      m.storagePath,
-                                                      context))) {
-                                            setState(() =>
-                                                _model.isDataUploading = true);
-                                            var selectedUploadedFiles =
-                                                <FFUploadedFile>[];
+                                          if ((_model.firstMask?.succeeded ??
+                                              true)) {
+                                            var aiImageRecordReference =
+                                                AiImageRecord.collection.doc();
+                                            await aiImageRecordReference
+                                                .set(createAiImageRecordData(
+                                              creator: currentUserReference,
+                                              refImage: _model.image,
+                                            ));
+                                            _model.gene = AiImageRecord
+                                                .getDocumentFromData(
+                                                    createAiImageRecordData(
+                                                      creator:
+                                                          currentUserReference,
+                                                      refImage: _model.image,
+                                                    ),
+                                                    aiImageRecordReference);
 
-                                            var downloadUrls = <String>[];
-                                            try {
-                                              selectedUploadedFiles =
-                                                  selectedMedia
-                                                      .map(
-                                                          (m) => FFUploadedFile(
-                                                                name: m
-                                                                    .storagePath
-                                                                    .split('/')
-                                                                    .last,
-                                                                bytes: m.bytes,
-                                                                height: m
-                                                                    .dimensions
-                                                                    ?.height,
-                                                                width: m
-                                                                    .dimensions
-                                                                    ?.width,
-                                                                blurHash:
-                                                                    m.blurHash,
-                                                              ))
-                                                      .toList();
+                                            await currentUserReference!
+                                                .update(createUsersRecordData(
+                                              plan: createPlanStruct(
+                                                fieldValues: {
+                                                  'inpaintUsed':
+                                                      FieldValue.increment(1),
+                                                },
+                                                clearUnsetFields: false,
+                                              ),
+                                            ));
 
-                                              downloadUrls = (await Future.wait(
-                                                selectedMedia.map(
-                                                  (m) async => await uploadData(
-                                                      m.storagePath, m.bytes),
+                                            var pendingRecordReference =
+                                                PendingRecord.createDoc(
+                                                    currentUserReference!);
+                                            await pendingRecordReference
+                                                .set(createPendingRecordData(
+                                              id: DebGroup.applyMaskCall
+                                                  .id(
+                                                    (_model.firstMask
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                  )
+                                                  ?.toString(),
+                                              genRef: _model.gene?.reference,
+                                            ));
+                                            _model.ref = PendingRecord
+                                                .getDocumentFromData(
+                                                    createPendingRecordData(
+                                                      id: DebGroup.applyMaskCall
+                                                          .id(
+                                                            (_model.firstMask
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          )
+                                                          ?.toString(),
+                                                      genRef: _model
+                                                          .gene?.reference,
+                                                    ),
+                                                    pendingRecordReference);
+
+                                            context.goNamed(
+                                              'generate_holder',
+                                              queryParameters: {
+                                                'id': serializeParam(
+                                                  DebGroup.applyMaskCall
+                                                      .id(
+                                                        (_model.firstMask
+                                                                ?.jsonBody ??
+                                                            ''),
+                                                      )
+                                                      ?.toString(),
+                                                  ParamType.String,
                                                 ),
-                                              ))
-                                                  .where((u) => u != null)
-                                                  .map((u) => u!)
-                                                  .toList();
-                                            } finally {
-                                              _model.isDataUploading = false;
-                                            }
-                                            if (selectedUploadedFiles.length ==
-                                                    selectedMedia.length &&
-                                                downloadUrls.length ==
-                                                    selectedMedia.length) {
-                                              setState(() {
-                                                _model.uploadedLocalFile =
-                                                    selectedUploadedFiles.first;
-                                                _model.uploadedFileUrl =
-                                                    downloadUrls.first;
-                                              });
-                                            } else {
-                                              setState(() {});
-                                              return;
-                                            }
+                                                'packRef': serializeParam(
+                                                  _model.gene?.reference,
+                                                  ParamType.DocumentReference,
+                                                ),
+                                              }.withoutNulls,
+                                            );
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: const Text('ERR'),
+                                                  content: Text((_model
+                                                              .firstMask
+                                                              ?.jsonBody ??
+                                                          '')
+                                                      .toString()),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: const Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
                                           }
 
-                                          setState(() {
-                                            _model.step = _model.step! + 1;
-                                            _model.image =
-                                                _model.uploadedFileUrl;
-                                          });
+                                          setState(() {});
                                         },
                                         text: 'Upload',
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 48.0,
                                           padding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
+                                              const EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
                                               .primaryBackground,

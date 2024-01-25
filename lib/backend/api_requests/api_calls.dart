@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -27,8 +26,8 @@ class FaceSwapCall {
   }) async {
     final ffApiRequestBody = '''
 {
-  "image_from": "${firstImage}",
-  "image_to": "${secondImage}"
+  "image_from": "$firstImage",
+  "image_to": "$secondImage"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'FaceSwap',
@@ -44,6 +43,7 @@ class FaceSwapCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      alwaysAllowBody: false,
     );
   }
 
@@ -59,7 +59,7 @@ class StatusCheckCall {
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'StatusCheck',
-      apiUrl: '${DebGroup.baseUrl}/task/${id}',
+      apiUrl: '${DebGroup.baseUrl}/task/$id',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Basic dXNlcjpiZ3NRRXJadFhiR2pDcmZjenZhU3BoWmZTd0NB',
@@ -69,25 +69,26 @@ class StatusCheckCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      alwaysAllowBody: false,
     );
   }
 
-  dynamic result(dynamic response) => getJsonField(
+  String? result(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.result.image''',
-      );
-  dynamic status(dynamic response) => getJsonField(
+      ));
+  int? status(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.status''',
-      );
-  dynamic from(dynamic response) => getJsonField(
+      ));
+  String? from(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.image_from''',
-      );
-  dynamic to(dynamic response) => getJsonField(
+      ));
+  String? to(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.image_to''',
-      );
+      ));
   dynamic textResult(dynamic response) => getJsonField(
         response,
         r'''$.result.image_0.url''',
@@ -98,21 +99,22 @@ class ApplyMaskCall {
   Future<ApiCallResponse> call({
     String? imageUrl = '',
     String? maskImageUrl = '',
+    String? prompt = 'naked',
   }) async {
     final ffApiRequestBody = '''
 {
-    "start_node_id": "55f68523-fc5f-41fe-a75d-7cdfa5ed9773",
-    "end_node_id": "656719a2-2b17-4ba2-a7ef-f31a11514c79",
-    "result_node_id": "656719a2-2b17-4ba2-a7ef-f31a11514c79",
-    "node_settings": {
-        "55f68523-fc5f-41fe-a75d-7cdfa5ed9773": {
-            "data": {
-                "image": "${imageUrl}",
-                "mask": "${maskImageUrl}",
-                "promt": "naked"
-            }
-        }
+  "start_node_id": "55f68523-fc5f-41fe-a75d-7cdfa5ed9773",
+  "end_node_id": "656719a2-2b17-4ba2-a7ef-f31a11514c79",
+  "result_node_id": "656719a2-2b17-4ba2-a7ef-f31a11514c79",
+  "node_settings": {
+    "55f68523-fc5f-41fe-a75d-7cdfa5ed9773": {
+      "data": {
+        "image": "$imageUrl",
+        "mask": "$maskImageUrl",
+        "promt": "$prompt"
+      }
     }
+  }
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'applyMask',
@@ -128,13 +130,14 @@ class ApplyMaskCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      alwaysAllowBody: false,
     );
   }
 
-  dynamic image(dynamic response) => getJsonField(
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
-        r'''$''',
-      );
+        r'''$.id''',
+      ));
 }
 
 /// End DEB Group Code

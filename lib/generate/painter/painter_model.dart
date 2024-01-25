@@ -1,21 +1,8 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
-import '/backend/firebase_storage/storage.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/upload_data.dart';
-import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
-import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/permissions_util.dart';
 import 'painter_widget.dart' show PainterWidget;
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class PainterModel extends FlutterFlowModel<PainterWidget> {
   ///  Local state fields for this page.
@@ -33,21 +20,19 @@ class PainterModel extends FlutterFlowModel<PainterWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  // Stores action output result for [Custom Action - getMyCustomWidgeCurrentValue] action in Button widget.
-  String? getWidget;
-  // Stores action output result for [Custom Action - savePaintImage] action in Button widget.
-  String? uploaded;
   // Stores action output result for [Backend Call - API (applyMask)] action in Button widget.
-  ApiCallResponse? apiResult74h;
-  bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl = '';
+  ApiCallResponse? firstMask;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  AiImageRecord? gene;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  PendingRecord? ref;
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     textFieldFocusNode?.dispose();

@@ -4,22 +4,19 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dialog_model.dart';
 export 'dialog_model.dart';
 
 class DialogWidget extends StatefulWidget {
   const DialogWidget({
-    Key? key,
+    super.key,
     this.deleteImage,
     this.generateFrom,
     this.generateTo,
     this.success,
-  }) : super(key: key);
+  });
 
   final DocumentReference? deleteImage;
   final String? generateFrom;
@@ -57,7 +54,7 @@ class _DialogWidgetState extends State<DialogWidget> {
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Container(
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).primaryText,
@@ -68,7 +65,7 @@ class _DialogWidgetState extends State<DialogWidget> {
           children: [
             if (widget.deleteImage != null)
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+                padding: const EdgeInsets.all(24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,7 +95,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                                 fontSize: 16.0,
                               ),
                         ),
-                      ].divide(SizedBox(height: 8.0)),
+                      ].divide(const SizedBox(height: 8.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -113,11 +110,11 @@ class _DialogWidgetState extends State<DialogWidget> {
                             options: FFButtonOptions(
                               width: 126.0,
                               height: 42.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: Color(0x00E0E3E7),
+                              color: const Color(0x00E0E3E7),
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
@@ -145,9 +142,9 @@ class _DialogWidgetState extends State<DialogWidget> {
                             options: FFButtonOptions(
                               width: 136.0,
                               height: 42.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context)
                                   .primaryBackground,
@@ -158,7 +155,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                                     color: Colors.white,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -166,14 +163,14 @@ class _DialogWidgetState extends State<DialogWidget> {
                             ),
                           ),
                         ),
-                      ].divide(SizedBox(width: 8.0)),
+                      ].divide(const SizedBox(width: 8.0)),
                     ),
-                  ].divide(SizedBox(height: 16.0)),
+                  ].divide(const SizedBox(height: 16.0)),
                 ),
               ),
             if (widget.generateFrom != null && widget.generateFrom != '')
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+                padding: const EdgeInsets.all(24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -195,7 +192,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                         ),
                         AuthUserStreamWidget(
                           builder: (context) => Text(
-                            '${(currentUserDocument!.plan.limit - currentUserDocument!.plan.used).toString()}/${currentUserDocument?.plan?.limit?.toString()} generation left',
+                            '${(currentUserDocument!.plan.limit - currentUserDocument!.plan.used).toString()}/${currentUserDocument?.plan.limit.toString()} generation left',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -205,7 +202,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                                 ),
                           ),
                         ),
-                      ].divide(SizedBox(height: 8.0)),
+                      ].divide(const SizedBox(height: 8.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -220,11 +217,11 @@ class _DialogWidgetState extends State<DialogWidget> {
                             options: FFButtonOptions(
                               width: 126.0,
                               height: 42.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
-                              color: Color(0x00E0E3E7),
+                              color: const Color(0x00E0E3E7),
                               textStyle: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
@@ -321,9 +318,9 @@ class _DialogWidgetState extends State<DialogWidget> {
                             options: FFButtonOptions(
                               width: 136.0,
                               height: 42.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context)
                                   .primaryBackground,
@@ -335,7 +332,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                                         .primaryText,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -343,14 +340,14 @@ class _DialogWidgetState extends State<DialogWidget> {
                             ),
                           ),
                         ),
-                      ].divide(SizedBox(width: 8.0)),
+                      ].divide(const SizedBox(width: 8.0)),
                     ),
-                  ].divide(SizedBox(height: 16.0)),
+                  ].divide(const SizedBox(height: 16.0)),
                 ),
               ),
             if (widget.success != null)
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+                padding: const EdgeInsets.all(24.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -380,7 +377,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                                     FlutterFlowTheme.of(context).secondaryText,
                               ),
                         ),
-                      ].divide(SizedBox(height: 8.0)),
+                      ].divide(const SizedBox(height: 8.0)),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -395,9 +392,9 @@ class _DialogWidgetState extends State<DialogWidget> {
                             options: FFButtonOptions(
                               width: 136.0,
                               height: 42.0,
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   24.0, 0.0, 24.0, 0.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context)
                                   .primaryBackground,
@@ -409,7 +406,7 @@ class _DialogWidgetState extends State<DialogWidget> {
                                         .primaryText,
                                   ),
                               elevation: 3.0,
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.transparent,
                                 width: 1.0,
                               ),
@@ -417,9 +414,9 @@ class _DialogWidgetState extends State<DialogWidget> {
                             ),
                           ),
                         ),
-                      ].divide(SizedBox(width: 8.0)),
+                      ].divide(const SizedBox(width: 8.0)),
                     ),
-                  ].divide(SizedBox(height: 16.0)),
+                  ].divide(const SizedBox(height: 16.0)),
                 ),
               ),
           ],

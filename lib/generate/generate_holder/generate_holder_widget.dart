@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
@@ -8,23 +7,20 @@ import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'generate_holder_model.dart';
 export 'generate_holder_model.dart';
 
 class GenerateHolderWidget extends StatefulWidget {
   const GenerateHolderWidget({
-    Key? key,
+    super.key,
     required this.id,
     this.packRef,
-  }) : super(key: key);
+  });
 
   final String? id;
   final DocumentReference? packRef;
@@ -55,17 +51,13 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                   (_model.statusApi?.jsonBody ?? ''),
                 ) ==
                 3) &&
-            ((DebGroup.statusCheckCall
-                            .result(
-                              (_model.statusApi?.jsonBody ?? ''),
-                            )
-                            .toString() !=
+            ((DebGroup.statusCheckCall.result(
+                          (_model.statusApi?.jsonBody ?? ''),
+                        ) !=
                         null &&
-                    DebGroup.statusCheckCall
-                            .result(
-                              (_model.statusApi?.jsonBody ?? ''),
-                            )
-                            .toString() !=
+                    DebGroup.statusCheckCall.result(
+                          (_model.statusApi?.jsonBody ?? ''),
+                        ) !=
                         '') ||
                 (DebGroup.statusCheckCall.textResult(
                       (_model.statusApi?.jsonBody ?? ''),
@@ -75,24 +67,22 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
             ...mapToFirestore(
               {
                 'generatedImages': FieldValue.arrayUnion([
-                  DebGroup.statusCheckCall
-                                  .result(
-                                    (_model.statusApi?.jsonBody ?? ''),
-                                  )
-                                  .toString() !=
+                  DebGroup.statusCheckCall.result(
+                                (_model.statusApi?.jsonBody ?? ''),
+                              ) !=
                               null &&
-                          DebGroup.statusCheckCall
-                                  .result(
-                                    (_model.statusApi?.jsonBody ?? ''),
-                                  )
-                                  .toString() !=
+                          DebGroup.statusCheckCall.result(
+                                (_model.statusApi?.jsonBody ?? ''),
+                              ) !=
                               ''
                       ? DebGroup.statusCheckCall.result(
                           (_model.statusApi?.jsonBody ?? ''),
                         )
-                      : DebGroup.statusCheckCall.textResult(
-                          (_model.statusApi?.jsonBody ?? ''),
-                        )
+                      : DebGroup.statusCheckCall
+                          .textResult(
+                            (_model.statusApi?.jsonBody ?? ''),
+                          )
+                          .toString()
                 ]),
               },
             ),
@@ -140,12 +130,12 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.00, -1.00),
+            alignment: const AlignmentDirectional(0.0, -1.0),
             child: Container(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 maxWidth: 600.0,
               ),
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               child: Stack(
                 children: [
                   if (!_model.loaded)
@@ -155,7 +145,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 56.0, 0.0, 0.0),
                           child: Text(
                             'Generating an image',
@@ -172,7 +162,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Lottie.asset(
                             'assets/lottie_animations/loader.json',
                             width: 350.0,
@@ -190,7 +180,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 4.0, 0.0),
                                   child: FlutterFlowTimer(
                                     initialTime: _model.timerMilliseconds,
@@ -203,7 +193,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                     ),
                                     controller: _model.timerController,
                                     updateStateInterval:
-                                        Duration(milliseconds: 1000),
+                                        const Duration(milliseconds: 1000),
                                     onChanged:
                                         (value, displayTime, shouldUpdate) {
                                       _model.timerMilliseconds = value;
@@ -240,7 +230,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                               desktop: false,
                             ))
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 40.0, 16.0, 0.0),
                                 child: FFButtonWidget(
                                   onPressed: () {
@@ -250,9 +240,9 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                   options: FFButtonOptions(
                                     width: double.infinity,
                                     height: 44.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 0.0),
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,
@@ -273,7 +263,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                 ),
                               ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 16.0, 16.0, 40.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
@@ -283,9 +273,9 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 44.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context)
                                       .primaryBackground,
@@ -313,14 +303,14 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Container(
+                        SizedBox(
                           width: double.infinity,
                           height: 64.0,
                           child: Stack(
-                            alignment: AlignmentDirectional(-1.0, -1.0),
+                            alignment: const AlignmentDirectional(-1.0, -1.0),
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(0.00, 0.00),
+                                alignment: const AlignmentDirectional(0.0, 0.0),
                                 child: Text(
                                   'Pack #1',
                                   style: FlutterFlowTheme.of(context)
@@ -353,8 +343,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              8.0, 8.0, 8.0, 8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -369,13 +358,13 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                     image: Image.network(
                                       DebGroup.statusCheckCall.result(
                                         (_model.statusApi?.jsonBody ?? ''),
-                                      ),
+                                      )!,
                                       fit: BoxFit.contain,
                                     ),
                                     allowRotation: false,
                                     tag: DebGroup.statusCheckCall.result(
                                       (_model.statusApi?.jsonBody ?? ''),
-                                    ),
+                                    )!,
                                     useHeroAnimation: true,
                                   ),
                                 ),
@@ -384,14 +373,14 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                             child: Hero(
                               tag: DebGroup.statusCheckCall.result(
                                 (_model.statusApi?.jsonBody ?? ''),
-                              ),
+                              )!,
                               transitionOnUserGestures: true,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(12.0),
                                 child: Image.network(
                                   DebGroup.statusCheckCall.result(
                                     (_model.statusApi?.jsonBody ?? ''),
-                                  ),
+                                  )!,
                                   width: MediaQuery.sizeOf(context).width * 1.0,
                                   height:
                                       MediaQuery.sizeOf(context).height * 0.8,

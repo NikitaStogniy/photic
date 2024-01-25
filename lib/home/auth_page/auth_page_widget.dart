@@ -2,16 +2,14 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/components/loader_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'auth_page_model.dart';
 export 'auth_page_model.dart';
 
 class AuthPageWidget extends StatefulWidget {
-  const AuthPageWidget({Key? key}) : super(key: key);
+  const AuthPageWidget({super.key});
 
   @override
   _AuthPageWidgetState createState() => _AuthPageWidgetState();
@@ -62,34 +60,34 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
             'Registration',
             style: FlutterFlowTheme.of(context).bodyMedium,
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           elevation: 0.0,
         ),
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.00, 1.00),
+            alignment: const AlignmentDirectional(0.0, 1.0),
             child: Stack(
               children: [
                 Align(
-                  alignment: AlignmentDirectional(0.00, -1.00),
+                  alignment: const AlignmentDirectional(0.0, -1.0),
                   child: Container(
-                    constraints: BoxConstraints(
+                    constraints: const BoxConstraints(
                       maxWidth: 600.0,
                     ),
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     child: Align(
-                      alignment: AlignmentDirectional(0.00, 1.00),
+                      alignment: const AlignmentDirectional(0.0, 1.0),
                       child: Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 24.0),
                               child: Text(
                                 'Sign in to your Google account',
@@ -103,7 +101,7 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.00, 0.80),
+                              alignment: const AlignmentDirectional(0.0, 0.8),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -120,9 +118,9 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                                     return;
                                   }
                                   if ((currentUserDocument?.plan != null) &&
-                                      (currentUserDocument?.plan?.name !=
+                                      (currentUserDocument?.plan.name !=
                                               null &&
-                                          currentUserDocument?.plan?.name !=
+                                          currentUserDocument?.plan.name !=
                                               '')) {
                                     context.goNamedAuth(
                                       'HomePage',
@@ -155,7 +153,7 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 8.0, 0.0),
                                         child: Image.asset(
                                           'assets/images/google.png',
@@ -188,12 +186,12 @@ class _AuthPageWidgetState extends State<AuthPageWidget> {
                 ),
                 if (_model.loader)
                   Align(
-                    alignment: AlignmentDirectional(0.00, 1.00),
+                    alignment: const AlignmentDirectional(0.0, 1.0),
                     child: wrapWithModel(
                       model: _model.loaderModel,
                       updateCallback: () => setState(() {}),
                       updateOnChange: true,
-                      child: LoaderWidget(),
+                      child: const LoaderWidget(),
                     ),
                   ),
               ],
