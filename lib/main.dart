@@ -17,12 +17,21 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 import 'flutter_flow/revenue_cat_util.dart' as revenue_cat;
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
+import 'package:flutter_branch_sdk/flutter_branch_sdk.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
   await initFirebase();
-
+FlutterBranchSdk.initSession().listen((linkData) {
+    if (linkData.containsKey('+clicked_branch_link') &&
+        linkData['+clicked_branch_link'] == true) {
+      print('Link clicked: ${linkData.toString()}');
+    }
+  });
+  AppMetrica.activate(AppMetricaConfig("2c090aef-6a69-4f7c-9715-222c4534c652"));
+  AppMetrica.reportEvent('Install');
   await FlutterFlowTheme.initialize();
 
   final appState = FFAppState(); // Initialize FFAppState

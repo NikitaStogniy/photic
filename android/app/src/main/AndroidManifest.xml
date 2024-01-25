@@ -2,16 +2,19 @@
     package="com.photiq.photiq"
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:label="photiq"
         tools:replace="android:label"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_ntfzq2tjb3lsf7Qej8l1robktzcMOm0y" />
+        <meta-data android:name="io.branch.sdk.BranchUriScheme" android:value="photiq://photiq.com" />
 
+        <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -42,7 +45,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <!-- Deep linking -->
-            <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
+
+            <!-- Фильтр для Deep Linking -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -57,7 +61,6 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
 
 
     </application>

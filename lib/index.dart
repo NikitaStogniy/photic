@@ -6,8 +6,7 @@ export '/subscribtion/subscribtion/subscribtion_widget.dart'
     show SubscribtionWidget;
 export '/subscribtion/subscription_done/subscription_done_widget.dart'
     show SubscriptionDoneWidget;
-export '/generate/generate_image_page/generate_image_page_widget.dart'
-    show GenerateImagePageWidget;
+
 export '/generate/generate_holder/generate_holder_widget.dart'
     show GenerateHolderWidget;
 export '/generate/generate_avatar_page/generate_avatar_page_widget.dart'

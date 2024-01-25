@@ -37,7 +37,6 @@ class PainterModel extends FlutterFlowModel {
   // Stores action output result for [Custom Action - savePaintImage] action in Button widget.
   String? uploaded;
   // Stores action output result for [Backend Call - API (applyMask)] action in Button widget.
-  ApiCallResponse? apiResult74h;
   bool isDataUploading1 = false;
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -47,6 +46,13 @@ class PainterModel extends FlutterFlowModel {
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl2 = '';
+  // Stores action output result for [Backend Call - API (applyMask)] action in Button widget.
+  ApiCallResponse? firstMask;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  AiImageRecord? generation;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  PendingRecord? ref;
+
 
   /// Initialization and disposal methods.
 

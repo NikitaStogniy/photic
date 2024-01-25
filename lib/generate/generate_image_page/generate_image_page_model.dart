@@ -5,14 +5,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'generate_image_page_widget.dart' show GenerateImagePageWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class GenerateImagePageModel extends FlutterFlowModel<GenerateImagePageWidget> {
+class GenerateImagePageModel extends FlutterFlowModel {
   ///  Local state fields for this page.
 
   int step = 1;
@@ -23,7 +21,6 @@ class GenerateImagePageModel extends FlutterFlowModel<GenerateImagePageWidget> {
 
   final unfocusNode = FocusNode();
   // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // State field(s) for DropDown widget.
@@ -44,7 +41,6 @@ class GenerateImagePageModel extends FlutterFlowModel<GenerateImagePageWidget> {
 
   void dispose() {
     unfocusNode.dispose();
-    textFieldFocusNode?.dispose();
     textController?.dispose();
   }
 

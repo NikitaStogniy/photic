@@ -33,6 +33,7 @@ dependencies:
   cloud_firestore_web: 3.6.0
   dropdown_button2: 2.0.0
   equatable: 2.0.5
+  appmetrica_plugin: 1.4.0
   file_picker: 5.2.6
   firebase_auth: 4.6.2
   firebase_auth_platform_interface: 6.15.2
@@ -118,6 +119,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
+  flutter_branch_sdk: ^6.6.0
 
 dev_dependencies:
   flutter_launcher_icons: 0.13.1

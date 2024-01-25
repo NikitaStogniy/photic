@@ -114,11 +114,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => SubscriptionDoneWidget(),
         ),
         FFRoute(
-          name: 'Generate_image_page',
-          path: '/generateImagePage',
-          builder: (context, params) => GenerateImagePageWidget(),
-        ),
-        FFRoute(
           name: 'generate_holder',
           path: '/generateHolder',
           builder: (context, params) => GenerateHolderWidget(
