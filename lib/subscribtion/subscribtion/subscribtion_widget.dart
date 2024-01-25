@@ -5,15 +5,12 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'subscribtion_model.dart';
 export 'subscribtion_model.dart';
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 
 class SubscribtionWidget extends StatefulWidget {
   const SubscribtionWidget({super.key});
@@ -31,22 +28,6 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SubscribtionModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (currentUserDocument?.plan != null) {
-        _model.currentPlan = await queryPlanListRecordOnce(
-          queryBuilder: (planListRecord) => planListRecord.where(
-            'Plan.Name',
-            isEqualTo: currentUserDocument?.plan.name,
-          ),
-          singleRecord: true,
-        ).then((s) => s.firstOrNull);
-        setState(() {
-          _model.plan = _model.currentPlan;
-        });
-      }
-    });
   }
 
   @override
@@ -645,7 +626,6 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                       },
                                     );
                                   } else {
-                                    AppMetrica.reportEvent('Buy');
                                     _model.buy =
                                         await revenue_cat.purchasePackage(
                                             _model.plan!.packageId);
