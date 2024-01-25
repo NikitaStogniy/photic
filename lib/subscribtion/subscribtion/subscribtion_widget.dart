@@ -368,7 +368,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                               .plan.price !=
                                                           0.0)
                                                         Text(
-                                                          '\$ ${revenue_cat.offerings!.current!.availablePackages.where((e) => e.identifier == listViewPlanListRecord.packageId).toList().first.storeProduct.priceString}',
+                                                          revenue_cat.offerings!.current!.availablePackages.where((e) => e.identifier == listViewPlanListRecord.packageId).toList().first.storeProduct.priceString,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -626,10 +626,10 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                       },
                                     );
                                   } else {
-                                    final isEntitled =
-                                        await revenue_cat.isEntitled(
-                                                _model.plan!.packageId) ??
-                                            false;
+                                    final isEntitled = await revenue_cat
+                                            .isEntitled(_model.plan!.plan.name
+                                                .toLowerCase()) ??
+                                        false;
                                     if (!isEntitled) {
                                       await revenue_cat.loadOfferings();
                                     }
