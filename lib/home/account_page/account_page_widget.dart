@@ -75,7 +75,7 @@ class _AccountPageWidgetState extends State<AccountPageWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.00, -1.00),
+            alignment: AlignmentDirectional(0.0, -1.0),
             child: Container(
               constraints: BoxConstraints(
                 maxWidth: 600.0,

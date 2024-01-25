@@ -32,7 +32,7 @@ class PainterModel extends FlutterFlowModel<PainterWidget> {
   // Stores action output result for [Backend Call - API (applyMask)] action in Button widget.
   ApiCallResponse? firstMask;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  AiImageRecord? generation;
+  AiImageRecord? gene;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   PendingRecord? ref;
 

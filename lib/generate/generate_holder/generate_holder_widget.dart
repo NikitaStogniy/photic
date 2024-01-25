@@ -55,17 +55,13 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                   (_model.statusApi?.jsonBody ?? ''),
                 ) ==
                 3) &&
-            ((DebGroup.statusCheckCall
-                            .result(
-                              (_model.statusApi?.jsonBody ?? ''),
-                            )
-                            .toString() !=
+            ((DebGroup.statusCheckCall.result(
+                          (_model.statusApi?.jsonBody ?? ''),
+                        ) !=
                         null &&
-                    DebGroup.statusCheckCall
-                            .result(
-                              (_model.statusApi?.jsonBody ?? ''),
-                            )
-                            .toString() !=
+                    DebGroup.statusCheckCall.result(
+                          (_model.statusApi?.jsonBody ?? ''),
+                        ) !=
                         '') ||
                 (DebGroup.statusCheckCall.textResult(
                       (_model.statusApi?.jsonBody ?? ''),
@@ -75,24 +71,22 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
             ...mapToFirestore(
               {
                 'generatedImages': FieldValue.arrayUnion([
-                  DebGroup.statusCheckCall
-                                  .result(
-                                    (_model.statusApi?.jsonBody ?? ''),
-                                  )
-                                  .toString() !=
+                  DebGroup.statusCheckCall.result(
+                                (_model.statusApi?.jsonBody ?? ''),
+                              ) !=
                               null &&
-                          DebGroup.statusCheckCall
-                                  .result(
-                                    (_model.statusApi?.jsonBody ?? ''),
-                                  )
-                                  .toString() !=
+                          DebGroup.statusCheckCall.result(
+                                (_model.statusApi?.jsonBody ?? ''),
+                              ) !=
                               ''
                       ? DebGroup.statusCheckCall.result(
                           (_model.statusApi?.jsonBody ?? ''),
                         )
-                      : DebGroup.statusCheckCall.textResult(
-                          (_model.statusApi?.jsonBody ?? ''),
-                        )
+                      : DebGroup.statusCheckCall
+                          .textResult(
+                            (_model.statusApi?.jsonBody ?? ''),
+                          )
+                          .toString()
                 ]),
               },
             ),
@@ -140,7 +134,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.00, -1.00),
+            alignment: AlignmentDirectional(0.0, -1.0),
             child: Container(
               constraints: BoxConstraints(
                 maxWidth: 600.0,
@@ -172,7 +166,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: AlignmentDirectional(0.0, 0.0),
                           child: Lottie.asset(
                             'assets/lottie_animations/loader.json',
                             width: 350.0,
@@ -320,7 +314,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                             alignment: AlignmentDirectional(-1.0, -1.0),
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(0.00, 0.00),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Text(
                                   'Pack #1',
                                   style: FlutterFlowTheme.of(context)
@@ -353,8 +347,7 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              8.0, 8.0, 8.0, 8.0),
+                          padding: EdgeInsets.all(8.0),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -369,13 +362,13 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                                     image: Image.network(
                                       DebGroup.statusCheckCall.result(
                                         (_model.statusApi?.jsonBody ?? ''),
-                                      ),
+                                      )!,
                                       fit: BoxFit.contain,
                                     ),
                                     allowRotation: false,
                                     tag: DebGroup.statusCheckCall.result(
                                       (_model.statusApi?.jsonBody ?? ''),
-                                    ),
+                                    )!,
                                     useHeroAnimation: true,
                                   ),
                                 ),
@@ -384,14 +377,14 @@ class _GenerateHolderWidgetState extends State<GenerateHolderWidget> {
                             child: Hero(
                               tag: DebGroup.statusCheckCall.result(
                                 (_model.statusApi?.jsonBody ?? ''),
-                              ),
+                              )!,
                               transitionOnUserGestures: true,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(12.0),
                                 child: Image.network(
                                   DebGroup.statusCheckCall.result(
                                     (_model.statusApi?.jsonBody ?? ''),
-                                  ),
+                                  )!,
                                   width: MediaQuery.sizeOf(context).width * 1.0,
                                   height:
                                       MediaQuery.sizeOf(context).height * 0.8,

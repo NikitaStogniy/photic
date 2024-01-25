@@ -7,6 +7,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/generate/generate_bottomsheet/generate_bottomsheet_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -58,17 +60,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       (_model.statusApi?.jsonBody ?? ''),
                     ) ==
                     3) &&
-                ((DebGroup.statusCheckCall
-                                .result(
-                                  (_model.statusApi?.jsonBody ?? ''),
-                                )
-                                .toString() !=
+                ((DebGroup.statusCheckCall.result(
+                              (_model.statusApi?.jsonBody ?? ''),
+                            ) !=
                             null &&
-                        DebGroup.statusCheckCall
-                                .result(
-                                  (_model.statusApi?.jsonBody ?? ''),
-                                )
-                                .toString() !=
+                        DebGroup.statusCheckCall.result(
+                              (_model.statusApi?.jsonBody ?? ''),
+                            ) !=
                             '') ||
                     (DebGroup.statusCheckCall.textResult(
                           (_model.statusApi?.jsonBody ?? ''),
@@ -79,24 +77,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ...mapToFirestore(
                   {
                     'generatedImages': FieldValue.arrayUnion([
-                      DebGroup.statusCheckCall
-                                      .result(
-                                        (_model.statusApi?.jsonBody ?? ''),
-                                      )
-                                      .toString() !=
+                      DebGroup.statusCheckCall.result(
+                                    (_model.statusApi?.jsonBody ?? ''),
+                                  ) !=
                                   null &&
-                              DebGroup.statusCheckCall
-                                      .result(
-                                        (_model.statusApi?.jsonBody ?? ''),
-                                      )
-                                      .toString() !=
+                              DebGroup.statusCheckCall.result(
+                                    (_model.statusApi?.jsonBody ?? ''),
+                                  ) !=
                                   ''
                           ? DebGroup.statusCheckCall.result(
                               (_model.statusApi?.jsonBody ?? ''),
                             )
-                          : DebGroup.statusCheckCall.textResult(
-                              (_model.statusApi?.jsonBody ?? ''),
-                            )
+                          : DebGroup.statusCheckCall
+                              .textResult(
+                                (_model.statusApi?.jsonBody ?? ''),
+                              )
+                              .toString()
                     ]),
                   },
                 ),
@@ -110,7 +106,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             await Future.delayed(const Duration(milliseconds: 5000));
           }
         } else {
-          context.goNamed('Subscribtion');
+          if (revenue_cat.activeEntitlementIds.length != 0) {
+            firestoreBatch.update(
+                currentUserReference!,
+                createUsersRecordData(
+                  plan: createPlanStruct(
+                    deadline: functions.plusMonth(getCurrentTimestamp),
+                    inpaintUsed: 0,
+                    used: 0,
+                    clearUnsetFields: false,
+                  ),
+                ));
+          } else {
+            context.goNamed('Subscribtion');
+          }
         }
       } finally {
         await firestoreBatch.commit();
@@ -275,7 +284,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         final listViewAiImageRecord =
                             listViewAiImageRecordList[listViewIndex];
                         return Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: AlignmentDirectional(0.0, 0.0),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 8.0),
@@ -297,7 +306,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         0)
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.00, 0.00),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Container(
                                           width: double.infinity,
                                           height: double.infinity,
@@ -306,10 +315,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 BorderRadius.circular(16.0),
                                           ),
                                           alignment:
-                                              AlignmentDirectional(0.00, 0.00),
+                                              AlignmentDirectional(0.0, 0.0),
                                           child: Align(
-                                            alignment: AlignmentDirectional(
-                                                0.00, 0.00),
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
                                             child: Lottie.asset(
                                               'assets/lottie_animations/Loader_main_screen.json',
                                               width: 200.0,
@@ -340,8 +349,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                     Align(
-                                      alignment:
-                                          AlignmentDirectional(0.00, 0.00),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -399,8 +407,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 BorderRadius.circular(12.0),
                                           ),
                                           child: Align(
-                                            alignment: AlignmentDirectional(
-                                                -0.90, 0.70),
+                                            alignment:
+                                                AlignmentDirectional(-0.9, 0.7),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               crossAxisAlignment:
@@ -439,7 +447,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   _model.toDelete.length > 0,
                                               child: Align(
                                                 alignment: AlignmentDirectional(
-                                                    -0.90, -0.90),
+                                                    -0.9, -0.9),
                                                 child: InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -491,7 +499,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     child: Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.00, 0.00),
+                                                              0.0, 0.0),
                                                       child: Container(
                                                         width: 18.0,
                                                         height: 18.0,
@@ -515,7 +523,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   _model.toDelete.length > 0,
                                               child: Align(
                                                 alignment: AlignmentDirectional(
-                                                    -0.90, -0.90),
+                                                    -0.9, -0.9),
                                                 child: InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -582,7 +590,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   },
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0.00, 1.00),
+                  alignment: AlignmentDirectional(0.0, 1.0),
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
@@ -599,7 +607,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 16.0, 0.0),

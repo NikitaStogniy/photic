@@ -15,3 +15,5 @@ export '/home/settings_page/settings_page_widget.dart' show SettingsPageWidget;
 export '/home/account_page/account_page_widget.dart' show AccountPageWidget;
 export '/generate/painter/painter_widget.dart' show PainterWidget;
 export '/splash/splash_widget.dart' show SplashWidget;
+export '/subscribtion/subscribtion_active/subscribtion_active_widget.dart'
+    show SubscribtionActiveWidget;

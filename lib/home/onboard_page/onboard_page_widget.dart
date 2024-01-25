@@ -104,13 +104,13 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.00, 0.00),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Stack(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     children: [
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.00, 0.00),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Text(
                                           'Application features',
                                           style: FlutterFlowTheme.of(context)
@@ -127,7 +127,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(1.00, 0.00),
+                                            AlignmentDirectional(1.0, 0.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: Colors.transparent,
                                           borderRadius: 30.0,
@@ -169,9 +169,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                       alignment: AlignmentDirectional(0.0, 1.0),
                                       children: [
                                         Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 16.0, 16.0, 16.0),
+                                          padding: EdgeInsets.all(16.0),
                                           child: Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -196,7 +194,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                         ),
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(-0.75, 1.00),
+                                              AlignmentDirectional(-0.75, 1.0),
                                           child: Container(
                                             width: 140.0,
                                             height: 40.0,
@@ -214,7 +212,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                             ),
                                             child: Align(
                                               alignment: AlignmentDirectional(
-                                                  0.00, 0.00),
+                                                  0.0, 0.0),
                                               child: Text(
                                                 'Powered by AI',
                                                 style: TextStyle(
@@ -234,7 +232,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                 ),
                                 Expanded(
                                   child: Align(
-                                    alignment: AlignmentDirectional(0.00, 1.00),
+                                    alignment: AlignmentDirectional(0.0, 1.0),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 16.0, 16.0, 0.0),
@@ -341,13 +339,13 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.00, 0.00),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Stack(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     children: [
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.00, 0.00),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Text(
                                           'Application features',
                                           style: FlutterFlowTheme.of(context)
@@ -364,7 +362,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(1.00, 0.00),
+                                            AlignmentDirectional(1.0, 0.0),
                                         child: FlutterFlowIconButton(
                                           borderColor: Colors.transparent,
                                           borderRadius: 30.0,
@@ -403,8 +401,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                     alignment: AlignmentDirectional(0.0, 1.0),
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 16.0, 16.0),
+                                        padding: EdgeInsets.all(16.0),
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
@@ -428,7 +425,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(-0.75, 1.00),
+                                            AlignmentDirectional(-0.75, 1.0),
                                         child: Container(
                                           width: 140.0,
                                           height: 40.0,
@@ -444,8 +441,8 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                                             ),
                                           ),
                                           child: Align(
-                                            alignment: AlignmentDirectional(
-                                                0.00, 0.00),
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
                                             child: Text(
                                               'Powered by AI',
                                               style: TextStyle(
@@ -567,7 +564,7 @@ class _OnboardPageWidgetState extends State<OnboardPageWidget> {
                         ],
                       ),
                       Align(
-                        alignment: AlignmentDirectional(0.00, 0.75),
+                        alignment: AlignmentDirectional(0.0, 0.75),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 10.0),

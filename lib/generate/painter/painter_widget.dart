@@ -88,12 +88,12 @@ class _PainterWidgetState extends State<PainterWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.00, 0.00),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Stack(
                         alignment: AlignmentDirectional(0.0, 0.0),
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(0.0),
                               child: Image.network(
@@ -105,7 +105,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: ClipRect(
                               child: ImageFiltered(
                                 imageFilter: ImageFilter.blur(
@@ -260,7 +260,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                         child: Stack(
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.asset(
@@ -273,7 +273,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.00, 1.00),
+                              alignment: AlignmentDirectional(0.0, 1.0),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 0.0),
@@ -297,7 +297,7 @@ class _PainterWidgetState extends State<PainterWidget> {
                                               creator: currentUserReference,
                                               refImage: _model.image,
                                             ));
-                                            _model.generation = AiImageRecord
+                                            _model.gene = AiImageRecord
                                                 .getDocumentFromData(
                                                     createAiImageRecordData(
                                                       creator:
@@ -328,9 +328,8 @@ class _PainterWidgetState extends State<PainterWidget> {
                                                             ?.jsonBody ??
                                                         ''),
                                                   )
-                                                  .toString(),
-                                              genRef:
-                                                  _model.generation?.reference,
+                                                  ?.toString(),
+                                              genRef: _model.gene?.reference,
                                             ));
                                             _model.ref = PendingRecord
                                                 .getDocumentFromData(
@@ -341,9 +340,9 @@ class _PainterWidgetState extends State<PainterWidget> {
                                                                     ?.jsonBody ??
                                                                 ''),
                                                           )
-                                                          .toString(),
-                                                      genRef: _model.generation
-                                                          ?.reference,
+                                                          ?.toString(),
+                                                      genRef: _model
+                                                          .gene?.reference,
                                                     ),
                                                     pendingRecordReference);
 
@@ -357,11 +356,11 @@ class _PainterWidgetState extends State<PainterWidget> {
                                                                 ?.jsonBody ??
                                                             ''),
                                                       )
-                                                      .toString(),
+                                                      ?.toString(),
                                                   ParamType.String,
                                                 ),
                                                 'packRef': serializeParam(
-                                                  _model.generation?.reference,
+                                                  _model.gene?.reference,
                                                   ParamType.DocumentReference,
                                                 ),
                                               }.withoutNulls,

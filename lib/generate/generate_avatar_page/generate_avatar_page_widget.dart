@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -77,7 +76,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.00, -1.00),
+            alignment: AlignmentDirectional(0.0, -1.0),
             child: Container(
               constraints: BoxConstraints(
                 maxWidth: 500.0,
@@ -96,7 +95,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                         children: [
                           if (_model.step < 5)
                             Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Text(
                                 'Step ${valueOrDefault<String>(
                                   _model.step.toString(),
@@ -149,7 +148,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                     ),
                     if (_model.step == 1)
                       Align(
-                        alignment: AlignmentDirectional(0.00, 0.00),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 64.0, 16.0, 16.0),
@@ -420,7 +419,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                   child: Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.00, 0.00),
+                                                            0.0, 0.0),
                                                     child: SvgPicture.asset(
                                                       'assets/images/Checkbox.svg',
                                                       width: 8.0,
@@ -529,7 +528,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.00, 0.00),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 16.0),
@@ -596,7 +595,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.00, 0.00),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -663,7 +662,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                       ),
                     if (_model.step == 3)
                       Align(
-                        alignment: AlignmentDirectional(0.00, 0.00),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 64.0, 16.0, 16.0),
@@ -794,13 +793,13 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                 ),
                                               ),
                                               alignment: AlignmentDirectional(
-                                                  0.00, 1.00),
+                                                  0.0, 1.0),
                                               child: Stack(
                                                 children: [
                                                   Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            -0.80, 1.00),
+                                                            -0.8, 1.0),
                                                     child: Row(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -817,7 +816,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                           Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.00, 0.80),
+                                                                    0.0, 0.8),
                                                             child: ClipRRect(
                                                               borderRadius:
                                                                   BorderRadius
@@ -844,7 +843,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                           Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.00, 0.80),
+                                                                    0.0, 0.8),
                                                             child: Text(
                                                               gridViewStylesRecord
                                                                   .name,
@@ -872,15 +871,10 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                     Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              1.00, -1.00),
+                                                              1.0, -1.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    8.0,
-                                                                    8.0,
-                                                                    8.0,
-                                                                    8.0),
+                                                            EdgeInsets.all(8.0),
                                                         child: ClipRRect(
                                                           borderRadius:
                                                               BorderRadius
@@ -912,7 +906,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                       ),
                     if (_model.step == 4)
                       Align(
-                        alignment: AlignmentDirectional(0.00, 0.00),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 64.0, 16.0, 16.0),
@@ -1205,8 +1199,8 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                             ),
                                           ),
                                           child: Align(
-                                            alignment: AlignmentDirectional(
-                                                0.00, 0.00),
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
                                             child: SvgPicture.asset(
                                               'assets/images/images.svg',
                                               width: 24.0,
@@ -1380,8 +1374,7 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment:
-                                        AlignmentDirectional(-1.00, 1.00),
+                                    alignment: AlignmentDirectional(-1.0, 1.0),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           32.0, 0.0, 0.0, 0.0),
@@ -1435,21 +1428,17 @@ class _GenerateAvatarPageWidgetState extends State<GenerateAvatarPageWidget> {
                                                 ? true
                                                 : false) ==
                                             true) {
-                                          await showAlignedDialog(
+                                          await showDialog(
                                             context: context,
-                                            isGlobal: true,
-                                            avoidOverflow: false,
-                                            targetAnchor: AlignmentDirectional(
-                                                    0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                            followerAnchor:
-                                                AlignmentDirectional(0.0, 0.0)
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
                                                     .resolve(Directionality.of(
                                                         context)),
-                                            builder: (dialogContext) {
-                                              return Material(
-                                                color: Colors.transparent,
                                                 child: GestureDetector(
                                                   onTap: () => _model
                                                           .unfocusNode

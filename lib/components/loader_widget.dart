@@ -54,13 +54,13 @@ class _LoaderWidgetState extends State<LoaderWidget> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 4.0, 4.0),
+        padding: EdgeInsets.all(4.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Align(
-              alignment: AlignmentDirectional(0.00, 0.00),
+              alignment: AlignmentDirectional(0.0, 0.0),
               child: Lottie.asset(
                 'assets/lottie_animations/loader_start.json',
                 width: 50.0,

@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -94,7 +93,7 @@ class _PackPageWidgetState extends State<PackPageWidget> {
           ),
           actions: [
             Align(
-              alignment: AlignmentDirectional(0.00, 0.00),
+              alignment: AlignmentDirectional(0.0, 0.0),
               child: Builder(
                 builder: (context) => Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
@@ -104,17 +103,14 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      await showAlignedDialog(
+                      await showDialog(
                         context: context,
-                        isGlobal: true,
-                        avoidOverflow: false,
-                        targetAnchor: AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
-                        followerAnchor: AlignmentDirectional(0.0, 0.0)
-                            .resolve(Directionality.of(context)),
                         builder: (dialogContext) {
-                          return Material(
-                            color: Colors.transparent,
+                          return Dialog(
+                            insetPadding: EdgeInsets.zero,
+                            backgroundColor: Colors.transparent,
+                            alignment: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
                             child: GestureDetector(
                               onTap: () => _model.unfocusNode.canRequestFocus
                                   ? FocusScope.of(context)
@@ -151,7 +147,7 @@ class _PackPageWidgetState extends State<PackPageWidget> {
           child: Stack(
             children: [
               Align(
-                alignment: AlignmentDirectional(0.00, -1.00),
+                alignment: AlignmentDirectional(0.0, -1.0),
                 child: Container(
                   constraints: BoxConstraints(
                     maxWidth: 600.0,
@@ -161,7 +157,7 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0.00, 0.00),
+                        alignment: AlignmentDirectional(0.0, 0.0),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               16.0, 32.0, 16.0, 0.0),
@@ -183,13 +179,13 @@ class _PackPageWidgetState extends State<PackPageWidget> {
               Stack(
                 children: [
                   Align(
-                    alignment: AlignmentDirectional(0.00, 0.70),
+                    alignment: AlignmentDirectional(0.0, 0.7),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.80),
+                          alignment: AlignmentDirectional(0.0, 0.8),
                           child: Material(
                             color: Colors.transparent,
                             elevation: 10.0,
@@ -235,23 +231,19 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                                             ),
                                           );
                                           if (_model.download == 'Success') {
-                                            await showAlignedDialog(
+                                            await showDialog(
                                               context: context,
-                                              isGlobal: true,
-                                              avoidOverflow: false,
-                                              targetAnchor:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              followerAnchor:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
                                               builder: (dialogContext) {
-                                                return Material(
-                                                  color: Colors.transparent,
+                                                return Dialog(
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
                                                   child: GestureDetector(
                                                     onTap: () => _model
                                                             .unfocusNode
@@ -269,23 +261,19 @@ class _PackPageWidgetState extends State<PackPageWidget> {
                                               },
                                             ).then((value) => setState(() {}));
                                           } else {
-                                            await showAlignedDialog(
+                                            await showDialog(
                                               context: context,
-                                              isGlobal: true,
-                                              avoidOverflow: false,
-                                              targetAnchor:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
-                                              followerAnchor:
-                                                  AlignmentDirectional(0.0, 0.0)
-                                                      .resolve(
-                                                          Directionality.of(
-                                                              context)),
                                               builder: (dialogContext) {
-                                                return Material(
-                                                  color: Colors.transparent,
+                                                return Dialog(
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
                                                   child: GestureDetector(
                                                     onTap: () => _model
                                                             .unfocusNode

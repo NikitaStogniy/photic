@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import '../schema/structs/index.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -44,6 +45,7 @@ class FaceSwapCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      alwaysAllowBody: false,
     );
   }
 
@@ -69,25 +71,26 @@ class StatusCheckCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      alwaysAllowBody: false,
     );
   }
 
-  dynamic result(dynamic response) => getJsonField(
+  String? result(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.result.image''',
-      );
-  dynamic status(dynamic response) => getJsonField(
+      ));
+  int? status(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.status''',
-      );
-  dynamic from(dynamic response) => getJsonField(
+      ));
+  String? from(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.image_from''',
-      );
-  dynamic to(dynamic response) => getJsonField(
+      ));
+  String? to(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.image_to''',
-      );
+      ));
   dynamic textResult(dynamic response) => getJsonField(
         response,
         r'''$.result.image_0.url''',
@@ -129,13 +132,14 @@ class ApplyMaskCall {
       encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
+      alwaysAllowBody: false,
     );
   }
 
-  dynamic id(dynamic response) => getJsonField(
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.id''',
-      );
+      ));
 }
 
 /// End DEB Group Code

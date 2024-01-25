@@ -65,7 +65,7 @@ class _GenerateBottomsheetWidgetState extends State<GenerateBottomsheetWidget> {
               alignment: AlignmentDirectional(-1.0, 0.0),
               children: [
                 Align(
-                  alignment: AlignmentDirectional(0.00, 0.00),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: Text(
                     'What to generate?',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -98,7 +98,7 @@ class _GenerateBottomsheetWidgetState extends State<GenerateBottomsheetWidget> {
                   ? 0.5
                   : 1.0,
               child: Align(
-                alignment: AlignmentDirectional(0.00, 0.00),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
                   child: AuthUserStreamWidget(
@@ -167,7 +167,7 @@ class _GenerateBottomsheetWidgetState extends State<GenerateBottomsheetWidget> {
               desktop: false,
             ))
               Align(
-                alignment: AlignmentDirectional(0.00, 0.00),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                   child: Container(
@@ -216,7 +216,7 @@ class _GenerateBottomsheetWidgetState extends State<GenerateBottomsheetWidget> {
                   ? 0.5
                   : 1.0,
               child: Align(
-                alignment: AlignmentDirectional(0.00, 0.00),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: AuthUserStreamWidget(
                   builder: (context) => InkWell(
                     splashColor: Colors.transparent,

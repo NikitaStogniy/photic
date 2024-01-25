@@ -80,7 +80,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.00, -1.00),
+            alignment: AlignmentDirectional(0.0, -1.0),
             child: Container(
               constraints: BoxConstraints(
                 maxWidth: 600.0,
@@ -97,7 +97,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                         alignment: AlignmentDirectional(0.0, 0.0),
                         children: [
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 24.0, 0.0, 0.0),
@@ -116,7 +116,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                             ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(1.00, 0.00),
+                            alignment: AlignmentDirectional(1.0, 0.0),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 24.0, 16.0, 0.0),
@@ -164,8 +164,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 16.0, 16.0, 16.0),
+                              padding: EdgeInsets.all(16.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -327,8 +326,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                             child: Align(
                                                               alignment:
                                                                   AlignmentDirectional(
-                                                                      0.00,
-                                                                      0.00),
+                                                                      0.0, 0.0),
                                                               child: SvgPicture
                                                                   .asset(
                                                                 'assets/images/Checkbox.svg',
@@ -390,7 +388,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                               .plan.price !=
                                                           0.0)
                                                         Text(
-                                                          '\$ ${listViewPlanListRecord.plan.price.toString()}',
+                                                          '\$ ${revenue_cat.offerings!.current!.monthly!.storeProduct.priceString}',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
