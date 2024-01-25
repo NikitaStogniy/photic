@@ -368,7 +368,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                               .plan.price !=
                                                           0.0)
                                                         Text(
-                                                          '\$ ${revenue_cat.offerings!.current!.monthly!.storeProduct.priceString}',
+                                                          '\$ ${revenue_cat.offerings!.current!.availablePackages.where((e) => e.identifier == listViewPlanListRecord.packageId).toList().first.storeProduct.priceString}',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
