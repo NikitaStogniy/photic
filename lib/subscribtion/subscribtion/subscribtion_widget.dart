@@ -5,15 +5,18 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/revenue_cat_util.dart' as revenue_cat;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import 'subscribtion_model.dart';
 export 'subscribtion_model.dart';
 
 class SubscribtionWidget extends StatefulWidget {
-  const SubscribtionWidget({super.key});
+  const SubscribtionWidget({Key? key}) : super(key: key);
 
   @override
   _SubscribtionWidgetState createState() => _SubscribtionWidgetState();
@@ -60,12 +63,12 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: const AlignmentDirectional(0.0, -1.0),
+            alignment: AlignmentDirectional(0, -1),
             child: Container(
-              constraints: const BoxConstraints(
-                maxWidth: 600.0,
+              constraints: BoxConstraints(
+                maxWidth: 600,
               ),
-              decoration: const BoxDecoration(),
+              decoration: BoxDecoration(),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,13 +77,13 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Stack(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        alignment: AlignmentDirectional(0, 0),
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0, 0),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 24.0, 0.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                               child: Text(
                                 'Choose a plan',
                                 style: FlutterFlowTheme.of(context)
@@ -89,17 +92,17 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                       fontFamily: 'Inter',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
-                                      fontSize: 16.0,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(1.0, 0.0),
+                            alignment: AlignmentDirectional(1, 0),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 24.0, 16.0, 0.0),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 24, 16, 0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -112,7 +115,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                   Icons.close,
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
-                                  size: 24.0,
+                                  size: 24,
                                 ),
                               ),
                             ),
@@ -120,38 +123,37 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                         ],
                       ),
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(8.0, 16.0, 8.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(8, 16, 8, 0),
                         child: Material(
                           color: Colors.transparent,
-                          elevation: 0.0,
+                          elevation: 0,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
+                              gradient: LinearGradient(
                                 colors: [Color(0x23F041FF), Color(0x174B39EF)],
-                                stops: [0.0, 1.0],
-                                begin: AlignmentDirectional(-0.98, -1.0),
-                                end: AlignmentDirectional(0.98, 1.0),
+                                stops: [0, 1],
+                                begin: AlignmentDirectional(-0.98, -1),
+                                end: AlignmentDirectional(0.98, 1),
                               ),
-                              borderRadius: BorderRadius.circular(12.0),
+                              borderRadius: BorderRadius.circular(12),
                               border: Border.all(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(16.0),
+                              padding: EdgeInsets.all(16),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 8),
                                     child: Text(
                                       'Open all\nthe potential of our\napplications',
                                       style: FlutterFlowTheme.of(context)
@@ -160,7 +162,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                             fontFamily: 'Inter',
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
-                                            fontSize: 24.0,
+                                            fontSize: 24,
                                             fontWeight: FontWeight.bold,
                                           ),
                                     ),
@@ -174,7 +176,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                           fontFamily: 'Inter',
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryText,
-                                          fontSize: 12.0,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
@@ -185,9 +187,9 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                         ),
                       ),
                       Container(
-                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        width: MediaQuery.sizeOf(context).width,
                         height: MediaQuery.sizeOf(context).height * 0.6,
-                        decoration: const BoxDecoration(),
+                        decoration: BoxDecoration(),
                         child: StreamBuilder<List<PlanListRecord>>(
                           stream: queryPlanListRecord(
                             queryBuilder: (planListRecord) => planListRecord
@@ -198,8 +200,8 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                             if (!snapshot.hasData) {
                               return Center(
                                 child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
+                                  width: 50,
+                                  height: 50,
                                   child: CircularProgressIndicator(
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                       FlutterFlowTheme.of(context).primaryText,
@@ -218,8 +220,8 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                 final listViewPlanListRecord =
                                     listViewPlanListRecordList[listViewIndex];
                                 return Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 16.0, 8.0, 0.0),
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8, 16, 8, 0),
                                   child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
@@ -232,10 +234,9 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                     },
                                     child: Material(
                                       color: Colors.transparent,
-                                      elevation: 0.0,
+                                      elevation: 0,
                                       shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
                                       child: Container(
                                         width:
@@ -249,7 +250,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                   .primaryText
                                               : Colors.transparent,
                                           borderRadius:
-                                              BorderRadius.circular(12.0),
+                                              BorderRadius.circular(12),
                                           border: Border.all(
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryBackground,
@@ -267,31 +268,27 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                       .spaceBetween,
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 12.0, 0.0, 12.0),
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 12, 0, 12),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    16.0,
-                                                                    0.0,
-                                                                    8.0,
-                                                                    0.0),
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(16, 0,
+                                                                    8, 0),
                                                         child: Container(
-                                                          width: 16.0,
-                                                          height: 16.0,
+                                                          width: 16,
+                                                          height: 16,
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Colors.black,
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        100.0),
+                                                                        100),
                                                             border: Border.all(
                                                               color: FlutterFlowTheme
                                                                       .of(context)
@@ -305,13 +302,13 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                                     .reference,
                                                             child: Align(
                                                               alignment:
-                                                                  const AlignmentDirectional(
-                                                                      0.0, 0.0),
+                                                                  AlignmentDirectional(
+                                                                      0, 0),
                                                               child: SvgPicture
                                                                   .asset(
                                                                 'assets/images/Checkbox.svg',
-                                                                width: 8.0,
-                                                                height: 8.0,
+                                                                width: 8,
+                                                                height: 8,
                                                                 fit: BoxFit
                                                                     .cover,
                                                               ),
@@ -343,8 +340,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                                             context)
                                                                         .primaryText,
                                                                   ),
-                                                                  fontSize:
-                                                                      16.0,
+                                                                  fontSize: 16,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -354,9 +350,8 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 16.0, 0.0),
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 16, 0),
                                                   child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -368,7 +363,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                               .plan.price !=
                                                           0.0)
                                                         Text(
-                                                          revenue_cat.offerings!.current!.availablePackages.where((e) => e.identifier == listViewPlanListRecord.packageId).toList().first.storeProduct.priceString,
+                                                          '${revenue_cat.offerings!.current!.availablePackages.where((e) => e.identifier == listViewPlanListRecord.packageId).toList().first.storeProduct.priceString}',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -391,7 +386,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                                           context)
                                                                       .primaryText,
                                                                 ),
-                                                                fontSize: 16.0,
+                                                                fontSize: 16,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -425,8 +420,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                                             context)
                                                                         .primaryText,
                                                                   ),
-                                                                  fontSize:
-                                                                      12.0,
+                                                                  fontSize: 12,
                                                                 ),
                                                       ),
                                                     ],
@@ -438,9 +432,8 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                 listViewPlanListRecord
                                                     .reference)
                                               Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 0.0, 16.0, 16.0),
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(16, 0, 16, 16),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -454,8 +447,8 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                                 .start,
                                                         children: [
                                                           Wrap(
-                                                            spacing: 0.0,
-                                                            runSpacing: 0.0,
+                                                            spacing: 0,
+                                                            runSpacing: 0,
                                                             alignment:
                                                                 WrapAlignment
                                                                     .start,
@@ -475,12 +468,12 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                             children: [
                                                               Padding(
                                                                 padding:
-                                                                    const EdgeInsetsDirectional
+                                                                    EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            4.0),
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            4),
                                                                 child: Text(
                                                                   listViewPlanListRecord
                                                                       .plan
@@ -535,9 +528,9 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                                           [
                                                                         Container(
                                                                           width:
-                                                                              2.0,
+                                                                              2,
                                                                           height:
-                                                                              2.0,
+                                                                              2,
                                                                           decoration:
                                                                               BoxDecoration(
                                                                             color:
@@ -555,8 +548,8 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                                                                 color: FlutterFlowTheme.of(context).primaryBackground,
                                                                               ),
                                                                         ),
-                                                                      ].divide(const SizedBox(width: 2.0)).addToStart(
-                                                                              const SizedBox(width: 4.0)),
+                                                                      ].divide(SizedBox(width: 2)).addToStart(
+                                                                              SizedBox(width: 4)),
                                                                     );
                                                                   }),
                                                                 );
@@ -586,8 +579,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                     false,
                   ))
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 48.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 48),
                       child: FFButtonWidget(
                         onPressed: !(_model.plan != null)
                             ? null
@@ -595,7 +587,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                 final firestoreBatch =
                                     FirebaseFirestore.instance.batch();
                                 try {
-                                  if (_model.plan?.plan.name == 'Free') {
+                                  if (_model.plan?.plan?.name == 'Free') {
                                     firestoreBatch.update(
                                         currentUserReference!,
                                         createUsersRecordData(
@@ -618,7 +610,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                     context.goNamed(
                                       'subscription_done',
                                       extra: <String, dynamic>{
-                                        kTransitionInfoKey: const TransitionInfo(
+                                        kTransitionInfoKey: TransitionInfo(
                                           hasTransition: true,
                                           transitionType:
                                               PageTransitionType.fade,
@@ -626,15 +618,11 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                       },
                                     );
                                   } else {
-                                    final isEntitled = await revenue_cat
-                                            .isEntitled(_model.plan!.plan.name
-                                                .toLowerCase()) ??
-                                        false;
-                                    if (!isEntitled) {
-                                      await revenue_cat.loadOfferings();
-                                    }
-
-                                    if (isEntitled) {
+                                    _model.revenue =
+                                        await revenue_cat.purchasePackage(
+                                            _model.plan!.packageId);
+                                    if (revenue_cat
+                                        .activeEntitlementIds.isNotEmpty) {
                                       firestoreBatch.update(
                                           currentUserReference!,
                                           createUsersRecordData(
@@ -657,7 +645,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                       context.goNamed(
                                         'subscription_done',
                                         extra: <String, dynamic>{
-                                          kTransitionInfoKey: const TransitionInfo(
+                                          kTransitionInfoKey: TransitionInfo(
                                             hasTransition: true,
                                             transitionType:
                                                 PageTransitionType.fade,
@@ -677,7 +665,7 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                             ),
                                           ),
                                           duration:
-                                              const Duration(milliseconds: 4000),
+                                              Duration(milliseconds: 4000),
                                           backgroundColor:
                                               FlutterFlowTheme.of(context)
                                                   .primaryText,
@@ -688,27 +676,28 @@ class _SubscribtionWidgetState extends State<SubscribtionWidget> {
                                 } finally {
                                   await firestoreBatch.commit();
                                 }
+
+                                setState(() {});
                               },
                         text: 'Next',
                         options: FFButtonOptions(
                           width: double.infinity,
-                          height: 40.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: const Color(0x004B39EF),
+                          height: 40,
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                          iconPadding:
+                              EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+                          color: Color(0x004B39EF),
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Inter',
                                     color: Colors.white,
                                   ),
-                          elevation: 0.0,
+                          elevation: 0,
                           borderSide: BorderSide(
                             color: FlutterFlowTheme.of(context).accent3,
-                            width: 1.0,
+                            width: 1,
                           ),
-                          borderRadius: BorderRadius.circular(12.0),
+                          borderRadius: BorderRadius.circular(12),
                           disabledTextColor:
                               FlutterFlowTheme.of(context).secondaryText,
                         ),
